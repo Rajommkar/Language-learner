@@ -13,8 +13,15 @@ app.get("/", (req, res) => {
   res.send("Server is running 🚀");
 });
 
+const mongoose = require("mongoose");
+
 // Port
 const PORT = 5000;
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected ✅"))
+  .catch((err) => console.log(err));
 
 // Start server
 app.listen(PORT, () => {
