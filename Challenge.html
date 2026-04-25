@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Challenge Environment - LexisArchitect</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#333537",
+                        "surface-container": "#1e2022",
+                        "surface-tint": "#b0c6ff",
+                        "tertiary-fixed-dim": "#c7c6c7",
+                        "outline": "#8d909e",
+                        "on-secondary-fixed-variant": "#494740",
+                        "on-tertiary": "#303032",
+                        "on-surface": "#e2e2e5",
+                        "error": "#ffb4ab",
+                        "on-tertiary-container": "#cfcecf",
+                        "on-primary-fixed": "#001945",
+                        "secondary": "#cac6bd",
+                        "outline-variant": "#434653",
+                        "on-tertiary-fixed-variant": "#464748",
+                        "secondary-container": "#4b4942",
+                        "inverse-surface": "#e2e2e5",
+                        "surface-bright": "#37393b",
+                        "on-primary-container": "#bcceff",
+                        "on-secondary-container": "#bcb8af",
+                        "inverse-on-surface": "#2f3133",
+                        "surface-container-lowest": "#0c0e10",
+                        "tertiary-fixed": "#e3e2e3",
+                        "tertiary-container": "#585859",
+                        "primary-fixed": "#d9e2ff",
+                        "primary-container": "#0f52ba",
+                        "surface": "#121416",
+                        "primary": "#b0c6ff",
+                        "on-background": "#e2e2e5",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#333537",
+                        "on-tertiary-fixed": "#1b1c1d",
+                        "on-surface-variant": "#c3c6d5",
+                        "inverse-primary": "#1d59c1",
+                        "tertiary": "#c7c6c7",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#00419c",
+                        "secondary-fixed-dim": "#cac6bd",
+                        "on-secondary-fixed": "#1d1c16",
+                        "surface-container-low": "#1a1c1e",
+                        "secondary-fixed": "#e7e2d8",
+                        "primary-fixed-dim": "#b0c6ff",
+                        "surface-dim": "#121416",
+                        "on-primary": "#002c6f",
+                        "background": "#121416",
+                        "surface-container-high": "#282a2c",
+                        "on-secondary": "#32302a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "margin": "64px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Newsreader"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Newsreader"],
+                        "display-xl": ["Newsreader"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Newsreader"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "300" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom glow for timer */
+        .neon-glow-error {
+            box-shadow: 0 0 15px theme('colors.error'), inset 0 0 10px theme('colors.error');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- Ambient Cinematic Background -->
+<div class="fixed inset-0 z-[-1] bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&amp;w=2564&amp;auto=format&amp;fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay" data-alt="Abstract flowing liquid background in deep slate blue and obsidian black tones with soft blurred gradients"></div>
+<div class="fixed inset-0 z-[-1] bg-gradient-to-b from-surface-container-lowest/90 to-surface-container/95 backdrop-blur-[64px]"></div>
+<!-- SHARED COMPONENT: TopAppBar -->
+<header class="bg-stone-950/85 backdrop-blur-xl font-newsreader font-light tracking-tight fixed top-0 w-full border-b border-white/10 flex justify-between items-center px-8 h-20 z-50">
+<!-- Brand -->
+<div class="flex items-center gap-4 hover:backdrop-blur-2xl hover:text-white transition-all scale-95 duration-300">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="graphic_eq" data-weight="fill" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+<span class="text-2xl font-black uppercase tracking-widest text-white">LexisArchitect</span>
+</div>
+<!-- Navigation Desktop -->
+<nav class="hidden md:flex items-center gap-8 h-full pt-4">
+<a class="text-stone-400 font-medium hover:backdrop-blur-2xl hover:text-white transition-all pb-5" href="#">Curriculum</a>
+<a class="text-stone-400 font-medium hover:backdrop-blur-2xl hover:text-white transition-all pb-5" href="#">Archives</a>
+<a class="text-blue-500 border-b-2 border-blue-600 pb-1 font-medium pb-5" href="#">Laboratory</a>
+<a class="text-stone-400 font-medium hover:backdrop-blur-2xl hover:text-white transition-all pb-5" href="#">Studio</a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-6">
+<button class="text-stone-400 hover:text-white transition-all scale-95 duration-300">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</button>
+<button class="text-stone-400 hover:text-white transition-all scale-95 duration-300">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-white/20 ml-2">
+<img alt="User Architectural Profile" class="w-full h-full object-cover" data-alt="Portrait of a sophisticated man with glasses in a minimalist dark studio setting, monochrome tonal edit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhdJyB1E6UWdRfmcT-HzDLGS8zmIW7tlB9w_luVxcYfQMfBBS0oOiB3sIjkBDo6AIHrY9k7yNxH6AR20Ambh50MaaH-zrmJkD_d_ePjEY95sofupjuUfIf-gP4iOxsyrEP2YcsuUFPeUdDHk5avnxPIfQdp4jnl0G_LF0al8i-FmHkUbBW70_4TQjlxeMpcX4Rf8Lo0mIWDDzmSE4n5nouZGL3RywvhNA9-D_WJuahWZ0y4tqO0JfIpmhKu4YU31ElqtnqH2JOHIE"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow pt-32 pb-24 px-gutter max-w-[container-max] mx-auto w-full flex flex-col gap-12">
+<!-- Challenge Header & Timer -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-white/5 pb-8">
+<div class="flex flex-col gap-2 max-w-2xl">
+<span class="font-label-sm text-label-sm text-primary tracking-widest uppercase">Structural Exercise 04</span>
+<h1 class="font-display-xl text-display-xl text-on-surface">Syntax Reconstruction</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">
+                    Assemble the fragments into a coherent foundational statement. Precision is required.
+                </p>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="font-label-sm text-label-sm text-error uppercase tracking-widest">Time Remaining</span>
+<div class="relative w-20 h-20 flex items-center justify-center rounded-full border-[3px] border-error/20 bg-surface-container-highest/50 backdrop-blur-md">
+<!-- Neon Ring -->
+<div class="absolute inset-[-3px] rounded-full border-[3px] border-error neon-glow-error clip-half" style="clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);"></div>
+<span class="font-headline-md text-headline-md text-error relative z-10 font-bold">42</span>
+</div>
+</div>
+</div>
+<!-- Split Pane Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter flex-grow items-stretch">
+<!-- Left Pane: Word Bank -->
+<section class="lg:col-span-5 flex flex-col gap-6 bg-surface-container/85 backdrop-blur-[32px] border border-white/10 rounded-lg p-8 relative overflow-hidden">
+<!-- Inner glow effect -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+<header class="flex items-center gap-3 border-b border-white/5 pb-4">
+<span class="material-symbols-outlined text-outline" data-icon="inventory_2">inventory_2</span>
+<h2 class="font-title-lg text-title-lg text-on-surface">Lexical Components</h2>
+</header>
+<div class="flex flex-wrap gap-4 content-start flex-grow mt-4">
+<!-- Draggable Tiles -->
+<div class="px-5 py-3 bg-surface-container-highest/90 backdrop-blur-xl border border-white/15 rounded text-on-surface font-body-lg cursor-grab hover:bg-surface-bright transition-colors select-none">
+                        The
+                    </div>
+<div class="px-5 py-3 bg-surface-container-highest/90 backdrop-blur-xl border border-white/15 rounded text-on-surface font-body-lg cursor-grab hover:bg-surface-bright transition-colors select-none">
+                        architect
+                    </div>
+<div class="px-5 py-3 bg-surface-container-highest/90 backdrop-blur-xl border border-white/15 rounded text-on-surface font-body-lg cursor-grab hover:bg-surface-bright transition-colors select-none">
+                        meticulously
+                    </div>
+<div class="px-5 py-3 bg-surface-container-highest/90 backdrop-blur-xl border border-white/15 rounded text-on-surface font-body-lg cursor-grab hover:bg-surface-bright transition-colors select-none opacity-40 pointer-events-none border-dashed" title="Already placed">
+                        designed
+                    </div>
+<div class="px-5 py-3 bg-surface-container-highest/90 backdrop-blur-xl border border-white/15 rounded text-on-surface font-body-lg cursor-grab hover:bg-surface-bright transition-colors select-none">
+                        framework
+                    </div>
+<div class="px-5 py-3 bg-surface-container-highest/90 backdrop-blur-xl border border-white/15 rounded text-on-surface font-body-lg cursor-grab hover:bg-surface-bright transition-colors select-none">
+                        resilient
+                    </div>
+<div class="px-5 py-3 bg-surface-container-highest/90 backdrop-blur-xl border border-white/15 rounded text-on-surface font-body-lg cursor-grab hover:bg-surface-bright transition-colors select-none">
+                        a
+                    </div>
+</div>
+<div class="mt-auto pt-6 border-t border-white/5">
+<p class="font-label-sm text-label-sm text-outline-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="info">info</span>
+                        Drag elements to establish structure.
+                    </p>
+</div>
+</section>
+<!-- Right Pane: Target Zones -->
+<section class="lg:col-span-7 flex flex-col gap-6 bg-surface-container/85 backdrop-blur-[32px] border border-white/10 rounded-lg p-8 relative">
+<!-- Inner glow effect -->
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+<header class="flex items-center justify-between border-b border-white/5 pb-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="architecture">architecture</span>
+<h2 class="font-title-lg text-title-lg text-on-surface">Assembly Sequence</h2>
+</div>
+<span class="font-label-sm text-label-sm text-surface-tint">1 of 5 Slots Filled</span>
+</header>
+<!-- Assembly Area -->
+<div class="flex-grow flex flex-col justify-center py-12">
+<div class="flex flex-wrap items-center gap-x-4 gap-y-6">
+<!-- Empty Drop Zone -->
+<div class="h-14 min-w-[100px] border-2 border-dashed border-outline-variant rounded bg-surface-container-lowest/30 flex items-center justify-center transition-colors hover:border-surface-tint hover:bg-surface-container-lowest/50">
+</div>
+<!-- Empty Drop Zone -->
+<div class="h-14 min-w-[120px] border-2 border-dashed border-outline-variant rounded bg-surface-container-lowest/30 flex items-center justify-center transition-colors hover:border-surface-tint hover:bg-surface-container-lowest/50">
+</div>
+<!-- Filled Drop Zone -->
+<div class="h-14 px-6 border-2 border-primary-container bg-surface-container-high/90 backdrop-blur-md rounded flex items-center justify-center relative shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+<span class="absolute top-0 left-0 w-full h-[1px] bg-white/20"></span>
+<span class="font-body-lg text-body-lg text-on-surface">designed</span>
+</div>
+<!-- Empty Drop Zone -->
+<div class="h-14 min-w-[80px] border-2 border-dashed border-outline-variant rounded bg-surface-container-lowest/30 flex items-center justify-center transition-colors hover:border-surface-tint hover:bg-surface-container-lowest/50">
+</div>
+<!-- Empty Drop Zone -->
+<div class="h-14 min-w-[140px] border-2 border-dashed border-outline-variant rounded bg-surface-container-lowest/30 flex items-center justify-center transition-colors hover:border-surface-tint hover:bg-surface-container-lowest/50">
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="mt-auto flex items-center justify-between pt-6 border-t border-white/5">
+<button class="px-6 py-3 border border-white/10 rounded text-on-surface font-label-md uppercase tracking-wider hover:bg-surface-container-highest transition-colors">
+                        Reset Structure
+                    </button>
+<button class="px-8 py-3 bg-gradient-to-b from-primary-container to-primary-fixed-variant rounded text-white font-label-md uppercase tracking-wider relative overflow-hidden group shadow-[0_4px_20px_rgba(15,82,186,0.2)]">
+<span class="absolute top-0 left-0 w-full h-[1px] bg-white/30"></span>
+<span class="relative z-10 flex items-center gap-2">
+                            Verify Syntax
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1" data-icon="arrow_forward">arrow_forward</span>
+</span>
+</button>
+</div>
+</section>
+</div>
+</main>
+<!-- SHARED COMPONENT: Footer -->
+<footer class="bg-stone-950 font-newsreader text-[10px] tracking-widest uppercase w-full border-t border-white/5 py-12">
+<div class="max-w-7xl mx-auto flex flex-col items-center gap-6">
+<div class="flex items-center gap-8">
+<a class="text-stone-600 hover:text-blue-400 transition-colors" href="#">Ethics</a>
+<a class="text-stone-600 hover:text-blue-400 transition-colors" href="#">Methodology</a>
+<a class="text-stone-600 hover:text-blue-400 transition-colors" href="#">Support</a>
+<a class="text-stone-600 hover:text-blue-400 transition-colors" href="#">Privacy</a>
+</div>
+<p class="text-stone-600">
+                © 2024 LEXIS ARCHITECT. ALL RIGHTS RESERVED.
+            </p>
+</div>
+</footer>
+</body></html>

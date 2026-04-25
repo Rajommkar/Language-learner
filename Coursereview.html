@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Course Review &amp; Progress - Odyssey</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#121416",
+                    "tertiary-fixed-dim": "#c7c6c7",
+                    "on-tertiary-fixed-variant": "#464748",
+                    "on-secondary-fixed-variant": "#494740",
+                    "on-primary-fixed": "#001945",
+                    "on-error": "#690005",
+                    "inverse-on-surface": "#2f3133",
+                    "secondary-fixed-dim": "#cac6bd",
+                    "inverse-primary": "#1d59c1",
+                    "on-primary-container": "#bcceff",
+                    "tertiary-fixed": "#e3e2e3",
+                    "secondary": "#cac6bd",
+                    "tertiary-container": "#585859",
+                    "secondary-container": "#4b4942",
+                    "surface-dim": "#121416",
+                    "surface-variant": "#333537",
+                    "on-background": "#e2e2e5",
+                    "primary-container": "#0f52ba",
+                    "on-secondary-container": "#bcb8af",
+                    "on-tertiary-fixed": "#1b1c1d",
+                    "surface-container-lowest": "#0c0e10",
+                    "on-secondary": "#32302a",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "on-tertiary": "#303032",
+                    "surface-tint": "#b0c6ff",
+                    "inverse-surface": "#e2e2e5",
+                    "outline-variant": "#434653",
+                    "error-container": "#93000a",
+                    "primary": "#b0c6ff",
+                    "background": "#121416",
+                    "on-primary": "#002c6f",
+                    "surface-container": "#1e2022",
+                    "on-tertiary-container": "#cfcecf",
+                    "outline": "#8d909e",
+                    "on-secondary-fixed": "#1d1c16",
+                    "error": "#ffb4ab",
+                    "primary-fixed": "#d9e2ff",
+                    "surface-container-high": "#282a2c",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-low": "#1a1c1e",
+                    "on-surface-variant": "#c3c6d5",
+                    "tertiary": "#c7c6c7",
+                    "on-primary-fixed-variant": "#00419c",
+                    "surface-bright": "#37393b",
+                    "secondary-fixed": "#e7e2d8",
+                    "surface-container-highest": "#333537",
+                    "on-surface": "#e2e2e5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "unit": "4px",
+                    "margin": "64px",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "title-lg": [
+                            "Newsreader"
+                    ],
+                    "display-xl": [
+                            "Newsreader"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Newsreader"
+                    ],
+                    "headline-lg": [
+                            "Newsreader"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "title-lg": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-xl": [
+                            "64px",
+                            {
+                                    "lineHeight": "72px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "300"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(26, 28, 30, 0.85); /* surface-container-low approx with opacity */
+            backdrop-filter: blur(32px);
+            border: 1px solid rgba(226, 226, 229, 0.1); /* on-surface at 10% */
+        }
+        .ink-bleed-bg {
+            background: radial-gradient(circle at 15% 50%, rgba(15, 82, 186, 0.15), transparent 40%),
+                        radial-gradient(circle at 85% 30%, rgba(29, 89, 193, 0.1), transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex ink-bleed-bg">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full flex-col pt-20 pb-8 z-40 bg-zinc-950/90 backdrop-blur-3xl border-r border-slate-800/50 docked left-0 h-full w-64 flat no shadows font-serif uppercase tracking-widest text-xs text-blue-600">
+<div class="px-8 mb-12">
+<h1 class="text-xl font-bold text-slate-50 font-title-lg tracking-tight mb-1">ODYSSEY</h1>
+<p class="text-slate-500 font-label-sm normal-case">Language Mastery</p>
+</div>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-3 text-slate-500 pl-4 hover:bg-slate-900/50 hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-blue-500 font-bold border-l-2 border-blue-500 pl-4 hover:bg-slate-900/50 hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Courses</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-slate-500 pl-4 hover:bg-slate-900/50 hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="translate">translate</span>
+<span>Vocabulary</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-slate-500 pl-4 hover:bg-slate-900/50 hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span>Progress</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-slate-500 pl-4 hover:bg-slate-900/50 hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Community</span>
+</a>
+</div>
+<div class="px-4 mt-auto space-y-2">
+<button class="w-full bg-gradient-to-r from-primary-container to-inverse-primary text-white font-label-md uppercase py-3 px-4 border-t border-white/20 mb-6 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                Upgrade to Pro
+            </button>
+<a class="flex items-center gap-4 py-2 text-slate-500 pl-4 hover:bg-slate-900/50" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+<span>Help</span>
+</a>
+<a class="flex items-center gap-4 py-2 text-slate-500 pl-4 hover:bg-slate-900/50" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden flex justify-between items-center px-8 h-16 w-full fixed top-0 z-50 bg-zinc-950/85 backdrop-blur-3xl border-b border-slate-800/50 docked full-width top-0 text-blue-700 dark:text-blue-500 font-serif text-slate-200">
+<div class="text-2xl font-black tracking-tighter text-slate-50 font-title-lg">Odyssey</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-400 hover:backdrop-blur-xl transition-all"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="text-slate-400 hover:backdrop-blur-xl transition-all"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 pt-20 md:pt-0 p-gutter min-h-screen flex flex-col md:flex-row gap-gutter">
+<!-- Left Area: Course Archive -->
+<div class="flex-1 flex flex-col gap-8 max-w-4xl">
+<header class="mb-4 mt-8 md:mt-12">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Course Archive</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Review your linguistic journey and current trajectory.</p>
+</header>
+<div class="grid grid-cols-1 gap-6">
+<!-- Course Card 1 -->
+<article class="glass-panel p-6 flex flex-col md:flex-row gap-6 items-start md:items-center relative group hover:bg-surface-container-high transition-colors duration-300">
+<div class="w-16 h-16 bg-surface-container-highest flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="font-title-lg text-title-lg text-primary">FR</span>
+</div>
+<div class="flex-1 w-full">
+<div class="flex justify-between items-baseline mb-2">
+<h3 class="font-title-lg text-title-lg text-on-surface">Advanced French Phonetics</h3>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Active</span>
+</div>
+<div class="flex gap-8 mb-4">
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Words Learned</span>
+<span class="font-body-lg text-body-lg text-on-surface">1,240</span>
+</div>
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Accuracy</span>
+<span class="font-body-lg text-body-lg text-on-surface">94%</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-highest h-[2px] relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-primary w-[65%] shadow-[1px_0_0_0_rgba(255,255,255,0.5)]"></div>
+</div>
+</div>
+</article>
+<!-- Course Card 2 -->
+<article class="glass-panel p-6 flex flex-col md:flex-row gap-6 items-start md:items-center relative group hover:bg-surface-container-high transition-colors duration-300">
+<div class="w-16 h-16 bg-surface-container-highest flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="font-title-lg text-title-lg text-tertiary">JP</span>
+</div>
+<div class="flex-1 w-full">
+<div class="flex justify-between items-baseline mb-2">
+<h3 class="font-title-lg text-title-lg text-on-surface text-opacity-70">Intermediate Kanji Structure</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Completed</span>
+</div>
+<div class="flex gap-8 mb-4 opacity-70">
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Words Learned</span>
+<span class="font-body-lg text-body-lg text-on-surface">850</span>
+</div>
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Accuracy</span>
+<span class="font-body-lg text-body-lg text-on-surface">98%</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-highest h-[2px] relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-tertiary w-full"></div>
+</div>
+</div>
+</article>
+<!-- Course Card 3 -->
+<article class="glass-panel p-6 flex flex-col md:flex-row gap-6 items-start md:items-center relative group hover:bg-surface-container-high transition-colors duration-300">
+<div class="w-16 h-16 bg-surface-container-highest flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="font-title-lg text-title-lg text-primary">RU</span>
+</div>
+<div class="flex-1 w-full">
+<div class="flex justify-between items-baseline mb-2">
+<h3 class="font-title-lg text-title-lg text-on-surface">Russian Cyrillic Foundation</h3>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Active</span>
+</div>
+<div class="flex gap-8 mb-4">
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Words Learned</span>
+<span class="font-body-lg text-body-lg text-on-surface">312</span>
+</div>
+<div>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Accuracy</span>
+<span class="font-body-lg text-body-lg text-on-surface">88%</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-highest h-[2px] relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-primary w-[30%] shadow-[1px_0_0_0_rgba(255,255,255,0.5)]"></div>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- Right Area: Review Panel -->
+<aside class="w-full md:w-80 lg:w-96 flex flex-col gap-6 md:pt-12">
+<div class="glass-panel p-6 flex flex-col h-full border-l border-outline-variant/30 md:border-l-0">
+<header class="mb-6 flex justify-between items-baseline border-b border-outline-variant/30 pb-4">
+<h2 class="font-headline-md text-headline-md text-on-surface">Priority Review</h2>
+<span class="font-label-sm text-label-sm text-error uppercase">High Attrition</span>
+</header>
+<div class="flex flex-col gap-4">
+<!-- Flashcard 1 -->
+<div class="bg-surface-container border border-outline-variant p-5 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-3">
+<span class="font-title-lg text-title-lg text-on-surface">L'écureuil</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]" data-icon="volume_up">volume_up</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Squirrel (Noun, masc.)</p>
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-error">42% Accuracy</span>
+<span class="text-outline">Last reviewed: 2d ago</span>
+</div>
+</div>
+<!-- Flashcard 2 -->
+<div class="bg-surface-container border border-outline-variant p-5 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-3">
+<span class="font-title-lg text-title-lg text-on-surface">Vraisemblable</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]" data-icon="volume_up">volume_up</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Plausible / Likely (Adj.)</p>
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-error">55% Accuracy</span>
+<span class="text-outline">Last reviewed: 4d ago</span>
+</div>
+</div>
+<!-- Flashcard 3 -->
+<div class="bg-surface-container border border-outline-variant p-5 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-3">
+<span class="font-title-lg text-title-lg text-on-surface">Dépaysement</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-[20px]" data-icon="volume_up">volume_up</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Culture shock / Change of scenery (Noun)</p>
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-tertiary">68% Accuracy</span>
+<span class="text-outline">Last reviewed: 1w ago</span>
+</div>
+</div>
+</div>
+<button class="mt-8 w-full border border-outline text-on-surface font-label-md uppercase py-3 px-4 hover:bg-surface-container-high transition-colors">
+                    Start Review Session
+                </button>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full bg-zinc-950/85 backdrop-blur-3xl z-50 px-4 py-3 flex justify-around items-center">
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] uppercase font-semibold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-blue-500" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="menu_book">menu_book</span>
+<span class="text-[10px] uppercase font-semibold">Courses</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="translate">translate</span>
+<span class="text-[10px] uppercase font-semibold">Vocab</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="person">person</span>
+<span class="text-[10px] uppercase font-semibold">Profile</span>
+</a>
+</nav>
+</body></html>

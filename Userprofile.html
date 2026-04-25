@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile - Odyssey</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#121416",
+                      "on-background": "#e2e2e5",
+                      "surface-dim": "#121416",
+                      "surface-container": "#1e2022",
+                      "inverse-on-surface": "#2f3133",
+                      "surface-tint": "#b0c6ff",
+                      "surface-container-low": "#1a1c1e",
+                      "on-primary": "#002c6f",
+                      "primary-fixed": "#d9e2ff",
+                      "on-error": "#690005",
+                      "tertiary": "#c7c6c7",
+                      "error-container": "#93000a",
+                      "primary-fixed-dim": "#b0c6ff",
+                      "on-surface": "#e2e2e5",
+                      "primary": "#b0c6ff",
+                      "on-surface-variant": "#c3c6d5",
+                      "secondary-container": "#4b4942",
+                      "error": "#ffb4ab",
+                      "on-primary-fixed-variant": "#00419c",
+                      "surface-container-high": "#282a2c",
+                      "inverse-primary": "#1d59c1",
+                      "secondary-fixed-dim": "#cac6bd",
+                      "inverse-surface": "#e2e2e5",
+                      "surface-container-lowest": "#0c0e10",
+                      "on-tertiary-container": "#cfcecf",
+                      "on-secondary-container": "#bcb8af",
+                      "on-secondary-fixed": "#1d1c16",
+                      "surface-bright": "#37393b",
+                      "surface-variant": "#333537",
+                      "primary-container": "#0f52ba",
+                      "outline-variant": "#434653",
+                      "on-primary-fixed": "#001945",
+                      "on-primary-container": "#bcceff",
+                      "on-secondary": "#32302a",
+                      "tertiary-fixed-dim": "#c7c6c7",
+                      "on-tertiary-fixed-variant": "#464748",
+                      "surface-container-highest": "#333537",
+                      "outline": "#8d909e",
+                      "tertiary-fixed": "#e3e2e3",
+                      "on-tertiary-fixed": "#1b1c1d",
+                      "on-tertiary": "#303032",
+                      "surface": "#121416",
+                      "secondary": "#cac6bd",
+                      "tertiary-container": "#585859",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#494740",
+                      "secondary-fixed": "#e7e2d8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin": "64px",
+                      "container-max": "1440px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Newsreader"
+                      ],
+                      "title-lg": [
+                              "Newsreader"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Newsreader"
+                      ],
+                      "display-xl": [
+                              "Newsreader"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "300"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-ink-flow {
+            background-image: radial-gradient(circle at 50% 0%, rgba(15, 82, 186, 0.15) 0%, transparent 60%),
+                              radial-gradient(circle at 100% 100%, rgba(202, 198, 189, 0.05) 0%, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden bg-ink-flow font-body-md flex relative">
+<!-- Background Cinematic Element -->
+<div class="fixed inset-0 z-[-1] opacity-30 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at center, rgba(15,82,186,0.1) 0%, rgba(18,20,22,1) 70%);"></div>
+<!-- Side Navigation (Web) -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-full w-64 bg-zinc-950/90 backdrop-blur-2xl border-r border-zinc-100/10 py-8 z-40">
+<div class="px-8 mb-12">
+<h1 class="text-xl font-bold text-zinc-100 uppercase tracking-widest font-headline-md">ARCHIVE</h1>
+</div>
+<div class="px-8 mb-8">
+<h2 class="font-headline-md text-sm text-zinc-400 mb-2">Academics</h2>
+<p class="font-label-sm text-zinc-500">Deep Slate Series</p>
+</div>
+<ul class="flex flex-col gap-2 px-4 flex-grow font-serif text-sm uppercase tracking-widest">
+<li>
+<a class="flex items-center gap-4 px-4 py-3 text-zinc-500 hover:text-zinc-200 hover:bg-zinc-100/5 transition-colors scale-100 active:scale-95 rounded-none" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Curriculum</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 text-zinc-500 hover:text-zinc-200 hover:bg-zinc-100/5 transition-colors scale-100 active:scale-95 rounded-none" href="#">
+<span class="material-symbols-outlined" data-icon="architecture">architecture</span>
+<span>Gallery</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 text-zinc-500 hover:text-zinc-200 hover:bg-zinc-100/5 transition-colors scale-100 active:scale-95 rounded-none" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Records</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-4 py-3 bg-blue-600/10 text-blue-400 border-l-4 border-blue-600 hover:bg-zinc-100/5 transition-colors scale-100 active:scale-95 rounded-none" href="#">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span>Settings</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow md:ml-64 relative min-h-screen">
+<!-- Top App Bar (Mobile / Compact) -->
+<header class="md:hidden flex justify-between items-center px-8 py-4 w-full z-50 bg-zinc-950/85 backdrop-blur-3xl border-b border-zinc-100/10 sticky top-0">
+<h1 class="text-2xl font-black tracking-widest text-zinc-100 uppercase font-serif italic">ARCHIVE</h1>
+<div class="flex gap-4">
+<button class="text-zinc-400 hover:text-zinc-100 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-zinc-400 hover:text-zinc-100 transition-colors">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+</div>
+</header>
+<div class="max-w-container-max mx-auto px-4 sm:px-8 lg:px-gutter py-12 md:py-24">
+<!-- Central Avatar Area -->
+<section class="flex flex-col items-center justify-center mb-24 text-center">
+<div class="relative w-48 h-48 rounded-full border border-primary p-2 mb-8" style="box-shadow: inset 2px 2px 10px rgba(15,82,186,0.2), 0 0 20px rgba(15,82,186,0.1);">
+<div class="w-full h-full rounded-full overflow-hidden bg-surface-container border border-white/10">
+<img alt="Profile avatar" class="w-full h-full object-cover mix-blend-luminosity opacity-80" data-alt="Black and white artistic portrait of a man looking slightly away, dramatic lighting, sharp focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjH7aNIgouMc8eh5pBhbh21GVESMDoHTJI-ssFA3yA_dfsf-H5sxyuC6lss2jdeEoVWXNBSIna4-eJX_-yVrvFRb3N-25uTRH7pWnBLsc_0VkY6DBBi0mf0Saetd_u5srupgbwmc-xniGRQ9m7oJc9j1thfox7E-o8wQeMojtJU1AGf_ucDZ4qu5C9G6SF0pdqc0SeQDqaCZz9t52lnhAB7e7XcN2MTdrS8ZQ9DNZMsXfQGrmLuYIwyvQnuCyMkEK-_TEIDhk15HU"/>
+</div>
+</div>
+<h1 class="font-display-xl text-on-surface mb-2 tracking-tight">Elias Thorne</h1>
+<p class="font-label-md text-primary tracking-widest uppercase">Senior Architect, Module IV</p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-24">
+<!-- Achievements (Glass Shelves) -->
+<div class="md:col-span-8 bg-surface-container/85 backdrop-blur-3xl border border-white/10 p-8 flex flex-col relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="flex justify-between items-end mb-8 border-b border-white/10 pb-4">
+<h2 class="font-title-lg text-on-surface">Digital Medals</h2>
+<span class="font-label-sm text-on-surface-variant uppercase">View Gallery</span>
+</div>
+<div class="grid grid-cols-3 gap-8 flex-grow items-center">
+<!-- Medal 1 -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-24 h-24 rounded-full bg-surface-bright/50 border border-primary/30 flex items-center justify-center shadow-[0_0_15px_rgba(15,82,186,0.2)]">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="architecture" data-weight="fill" style="font-variation-settings: 'FILL' 1;">architecture</span>
+</div>
+<span class="font-label-md text-on-surface-variant text-center">Structural Integrity</span>
+</div>
+<!-- Medal 2 -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-24 h-24 rounded-full bg-surface-bright/50 border border-secondary/30 flex items-center justify-center shadow-[0_0_15px_rgba(202,198,189,0.1)]">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="psychology" data-weight="fill" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<span class="font-label-md text-on-surface-variant text-center">Cognitive Design</span>
+</div>
+<!-- Medal 3 -->
+<div class="flex flex-col items-center gap-4 opacity-50 filter grayscale">
+<div class="w-24 h-24 rounded-full bg-surface-container-low border border-white/5 flex items-center justify-center border-dashed">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl" data-icon="lock">lock</span>
+</div>
+<span class="font-label-md text-on-surface-variant text-center">Aesthetic Fluidity</span>
+</div>
+</div>
+</div>
+<!-- Learning Progress (Structured Bar Graph) -->
+<div class="md:col-span-4 bg-surface-container/85 backdrop-blur-3xl border border-white/10 p-8 flex flex-col relative">
+<h2 class="font-title-lg text-on-surface mb-8 border-b border-white/10 pb-4">Progression</h2>
+<div class="flex flex-col gap-6 flex-grow justify-center">
+<!-- Bar 1 -->
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-label-sm text-on-surface-variant uppercase">Module III</span>
+<span class="font-label-sm text-primary">100%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest relative">
+<div class="absolute top-0 left-0 h-full bg-primary w-full shadow-[0_0_8px_rgba(15,82,186,0.5)]"></div>
+</div>
+</div>
+<!-- Bar 2 -->
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-label-sm text-on-surface-variant uppercase">Module IV</span>
+<span class="font-label-sm text-primary">64%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest relative">
+<div class="absolute top-0 left-0 h-full bg-primary w-[64%] shadow-[0_0_8px_rgba(15,82,186,0.5)]"></div>
+</div>
+</div>
+<!-- Bar 3 -->
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-label-sm text-on-surface-variant uppercase">Module V</span>
+<span class="font-label-sm text-tertiary">0%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest relative">
+<div class="absolute top-0 left-0 h-full bg-primary w-0"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Settings Accordion (90-degree edges) -->
+<section class="max-w-3xl mx-auto">
+<h2 class="font-headline-md text-on-surface mb-8">Configurations</h2>
+<div class="border border-white/10 bg-surface-container/50 backdrop-blur-md mb-4">
+<button class="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors focus:outline-none focus:border-b focus:border-primary">
+<span class="font-title-lg text-on-surface">Account Credentials</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</button>
+<!-- Hidden content for demo -->
+</div>
+<div class="border border-white/10 bg-surface-container/50 backdrop-blur-md mb-4">
+<button class="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors focus:outline-none focus:border-b focus:border-primary border-b border-primary bg-white/5">
+<span class="font-title-lg text-primary">Notification Architecture</span>
+<span class="material-symbols-outlined text-primary" data-icon="expand_less">expand_less</span>
+</button>
+<div class="p-6 border-t border-white/5">
+<div class="flex items-center justify-between py-4 border-b border-white/5">
+<span class="font-body-md text-on-surface-variant">System Alerts</span>
+<button class="w-12 h-6 bg-primary rounded-full relative shadow-[0_0_8px_rgba(15,82,186,0.3)]">
+<div class="w-4 h-4 bg-background rounded-full absolute right-1 top-1"></div>
+</button>
+</div>
+<div class="flex items-center justify-between py-4 border-b border-white/5">
+<span class="font-body-md text-on-surface-variant">Curriculum Updates</span>
+<button class="w-12 h-6 bg-surface-container-highest rounded-full relative border border-white/10">
+<div class="w-4 h-4 bg-on-surface-variant rounded-full absolute left-1 top-1"></div>
+</button>
+</div>
+</div>
+</div>
+<div class="border border-white/10 bg-surface-container/50 backdrop-blur-md">
+<button class="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors focus:outline-none focus:border-b focus:border-primary">
+<span class="font-title-lg text-on-surface">Data Archives</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<div class="mt-12 flex justify-end gap-4">
+<button class="px-8 py-3 border border-white/20 text-on-surface font-label-md uppercase tracking-wider hover:bg-white/5 transition-colors">Discard</button>
+<button class="px-8 py-3 bg-gradient-to-r from-primary-container to-primary-fixed-dim text-background font-label-md uppercase tracking-wider border-t border-white/40 shadow-[0_4px_14px_rgba(15,82,186,0.3)] hover:opacity-90 transition-opacity">Save Architecture</button>
+</div>
+</section>
+</div>
+</main>
+</body></html>

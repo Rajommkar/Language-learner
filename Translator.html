@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Odyssey Translator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Glassmorphism utility */
+        .glass-panel {
+            background-color: rgba(18, 20, 22, 0.85); /* Frosted Obsidian base */
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(226, 226, 229, 0.1); /* Parchment White inner border */
+        }
+        /* Flowing ink background simulation via CSS */
+        .ink-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(15, 82, 186, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(15, 82, 186, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(29, 89, 193, 0.05) 0%, transparent 70%);
+            background-color: #0c0e10; /* surface-container-lowest */
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#ffdad6",
+                        "outline-variant": "#434653",
+                        "background": "#121416",
+                        "surface-bright": "#37393b",
+                        "on-surface": "#e2e2e5",
+                        "primary-fixed": "#d9e2ff",
+                        "surface-container-lowest": "#0c0e10",
+                        "on-secondary-container": "#bcb8af",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed-variant": "#494740",
+                        "on-primary-fixed-variant": "#00419c",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#001945",
+                        "tertiary": "#c7c6c7",
+                        "on-secondary": "#32302a",
+                        "tertiary-fixed-dim": "#c7c6c7",
+                        "surface-container": "#1e2022",
+                        "on-primary-container": "#bcceff",
+                        "inverse-primary": "#1d59c1",
+                        "surface-container-low": "#1a1c1e",
+                        "on-tertiary-fixed-variant": "#464748",
+                        "outline": "#8d909e",
+                        "surface-tint": "#b0c6ff",
+                        "secondary-container": "#4b4942",
+                        "on-secondary-fixed": "#1d1c16",
+                        "secondary": "#cac6bd",
+                        "on-tertiary": "#303032",
+                        "surface-variant": "#333537",
+                        "secondary-fixed": "#e7e2d8",
+                        "tertiary-container": "#585859",
+                        "inverse-surface": "#e2e2e5",
+                        "primary-container": "#0f52ba",
+                        "primary": "#b0c6ff",
+                        "on-tertiary-container": "#cfcecf",
+                        "error-container": "#93000a",
+                        "surface-dim": "#121416",
+                        "surface": "#121416",
+                        "secondary-fixed-dim": "#cac6bd",
+                        "on-primary": "#002c6f",
+                        "on-background": "#e2e2e5",
+                        "inverse-on-surface": "#2f3133",
+                        "surface-container-highest": "#333537",
+                        "on-surface-variant": "#c3c6d5",
+                        "surface-container-high": "#282a2c",
+                        "on-tertiary-fixed": "#1b1c1d",
+                        "tertiary-fixed": "#e3e2e3",
+                        "primary-fixed-dim": "#b0c6ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin": "64px",
+                        "container-max": "1440px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Newsreader"],
+                        "body-lg": ["Inter"],
+                        "title-lg": ["Newsreader"],
+                        "display-xl": ["Newsreader"],
+                        "headline-md": ["Newsreader"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "title-lg": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "300" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased ink-bg min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-8 h-16 bg-slate-950/85 backdrop-blur-[32px] font-serif text-left antialiased border-b border-white/10">
+<div class="flex items-center">
+<span class="text-2xl font-light tracking-tighter text-slate-50">ODYSSEY</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-400 hover:text-slate-200 hover:backdrop-blur-3xl transition-all duration-300 active:scale-[0.99] transition-transform" href="#">Dictionary</a>
+<a class="text-slate-400 hover:text-slate-200 hover:backdrop-blur-3xl transition-all duration-300 active:scale-[0.99] transition-transform" href="#">Grammar</a>
+<a class="text-slate-400 hover:text-slate-200 hover:backdrop-blur-3xl transition-all duration-300 active:scale-[0.99] transition-transform" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-slate-400 hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="User profile" class="w-8 h-8 rounded-full border border-white/10" data-alt="Close up portrait of a young woman with natural makeup looking directly at camera, soft lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB94mpY7KsrQeO05lzFtl-UE_oobO4CYvnshIc6VNUmaS_7ZWS4n4DaiXNfIatDyYX05sQHdsIygQ0jt1WjIr_KvqwUBtglFfNTmoRcNfcdmDMhLvSKPxGfksi7lKPMXjETGIbGMubyBAlQeM0rY02zhNxyy1KHKQHvaqxqsxfSO-_Ho4IxiFK9sQV2Ba8hWRK1q7H_8aJp0N8gOQlSbA9hiMkBltLpVwZAgP459gtDya4wv2m2C4LvvMBz56xcyMnc_3Zu2D2QjFA"/>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only, acting as semantic shell anchor) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full flex-col py-8 bg-slate-950/85 backdrop-blur-[32px] font-serif text-left border-r border-white/10 w-64 z-40 mt-16">
+<nav class="flex-1 flex flex-col gap-2 mt-8">
+<a class="text-blue-500 font-semibold flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="translate">translate</span>
+<span>Translate</span>
+</a>
+<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>History</span>
+</a>
+<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span>Saved</span>
+</a>
+<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="exercise">exercise</span>
+<span>Practice</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2">
+<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Help</span>
+</a>
+<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-0 md:ml-64 mt-16 p-6 md:p-gutter flex flex-col items-center justify-center min-h-[calc(100vh-64px)] relative z-10">
+<div class="w-full max-w-5xl glass-panel rounded-none flex flex-col md:flex-row relative">
+<!-- Source Input Side -->
+<div class="flex-1 p-8 flex flex-col gap-6 relative group">
+<!-- Language Selector -->
+<div class="relative">
+<button class="flex items-center gap-2 text-on-surface hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1 group-focus-within:border-primary">
+<span class="font-title-lg text-title-lg">English</span>
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+<!-- Simulated Dropdown (hidden by default in static HTML, shown here for design completeness if it were active) -->
+<!-- <div class="absolute top-full left-0 mt-2 w-48 glass-panel z-50 py-2 border border-outline-variant shadow-2xl">
+                        <a href="#" class="block px-4 py-2 text-on-surface hover:bg-surface-variant transition-colors">Spanish</a>
+                        <a href="#" class="block px-4 py-2 text-on-surface hover:bg-surface-variant transition-colors">French</a>
+                    </div> -->
+</div>
+<!-- Text Area -->
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-lg text-body-lg text-on-surface placeholder:text-outline p-0 h-48 md:h-64" placeholder="Enter text..."></textarea>
+<!-- Action row -->
+<div class="flex justify-between items-center mt-auto border-t border-outline-variant/30 pt-4">
+<div class="flex gap-4 text-outline">
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">mic</span></button>
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
+</div>
+<span class="font-label-sm text-label-sm text-outline">0 / 5000</span>
+</div>
+</div>
+<!-- Divider / Swap Action -->
+<div class="md:w-px bg-outline-variant/30 h-px md:h-auto w-full relative flex items-center justify-center">
+<button class="absolute z-20 bg-surface-container-highest border border-outline-variant text-on-surface w-10 h-10 flex items-center justify-center hover:bg-surface-variant hover:text-primary transition-all active:scale-95 group">
+<span class="material-symbols-outlined transform group-hover:rotate-180 transition-transform duration-500">swap_horiz</span>
+</button>
+</div>
+<!-- Target Output Side -->
+<div class="flex-1 p-8 flex flex-col gap-6 bg-surface-container-low/50 relative">
+<!-- Language Selector -->
+<div class="relative">
+<button class="flex items-center gap-2 text-on-surface hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1">
+<span class="font-title-lg text-title-lg">Spanish</span>
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+<!-- Output Area -->
+<div class="w-full h-48 md:h-64 font-body-lg text-body-lg text-on-surface overflow-y-auto">
+<p class="opacity-0 transition-opacity duration-300">Translation will appear here...</p>
+</div>
+<!-- Action row -->
+<div class="flex justify-between items-center mt-auto border-t border-outline-variant/30 pt-4">
+<div class="flex gap-4 text-outline">
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">content_copy</span></button>
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">share</span></button>
+</div>
+<div class="flex gap-2 text-outline">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">thumb_up</span></button>
+<button class="hover:text-error transition-colors"><span class="material-symbols-outlined">thumb_down</span></button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

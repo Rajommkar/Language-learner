@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Odyssey - Log Out Confirmation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@300;400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#e2e2e5",
+                      "outline-variant": "#434653",
+                      "on-tertiary-fixed": "#1b1c1d",
+                      "surface-dim": "#121416",
+                      "tertiary-container": "#585859",
+                      "surface": "#121416",
+                      "surface-bright": "#37393b",
+                      "primary": "#b0c6ff",
+                      "primary-fixed": "#d9e2ff",
+                      "error": "#ffb4ab",
+                      "tertiary-fixed": "#e3e2e3",
+                      "on-secondary-container": "#bcb8af",
+                      "surface-variant": "#333537",
+                      "surface-container-highest": "#333537",
+                      "on-surface-variant": "#c3c6d5",
+                      "inverse-primary": "#1d59c1",
+                      "on-tertiary-container": "#cfcecf",
+                      "on-primary-container": "#bcceff",
+                      "on-secondary": "#32302a",
+                      "on-primary-fixed": "#001945",
+                      "primary-container": "#0f52ba",
+                      "inverse-surface": "#e2e2e5",
+                      "secondary-fixed": "#e7e2d8",
+                      "background": "#121416",
+                      "secondary-container": "#4b4942",
+                      "on-error": "#690005",
+                      "outline": "#8d909e",
+                      "on-secondary-fixed": "#1d1c16",
+                      "tertiary-fixed-dim": "#c7c6c7",
+                      "secondary-fixed-dim": "#cac6bd",
+                      "on-error-container": "#ffdad6",
+                      "surface-tint": "#b0c6ff",
+                      "primary-fixed-dim": "#b0c6ff",
+                      "on-tertiary": "#303032",
+                      "surface-container-high": "#282a2c",
+                      "tertiary": "#c7c6c7",
+                      "surface-container-lowest": "#0c0e10",
+                      "on-primary": "#002c6f",
+                      "surface-container-low": "#1a1c1e",
+                      "secondary": "#cac6bd",
+                      "on-tertiary-fixed-variant": "#464748",
+                      "on-secondary-fixed-variant": "#494740",
+                      "on-primary-fixed-variant": "#00419c",
+                      "surface-container": "#1e2022",
+                      "inverse-on-surface": "#2f3133",
+                      "on-background": "#e2e2e5",
+                      "error-container": "#93000a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin": "64px",
+                      "gutter": "24px",
+                      "container-max": "1440px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "title-lg": [
+                              "Newsreader"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "display-xl": [
+                              "Newsreader"
+                      ],
+                      "headline-lg": [
+                              "Newsreader"
+                      ],
+                      "headline-md": [
+                              "Newsreader"
+                      ]
+              },
+              "fontSize": {
+                      "title-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "300"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background h-screen w-screen overflow-hidden relative">
+<!-- Background Layer: Simulated Flowing Ink / Abstract Environment -->
+<div class="absolute inset-0 z-0">
+<img alt="Background graphic" class="w-full h-full object-cover opacity-30 mix-blend-screen" data-alt="Abstract flowing liquid or ink simulation in deep blues and blacks, subtle cinematic lighting, ethereal and fluid motion, high resolution" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJmTK8PVmFW6ulMT3rU6CprKqeQd8ejyyIW2mZiT0LOM7SWrK_7QgyMw9bf4QaTC6fihl4xt3SM0YgMEYbYBt-kzZMuIZuWjQ7iJD0upx6xmjtgOD2wF_TvkDXQgA1qwaykTVOGI-7eQr4f0zlUXskNDbdX9TprHDRP6r_8SRi9bTU_QNSl3_6R8iYBb1-DKSsGb4dzDpB8jKCti4io4l1jrDssBlOKn7n6qxiXgyycCNfIB_1IQ2qarQ_Gn8YT5SlKhuZy3lNv_c"/>
+<!-- Overall Darkened/Blurred Overlay -->
+<div class="absolute inset-0 bg-surface-container-lowest/80 backdrop-blur-[16px]"></div>
+</div>
+<!-- Centered Modal Container -->
+<main class="relative z-10 w-full h-full flex items-center justify-center p-gutter">
+<!-- The Modal -->
+<div class="w-full max-w-md bg-surface-container-high/85 backdrop-blur-[32px] border border-on-surface/10 rounded-none shadow-2xl relative overflow-hidden">
+<!-- Subtle Inner Border Glow (Glassmorphism effect) -->
+<div class="absolute inset-0 border border-white/5 pointer-events-none"></div>
+<div class="p-8 flex flex-col gap-6">
+<!-- Icon Header Area -->
+<div class="flex justify-center mb-2">
+<span class="material-symbols-outlined text-[48px] text-error" style="font-variation-settings: 'FILL' 0, 'wght' 200;">
+                        logout
+                    </span>
+</div>
+<!-- Text Content -->
+<div class="text-center space-y-4">
+<h2 class="font-headline-md text-headline-md text-on-surface">Terminate Session?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mx-auto">
+                        All progress since your last cloud sync will be preserved.
+                    </p>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row gap-4 mt-4 pt-4 border-t border-on-surface/10">
+<button class="flex-1 px-6 py-3 border border-outline text-on-surface hover:bg-white/5 transition-all duration-300 font-label-md text-label-md uppercase tracking-widest rounded-none" type="button">
+                        Cancel
+                    </button>
+<button class="flex-1 px-6 py-3 bg-error text-on-error relative group overflow-hidden rounded-none shadow-[0_0_15px_rgba(255,180,171,0.2)] hover:shadow-[0_0_25px_rgba(255,180,171,0.4)] transition-all duration-300" type="button">
+<!-- Top Bevel highlight -->
+<div class="absolute inset-x-0 top-0 h-[1px] bg-white/30"></div>
+<span class="relative z-10 font-label-md text-label-md uppercase tracking-widest">Yes, Log Out</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

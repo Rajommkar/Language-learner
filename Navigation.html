@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VOX ARCH - Architectural Lexicon</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#ffdad6",
+                    "surface-variant": "#333537",
+                    "on-tertiary-fixed": "#1b1c1d",
+                    "on-surface-variant": "#c3c6d5",
+                    "inverse-primary": "#1d59c1",
+                    "primary": "#b0c6ff",
+                    "on-background": "#e2e2e5",
+                    "surface": "#121416",
+                    "on-primary": "#002c6f",
+                    "background": "#121416",
+                    "surface-container-low": "#1a1c1e",
+                    "secondary-fixed": "#e7e2d8",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "surface-dim": "#121416",
+                    "surface-container-high": "#282a2c",
+                    "on-secondary": "#32302a",
+                    "on-primary-fixed-variant": "#00419c",
+                    "tertiary": "#c7c6c7",
+                    "error-container": "#93000a",
+                    "on-error": "#690005",
+                    "on-secondary-fixed": "#1d1c16",
+                    "secondary-fixed-dim": "#cac6bd",
+                    "on-tertiary": "#303032",
+                    "on-surface": "#e2e2e5",
+                    "error": "#ffb4ab",
+                    "surface-tint": "#b0c6ff",
+                    "surface-container-highest": "#333537",
+                    "surface-container": "#1e2022",
+                    "on-secondary-fixed-variant": "#494740",
+                    "tertiary-fixed-dim": "#c7c6c7",
+                    "outline": "#8d909e",
+                    "inverse-on-surface": "#2f3133",
+                    "surface-container-lowest": "#0c0e10",
+                    "on-primary-container": "#bcceff",
+                    "on-secondary-container": "#bcb8af",
+                    "tertiary-container": "#585859",
+                    "primary-fixed": "#d9e2ff",
+                    "primary-container": "#0f52ba",
+                    "tertiary-fixed": "#e3e2e3",
+                    "on-tertiary-container": "#cfcecf",
+                    "on-primary-fixed": "#001945",
+                    "secondary": "#cac6bd",
+                    "secondary-container": "#4b4942",
+                    "inverse-surface": "#e2e2e5",
+                    "surface-bright": "#37393b",
+                    "outline-variant": "#434653",
+                    "on-tertiary-fixed-variant": "#464748"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px", // Forced to 0px per style guidance for inputs/cards generally, adjusting here to align with "sharp edges"
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin": "64px",
+                    "container-max": "1440px",
+                    "unit": "4px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "title-lg": [
+                            "Newsreader"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Newsreader"
+                    ],
+                    "display-xl": [
+                            "Newsreader"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Newsreader"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "title-lg": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-xl": [
+                            "64px",
+                            {
+                                    "lineHeight": "72px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "300"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        /* Cinematic flowing ink background effect */
+        .cinematic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(15, 82, 186, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 300,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 300;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-background antialiased flex overflow-hidden">
+<div class="cinematic-bg"></div>
+<!-- SideNavBar (Shared Component) -->
+<nav class="flex flex-col h-full py-8 px-6 fixed left-0 top-0 z-50 bg-zinc-950/85 backdrop-blur-3xl h-screen w-64 border-r border-slate-100/10 rounded-none border-r border-slate-100/10">
+<!-- Brand Header -->
+<div class="mb-16">
+<h1 class="text-2xl font-black uppercase text-slate-100 tracking-widest font-title-lg text-title-lg">VOX ARCH</h1>
+<p class="font-['Newsreader'] tracking-tight text-slate-200 mt-2 font-body-md text-body-md opacity-70">Architectural Lexicon</p>
+</div>
+<!-- Navigation Links -->
+<ul class="flex flex-col gap-2 flex-grow">
+<!-- Active State: Home -->
+<li>
+<a class="flex items-center gap-4 px-4 py-3 text-blue-500 border-b-2 border-blue-600 shadow-[0_0_15px_rgba(15,82,186,0.3)] bg-blue-900/10 scale-95 transition-transform duration-300" href="#">
+<span class="material-symbols-outlined fill" data-icon="temple_hindu" data-weight="fill">temple_hindu</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+</li>
+<!-- Inactive State: Translator -->
+<li>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-slate-100 transition-colors hover:backdrop-blur-2xl hover:bg-white/5" href="#">
+<span class="material-symbols-outlined" data-icon="translate">translate</span>
+<span class="font-label-md text-label-md">Translator</span>
+</a>
+</li>
+<!-- Inactive State: Challenges -->
+<li>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-slate-100 transition-colors hover:backdrop-blur-2xl hover:bg-white/5" href="#">
+<span class="material-symbols-outlined" data-icon="swords">swords</span>
+<span class="font-label-md text-label-md">Challenges</span>
+</a>
+</li>
+<!-- Inactive State: Games -->
+<li>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-slate-100 transition-colors hover:backdrop-blur-2xl hover:bg-white/5" href="#">
+<span class="material-symbols-outlined" data-icon="architecture">architecture</span>
+<span class="font-label-md text-label-md">Games</span>
+</a>
+</li>
+<!-- Inactive State: Profile -->
+<li class="mt-auto">
+<a class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-slate-100 transition-colors hover:backdrop-blur-2xl hover:bg-white/5" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area (Canvas) -->
+<main class="ml-64 flex-1 h-screen overflow-y-auto relative">
+<!-- TopAppBar (Shared Component Hybrid - adapted for desktop main area) -->
+<header class="flex justify-between items-center w-full px-8 py-6 sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-surface-variant/30">
+<div class="flex-1"></div> <!-- Spacer since logo is in sidebar -->
+<!-- Search & Actions -->
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">search</span>
+<input class="bg-surface-container-high border-0 border-b border-surface-variant focus:border-primary focus:ring-0 text-on-surface pl-10 pr-4 py-2 w-64 font-body-md text-body-md transition-all duration-300 focus:w-80 outline-none" placeholder="Search architecture..." type="text"/>
+</div>
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<div class="p-12 max-w-7xl mx-auto">
+<!-- Hero / Title Section -->
+<div class="mb-16 mt-8">
+<h2 class="font-display-xl text-display-xl text-on-surface mb-4">Discover the Lexicon</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Explore the structural permanence and fluid expression of classical and modern architectural syntax.</p>
+</div>
+<!-- Bento Grid Content -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Large Featured Card -->
+<article class="col-span-12 md:col-span-8 bg-surface-container/85 backdrop-blur-2xl border border-white/10 p-8 min-h-[400px] relative overflow-hidden group hover:bg-surface-container-high/90 transition-all duration-500">
+<div class="absolute inset-0 z-0">
+<img alt="Abstract architectural ceiling with geometric skylights in cinematic monochrome lighting" class="w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-700 mix-blend-overlay" data-alt="Abstract architectural ceiling with geometric skylights in cinematic monochrome lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvNYfsOKRLrOCQNAKVaY2CXkV5upz7yu-S_Beua6E6wZ11tn-Q40H7etY6655qaGAwmhWl-pLDkeAFSdDFBuqprBHOJ9SLCWaq2yUaBibvHcGsrUdgX9119HAPYntRwBzMU82rlRw3Bsu-9DhVgs95xlWbfcCFDcHOXg3x3zrKdNitiNdBm4EZkDTRBn8u1AbKMIjhIWR0pIfvwcHbdIpvUqqbYeC8wtW3et8aS-1otuNy7UjrHibYDiSPqdFMdvNBQ1u2JHKELtw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-surface-container/80 to-transparent"></div>
+</div>
+<div class="relative z-10 flex flex-col h-full justify-end">
+<div class="inline-flex items-center gap-2 mb-4">
+<span class="w-8 h-[1px] bg-primary"></span>
+<span class="font-label-sm text-label-sm uppercase text-primary tracking-widest">Featured Term</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-3">Chiaroscuro</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">The treatment of light and shade in drawing and painting, adopted into architectural theory to describe the dramatic contrast between solid mass and void space.</p>
+<div class="mt-8">
+<button class="bg-gradient-to-r from-primary-container to-inverse-primary text-on-primary-container font-label-md text-label-md uppercase px-8 py-3 border-t border-white/20 hover:opacity-90 transition-opacity">
+                                Explore Concept
+                            </button>
+</div>
+</div>
+</article>
+<!-- Daily Challenge Card -->
+<aside class="col-span-12 md:col-span-4 bg-surface-container/85 backdrop-blur-2xl border border-white/10 p-8 flex flex-col group hover:bg-surface-container-high/90 transition-all duration-500">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-widest">Daily Challenge</span>
+<span class="material-symbols-outlined text-primary" data-icon="swords">swords</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-4">Identify the Arch</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 flex-1">Analyze the keystone structure of three distinct Roman aqueducts and identify the compression forces.</p>
+<button class="w-full border border-white/10 bg-transparent text-on-surface font-label-md text-label-md uppercase py-3 hover:bg-white/5 transition-colors">
+                        Begin Trial
+                    </button>
+</aside>
+<!-- Small Info Cards -->
+<div class="col-span-12 md:col-span-4 bg-surface-container/85 backdrop-blur-2xl border border-white/10 p-6 flex items-start gap-4 hover:border-primary/30 transition-colors">
+<div class="w-12 h-12 bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface" data-icon="history_edu">history_edu</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Recent Etymologies</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Review your last 5 translated structural terms.</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface-container/85 backdrop-blur-2xl border border-white/10 p-6 flex items-start gap-4 hover:border-primary/30 transition-colors">
+<div class="w-12 h-12 bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface" data-icon="bookmark_manager">bookmark_manager</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Saved Blueprints</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Access your annotated collection of gothic facades.</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface-container/85 backdrop-blur-2xl border border-white/10 p-6 flex items-start gap-4 hover:border-primary/30 transition-colors">
+<div class="w-12 h-12 bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface" data-icon="analytics">analytics</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Lexicon Mastery</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">You have mastered 42% of the classical vocabulary.</p>
+</div>
+</div>
+</div>
+<!-- Spacer to ensure scrolling capability is visible -->
+<div class="h-32"></div>
+</div>
+</main>
+</body></html>

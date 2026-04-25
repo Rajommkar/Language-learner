@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings &amp; Community - Architect Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#e2e2e5",
+                    "inverse-primary": "#1d59c1",
+                    "on-error": "#690005",
+                    "inverse-surface": "#e2e2e5",
+                    "on-surface-variant": "#c3c6d5",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "on-secondary-container": "#bcb8af",
+                    "on-primary-fixed-variant": "#00419c",
+                    "surface-bright": "#37393b",
+                    "tertiary-fixed": "#e3e2e3",
+                    "primary": "#b0c6ff",
+                    "on-primary": "#002c6f",
+                    "on-secondary-fixed": "#1d1c16",
+                    "outline-variant": "#434653",
+                    "surface": "#121416",
+                    "on-secondary-fixed-variant": "#494740",
+                    "surface-dim": "#121416",
+                    "primary-container": "#0f52ba",
+                    "on-tertiary": "#303032",
+                    "surface-tint": "#b0c6ff",
+                    "primary-fixed": "#d9e2ff",
+                    "inverse-on-surface": "#2f3133",
+                    "tertiary-container": "#585859",
+                    "surface-variant": "#333537",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#cac6bd",
+                    "on-tertiary-container": "#cfcecf",
+                    "secondary-fixed": "#e7e2d8",
+                    "outline": "#8d909e",
+                    "surface-container-high": "#282a2c",
+                    "surface-container-highest": "#333537",
+                    "on-tertiary-fixed": "#1b1c1d",
+                    "on-primary-fixed": "#001945",
+                    "tertiary-fixed-dim": "#c7c6c7",
+                    "surface-container-low": "#1a1c1e",
+                    "secondary-container": "#4b4942",
+                    "on-tertiary-fixed-variant": "#464748",
+                    "on-surface": "#e2e2e5",
+                    "on-secondary": "#32302a",
+                    "background": "#121416",
+                    "on-primary-container": "#bcceff",
+                    "tertiary": "#c7c6c7",
+                    "surface-container-lowest": "#0c0e10",
+                    "surface-container": "#1e2022",
+                    "error-container": "#93000a",
+                    "secondary-fixed-dim": "#cac6bd",
+                    "error": "#ffb4ab"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1440px",
+                    "margin": "64px",
+                    "gutter": "24px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "title-lg": [
+                            "Newsreader"
+                    ],
+                    "headline-lg": [
+                            "Newsreader"
+                    ],
+                    "display-xl": [
+                            "Newsreader"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Newsreader"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "title-lg": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-xl": [
+                            "64px",
+                            {
+                                    "lineHeight": "72px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "300"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(18, 20, 22, 0.85); /* Frosted Obsidian base */
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Parchment White 10% */
+        }
+        
+        /* Neumorphic depth utility class based on prompt */
+        .neumorphic-depth {
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.4), 
+                -8px -8px 16px rgba(255, 255, 255, 0.02);
+        }
+
+        .cinematic-bg {
+            background-image: radial-gradient(circle at 50% 50%, rgba(15, 82, 186, 0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 30%);
+        }
+        
+        /* Override specifically to force Inter everywhere as per prompt "Exclusively use the Inter font family" */
+        * {
+            font-family: 'Inter', sans-serif !important;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen cinematic-bg flex">
+<!-- SideNavBar (Semantic Shell) -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full flex-col py-6 w-64 border-r border-white/10 bg-slate-950/85 backdrop-blur-3xl z-40 transition-all duration-300 ease-in-out">
+<div class="px-8 mb-12">
+<h1 class="text-xl font-bold text-slate-50 tracking-tighter">Aetheris</h1>
+</div>
+<div class="px-8 mb-8 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-white/10">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Black and white portrait of a man looking focused against a dark background, high contrast lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW7cZ7LYh51Yy8ow7artZSnvkPFhwFbwg8R3GGX2iAvqUhdpQBfbeXSlf42BzisLD3xOv5gd-22RlRRs1rnqg8dOHyLFZ0mOppFE8arQ2GIxoeg_xkZ6yX9LErgTUMotYx0Vk5BgDKtpglJ8TXSsRoo5ED0CpFBZ3m2mkkRRzdB5JOi22t0ey-EtHi3UKnZSqXv5zzcqWGDZYfWL2ln3EZ5OdN7WjX2CI_tkWpl-I3CuuFd1oaWTV2oR8LdWhoDCN4Ieeh29lfGCE"/>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-slate-50 uppercase">Architect Workspace</p>
+<p class="font-label-sm text-label-sm text-slate-400">Premium Tier</p>
+</div>
+</div>
+<ul class="flex-1 space-y-2">
+<!-- Active state logic applied to Settings -->
+<li>
+<a class="flex items-center gap-4 py-3 text-slate-400 pl-4 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 py-3 text-slate-400 pl-4 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Community</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 py-3 text-blue-500 border-l-2 border-blue-500 pl-4 bg-blue-500/5 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 py-3 text-slate-400 pl-4 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 py-3 text-slate-400 pl-4 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-label-md text-label-md">Archives</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto px-4 space-y-2">
+<a class="flex items-center gap-4 py-3 text-slate-400 pl-4 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-slate-400 pl-4 hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-64 p-gutter max-w-container-max mx-auto w-full">
+<!-- Header area for main content context -->
+<header class="mb-12 border-b border-outline-variant pb-6 flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-2">Preferences</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Configure your environment and network.</p>
+</div>
+</header>
+<!-- Two-Column Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Left Column: Settings -->
+<section class="glass-panel neumorphic-depth p-8 flex flex-col gap-8 rounded-none">
+<div class="border-b border-outline-variant pb-4">
+<h3 class="font-title-lg text-title-lg text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="tune">tune</span>
+                        System Configuration
+                    </h3>
+</div>
+<!-- Toggles list -->
+<div class="space-y-6">
+<!-- Toggle 1: Audio (Active) -->
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-lg text-body-lg text-on-background">Interface Audio</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Enable haptic and auditory feedback.</p>
+</div>
+<button aria-pressed="true" class="relative w-12 h-6 bg-primary-container flex items-center px-1 border border-primary-container">
+<span class="sr-only">Toggle Interface Audio</span>
+<!-- Sharp edged toggle thumb -->
+<div class="w-4 h-4 bg-on-background transform translate-x-6 transition-transform duration-200"></div>
+</button>
+</div>
+<!-- Toggle 2: Notifications (Active) -->
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-lg text-body-lg text-on-background">Push Notifications</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Receive alerts for structural updates.</p>
+</div>
+<button aria-pressed="true" class="relative w-12 h-6 bg-primary-container flex items-center px-1 border border-primary-container">
+<span class="sr-only">Toggle Push Notifications</span>
+<div class="w-4 h-4 bg-on-background transform translate-x-6 transition-transform duration-200"></div>
+</button>
+</div>
+<!-- Toggle 3: Dark Mode (Inactive/Disabled state for demo purposes, though it's a dark theme) -->
+<div class="flex items-center justify-between opacity-50">
+<div>
+<p class="font-body-lg text-body-lg text-on-background">High Contrast Mode</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Increase visual delineation.</p>
+</div>
+<button aria-pressed="false" class="relative w-12 h-6 bg-surface-variant flex items-center px-1 border border-outline-variant" disabled="">
+<span class="sr-only">Toggle High Contrast Mode</span>
+<div class="w-4 h-4 bg-outline transition-transform duration-200"></div>
+</button>
+</div>
+<!-- Toggle 4: Telemetry -->
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-lg text-body-lg text-on-background">Anonymous Telemetry</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Share usage data to improve architecture.</p>
+</div>
+<button aria-pressed="false" class="relative w-12 h-6 bg-surface-variant flex items-center px-1 border border-outline-variant">
+<span class="sr-only">Toggle Anonymous Telemetry</span>
+<div class="w-4 h-4 bg-outline transition-transform duration-200"></div>
+</button>
+</div>
+</div>
+</section>
+<!-- Right Column: Invite Friends -->
+<section class="glass-panel neumorphic-depth p-8 flex flex-col gap-8 rounded-none">
+<div class="border-b border-outline-variant pb-4">
+<h3 class="font-title-lg text-title-lg text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="share">share</span>
+                        Network Expansion
+                    </h3>
+</div>
+<div class="flex flex-col items-center gap-6">
+<p class="font-body-md text-body-md text-on-surface-variant text-center max-w-sm">
+                        Grant access to colleagues. Generate a secure portal key via QR or direct link.
+                    </p>
+<!-- Stylized QR Code Placeholder (Using an image for a premium look, acting as QR) -->
+<div class="w-48 h-48 bg-surface border border-outline-variant p-4 flex items-center justify-center relative group overflow-hidden">
+<!-- Abstract grid representing QR -->
+<div class="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-1 p-2 opacity-80">
+<!-- Random blocks to simulate QR data -->
+<div class="bg-on-background col-span-2 row-span-2"></div>
+<div class="bg-primary col-start-4 row-start-1"></div>
+<div class="bg-on-background col-start-6 row-start-2"></div>
+<div class="bg-outline-variant col-span-3 row-start-4"></div>
+<div class="bg-on-background col-start-5 row-start-5 row-span-2"></div>
+<div class="bg-primary-container col-start-2 row-start-6"></div>
+<div class="bg-on-background col-start-1 row-start-3"></div>
+<div class="bg-outline col-start-3 row-start-2"></div>
+<!-- Inner glow effect on hover -->
+<div class="absolute inset-0 bg-primary-container/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</div>
+</div>
+<!-- Input and Button -->
+<div class="w-full space-y-4 mt-4">
+<label class="sr-only" for="referral-link">Referral Link</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="link">link</span>
+</span>
+<!-- completely sharp edges, darker obsidian bg, 1px sapphire blue bottom border on focus (simulated via group-focus-within or peer) -->
+<input class="w-full bg-surface-container-lowest text-on-background font-body-md text-body-md py-3 pl-10 pr-4 border-0 border-b border-outline-variant focus:ring-0 focus:border-primary-container transition-colors rounded-none outline-none" id="referral-link" readonly="" type="text" value="https://aetheris.app/inv/x79kq2"/>
+</div>
+<!-- Ghost style secondary button with 1px border -->
+<button class="w-full py-3 px-6 bg-transparent border border-white/10 hover:bg-white/5 transition-all duration-300 font-label-md text-label-md text-on-background uppercase tracking-widest flex items-center justify-center gap-2 rounded-none">
+<span class="material-symbols-outlined text-sm" data-icon="content_copy">content_copy</span>
+                            Copy Link
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

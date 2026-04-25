@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Odyssey - Active Learning</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#b0c6ff",
+                    "primary": "#b0c6ff",
+                    "on-primary": "#002c6f",
+                    "on-surface": "#e2e2e5",
+                    "secondary-fixed": "#e7e2d8",
+                    "on-tertiary-fixed-variant": "#464748",
+                    "surface-bright": "#37393b",
+                    "inverse-primary": "#1d59c1",
+                    "surface-container-low": "#1a1c1e",
+                    "on-surface-variant": "#c3c6d5",
+                    "on-tertiary": "#303032",
+                    "on-secondary-fixed-variant": "#494740",
+                    "surface-container-lowest": "#0c0e10",
+                    "surface-variant": "#333537",
+                    "surface-container-highest": "#333537",
+                    "on-primary-fixed-variant": "#00419c",
+                    "surface-container-high": "#282a2c",
+                    "primary-container": "#0f52ba",
+                    "secondary-container": "#4b4942",
+                    "background": "#121416",
+                    "tertiary": "#c7c6c7",
+                    "primary-fixed-dim": "#b0c6ff",
+                    "error-container": "#93000a",
+                    "outline-variant": "#434653",
+                    "on-secondary": "#32302a",
+                    "surface-dim": "#121416",
+                    "secondary": "#cac6bd",
+                    "on-tertiary-container": "#cfcecf",
+                    "primary-fixed": "#d9e2ff",
+                    "on-secondary-container": "#bcb8af",
+                    "on-tertiary-fixed": "#1b1c1d",
+                    "on-primary-fixed": "#001945",
+                    "surface": "#121416",
+                    "tertiary-fixed-dim": "#c7c6c7",
+                    "on-error": "#690005",
+                    "inverse-on-surface": "#2f3133",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-container": "#bcceff",
+                    "surface-container": "#1e2022",
+                    "on-background": "#e2e2e5",
+                    "on-secondary-fixed": "#1d1c16",
+                    "outline": "#8d909e",
+                    "inverse-surface": "#e2e2e5",
+                    "tertiary-fixed": "#e3e2e3",
+                    "error": "#ffb4ab",
+                    "tertiary-container": "#585859",
+                    "secondary-fixed-dim": "#cac6bd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "margin": "64px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Newsreader", "serif"],
+                    "headline-lg": ["Newsreader", "serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "display-xl": ["Newsreader", "serif"],
+                    "label-sm": ["Inter", "sans-serif"],
+                    "headline-md": ["Newsreader", "serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "title-lg": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-xl": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "300"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-image: radial-gradient(circle at 50% 0%, #1a233a 0%, #121416 70%);
+            background-attachment: fixed;
+        }
+        .glass-panel {
+            background: rgba(18, 20, 22, 0.85);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .waveform-bar {
+            width: 4px;
+            background-color: #b0c6ff;
+            border-radius: 2px;
+            display: inline-block;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Area (Suppressed Main Nav, keeping minimalist header for context) -->
+<header class="w-full px-gutter py-6 flex justify-between items-center z-50 sticky top-0">
+<button aria-label="Close Quiz" class="text-on-surface-variant hover:text-on-surface transition-colors p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+<div class="flex-1 max-w-md mx-6 flex items-center gap-4">
+<!-- Progress Bar -->
+<div class="h-2 w-full bg-surface-container-highest rounded-none overflow-hidden relative border border-outline-variant/30">
+<div class="absolute top-0 left-0 h-full w-2/3 bg-gradient-to-r from-inverse-primary to-primary-container">
+<div class="absolute top-0 right-0 w-8 h-full bg-white/20"></div>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">8 / 12</span>
+</div>
+<div class="flex items-center gap-2 text-error px-4 py-2 glass-panel rounded-full">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-md text-label-md font-bold">4</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center p-gutter w-full max-w-[800px] mx-auto pb-24">
+<!-- Context / Instructions -->
+<div class="mb-12 text-center w-full">
+<h1 class="font-headline-md text-headline-md text-on-surface mb-2">Listen and Respond</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Translate the spoken phrase into English.</p>
+</div>
+<!-- Central Interactive Glass Card -->
+<div class="glass-panel w-full rounded-DEFAULT p-8 md:p-12 mb-12 flex flex-col items-center justify-center min-h-[300px] relative overflow-hidden group">
+<!-- Abstract background element within card -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(ellipse_at_center,rgba(15,82,186,0.05)_0%,transparent_70%)] pointer-events-none"></div>
+<!-- Speaker / Audio Source Indicator -->
+<div class="flex items-center justify-center mb-8 gap-4 w-full">
+<div class="h-16 flex items-center justify-center opacity-80">
+<div class="waveform-bar h-4"></div>
+<div class="waveform-bar h-8"></div>
+<div class="waveform-bar h-12"></div>
+<div class="waveform-bar h-6"></div>
+<div class="waveform-bar h-10"></div>
+<div class="waveform-bar h-16"></div>
+<div class="waveform-bar h-8"></div>
+<div class="waveform-bar h-4"></div>
+</div>
+</div>
+<!-- Primary Action Button (Play/Mic) -->
+<button aria-label="Play Audio" class="w-24 h-24 rounded-full bg-gradient-to-br from-primary-container to-inverse-primary flex items-center justify-center shadow-[0_0_40px_rgba(15,82,186,0.3)] hover:shadow-[0_0_60px_rgba(15,82,186,0.5)] transition-all duration-300 relative border-t border-white/20 group/btn focus:outline-none focus:ring-4 focus:ring-primary/30">
+<!-- Pulse rings -->
+<div class="absolute inset-0 rounded-full border border-primary/50 scale-[1.15] opacity-50"></div>
+<div class="absolute inset-0 rounded-full border border-primary/20 scale-[1.3] opacity-20"></div>
+<span class="material-symbols-outlined text-[40px] text-on-primary-container" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+<span class="mt-6 font-label-sm text-label-sm text-primary uppercase tracking-widest opacity-80">Hold to Speak</span>
+</div>
+<!-- Options Grid -->
+<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high border border-outline-variant rounded-DEFAULT p-6 transition-all duration-200 focus:outline-none focus:border-primary focus:bg-surface-container flex items-center justify-between group">
+<span class="font-body-lg text-body-lg text-on-surface">The architect presented the blueprints.</span>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high border border-outline-variant rounded-DEFAULT p-6 transition-all duration-200 focus:outline-none focus:border-primary focus:bg-surface-container flex items-center justify-between group">
+<span class="font-body-lg text-body-lg text-on-surface">The building was completed on schedule.</span>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high border border-outline-variant rounded-DEFAULT p-6 transition-all duration-200 focus:outline-none focus:border-primary focus:bg-surface-container flex items-center justify-between group">
+<span class="font-body-lg text-body-lg text-on-surface">We must review the structural integrity.</span>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high border border-outline-variant rounded-DEFAULT p-6 transition-all duration-200 focus:outline-none focus:border-primary focus:bg-surface-container flex items-center justify-between group">
+<span class="font-body-lg text-body-lg text-on-surface">The gallery opens tomorrow evening.</span>
+<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+</div>
+</main>
+<!-- Bottom Action Bar (Contextual) -->
+<div class="fixed bottom-0 w-full p-6 glass-panel border-t border-white/5 flex justify-between items-center">
+<button class="px-6 py-3 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest hover:text-on-surface transition-colors focus:outline-none">
+            Skip
+        </button>
+<button class="px-8 py-3 bg-surface-container-high border border-outline-variant rounded-none font-label-md text-label-md text-on-surface uppercase tracking-widest opacity-50 cursor-not-allowed">
+            Check
+        </button>
+</div>
+</body></html>
