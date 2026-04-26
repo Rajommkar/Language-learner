@@ -13,6 +13,9 @@ app.get("/", (req, res) => {
   res.send("Server is running 🚀");
 });
 
+const authRoutes = require("./routes/auth");
+app.use("/api", authRoutes);
+
 const mongoose = require("mongoose");
 
 // Port
