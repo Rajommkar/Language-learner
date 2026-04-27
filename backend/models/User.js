@@ -14,6 +14,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  // Gamification
   xp: {
     type: Number,
     default: 0,
@@ -26,6 +28,26 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 1,
   },
+
+  // Learning Progress
+  progress: {
+    type: Number,
+    default: 0,
+  },
+
+  // Completed lessons
+  completedLessons: [
+    {
+      type: String,
+    },
+  ],
+
+  // Last active date (for streak)
+  lastActive: {
+    type: Date,
+    default: Date.now,
+  },
+
 }, { timestamps: true });
 
 module.exports = mongoose.model("User", userSchema);
