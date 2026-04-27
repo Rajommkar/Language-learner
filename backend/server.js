@@ -20,16 +20,14 @@ const translateRoutes = require("./routes/translate");
 app.use("/api", translateRoutes);
 
 const mongoose = require("mongoose");
-
-// Port
 const PORT = 5000;
 
-// Connect to MongoDB
+// Connect to MongoDB, then start server
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected ✅"))
-  .catch((err) => console.log(err));
-
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+  .then(() => {
+    console.log("MongoDB connected ✅");
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  })
+  .catch(err => console.log(err));
