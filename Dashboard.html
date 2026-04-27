@@ -263,8 +263,10 @@
 <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full border-2 border-surface-container-highest"></div>
 </div>
 <div>
-<h3 class="font-title-lg text-title-lg text-on-surface leading-tight">E. Vance</h3>
-<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Level 4 Architect</p>
+<h3 id="username" class="font-title-lg text-title-lg text-on-surface leading-tight">User</h3>
+<p id="level" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Level: 1</p>
+<p id="xp" class="font-label-sm text-label-sm text-on-surface-variant mt-1">XP: 0</p>
+<p id="streak" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Streak: 0</p>
 </div>
 </div>
 <div class="space-y-4">
@@ -323,4 +325,39 @@
 </aside>
 </div>
 </main>
+<script>
+  async function getUserData() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Please login first");
+      window.location.href = "login.html";
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/user", {
+        method: "GET",
+        headers: {
+          "Authorization": token
+        }
+      });
+
+      const user = await res.json();
+
+      // update UI
+      document.getElementById("username").innerText = user.name;
+      document.getElementById("xp").innerText = "XP: " + user.xp;
+      document.getElementById("level").innerText = "Level: " + user.level;
+      document.getElementById("streak").innerText = "Streak: " + user.streak;
+
+    } catch (err) {
+      console.error(err);
+      alert("Error loading user data");
+    }
+  }
+
+  // run on page load
+  getUserData();
+</script>
 </body></html>
