@@ -11,8 +11,8 @@ router.post("/translate", async (req, res) => {
       return res.status(400).json({ message: "Text is required" });
     }
 
-    // call LibreTranslate API
-    const response = await axios.post("https://libretranslate.de/translate", {
+    // call Translation API (URL from .env for easy swapping)
+    const response = await axios.post(process.env.TRANSLATE_API_URL, {
       q: text,
       source: "auto",
       target: "en",
