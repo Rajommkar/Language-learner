@@ -188,13 +188,14 @@
                     </div> -->
 </div>
 <!-- Text Area -->
-<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-lg text-body-lg text-on-surface placeholder:text-outline p-0 h-48 md:h-64" placeholder="Enter text..."></textarea>
+<textarea id="inputText" class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-lg text-body-lg text-on-surface placeholder:text-outline p-0 h-48 md:h-64" placeholder="Enter text..."></textarea>
 <!-- Action row -->
 <div class="flex justify-between items-center mt-auto border-t border-outline-variant/30 pt-4">
 <div class="flex gap-4 text-outline">
 <button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">mic</span></button>
 <button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
 </div>
+<button onclick="translateText()" class="bg-primary text-on-primary px-6 py-2 text-sm uppercase tracking-widest font-semibold hover:opacity-90 transition-opacity">Translate</button>
 <span class="font-label-sm text-label-sm text-outline">0 / 5000</span>
 </div>
 </div>
@@ -215,7 +216,7 @@
 </div>
 <!-- Output Area -->
 <div class="w-full h-48 md:h-64 font-body-lg text-body-lg text-on-surface overflow-y-auto">
-<p class="opacity-0 transition-opacity duration-300">Translation will appear here...</p>
+<p id="outputText" class="transition-opacity duration-300">Translation will appear here...</p>
 </div>
 <!-- Action row -->
 <div class="flex justify-between items-center mt-auto border-t border-outline-variant/30 pt-4">
@@ -232,4 +233,33 @@
 </div>
 </div>
 </main>
+<script>
+  async function translateText() {
+    const text = document.getElementById("inputText").value;
+
+    if (!text) {
+      alert("Please enter text");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/translate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text })
+      });
+
+      const data = await res.json();
+
+      document.getElementById("outputText").innerText =
+        "Translated: " + data.translated;
+
+    } catch (err) {
+      console.error(err);
+      alert("Translation failed");
+    }
+  }
+</script>
 </body></html>
