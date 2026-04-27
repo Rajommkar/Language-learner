@@ -161,7 +161,7 @@
 <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-transparent via-primary to-transparent group-focus-within:w-full transition-all duration-500 ease-out opacity-0 group-focus-within:opacity-100"></div>
 </div>
 <!-- Action Button -->
-<button class="bevel-button mt-8 w-full bg-gradient-to-r from-primary-container to-inverse-primary text-on-primary font-label-md text-label-md uppercase tracking-widest py-4 px-6 hover:brightness-110 active:brightness-90 transition-all duration-300 flex items-center justify-between group" type="submit">
+<button class="bevel-button mt-8 w-full bg-gradient-to-r from-primary-container to-inverse-primary text-on-primary font-label-md text-label-md uppercase tracking-widest py-4 px-6 hover:brightness-110 active:brightness-90 transition-all duration-300 flex items-center justify-between group" type="button" onclick="loginUser()">
 <span>Join the Odyssey</span>
 <span class="material-symbols-outlined transform group-hover:translate-x-1 transition-transform duration-300 text-on-primary" data-icon="arrow_forward">arrow_forward</span>
 </button>
@@ -173,4 +173,38 @@
 </div>
 </div>
 </div>
+<script>
+  async function loginUser() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // store token
+        localStorage.setItem("token", data.token);
+
+        alert("Login successful ✅");
+
+        // redirect to dashboard
+        window.location.href = "Dashboard.html";
+      } else {
+        alert(data.message);
+      }
+
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
+    }
+  }
+</script>
 </body></html>
