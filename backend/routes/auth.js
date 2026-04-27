@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const auth = require("../middleware/auth");
 
 // REGISTER API
 router.post("/register", async (req, res) => {
@@ -64,6 +65,19 @@ router.post("/login", async (req, res) => {
       token,
     });
 
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server error");
+  }
+});
+
+// GET USER DATA (Protected)
+router.get("/user", auth, async (req, res) => {
+  try {
+    // req.user.id comes from JWT
+    const user = await User.findById(req.user.id).select("-password");
+
+    res.json(user);
   } catch (err) {
     console.log(err);
     res.status(500).send("Server error");
