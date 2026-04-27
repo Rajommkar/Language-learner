@@ -16,6 +16,9 @@ app.get("/", (req, res) => {
 const authRoutes = require("./routes/auth");
 app.use("/api", authRoutes);
 
+const translateRoutes = require("./routes/translate");
+app.use("/api", translateRoutes);
+
 const mongoose = require("mongoose");
 
 // Port
