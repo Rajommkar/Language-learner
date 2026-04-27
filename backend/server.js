@@ -8,6 +8,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Rate limiting (max 100 requests per 15 min per IP)
+const rateLimit = require("express-rate-limit");
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { message: "Too many requests, please try again later" }
+});
+app.use(limiter);
+
 // Test route
 app.get("/", (req, res) => {
   res.send("Server is running 🚀");
