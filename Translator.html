@@ -234,13 +234,32 @@
 </div>
 </main>
 <script>
+  let debounceTimer = null;
+  const translateBtn = document.querySelector('[onclick="translateText()"]');
+
+  // Debounce utility - prevents rapid API calls
+  function debounce(fn, delay) {
+    return function (...args) {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => fn(...args), delay);
+    };
+  }
+
   async function translateText() {
-    const text = document.getElementById("inputText").value;
+    const text = document.getElementById("inputText").value.trim();
+    const output = document.getElementById("outputText");
 
     if (!text) {
-      alert("Please enter text");
+      output.innerText = "Please enter text to translate";
       return;
     }
+
+    // Loading state
+    translateBtn.disabled = true;
+    translateBtn.style.opacity = "0.5";
+    translateBtn.innerText = "TRANSLATING...";
+    output.innerText = "Translating...";
+    output.style.opacity = "0.5";
 
     try {
       const res = await fetch("http://localhost:5000/api/translate", {
@@ -253,13 +272,34 @@
 
       const data = await res.json();
 
-      document.getElementById("outputText").innerText =
-        "Translated: " + data.translated;
+      if (res.ok) {
+        output.innerText = data.translated;
+        output.style.opacity = "1";
+      } else {
+        output.innerText = "Error: " + (data.message || "Translation failed");
+        output.style.opacity = "1";
+      }
 
     } catch (err) {
       console.error(err);
-      alert("Translation failed");
+      output.innerText = "Network error — is the server running?";
+      output.style.opacity = "1";
+    } finally {
+      // Reset button
+      translateBtn.disabled = false;
+      translateBtn.style.opacity = "1";
+      translateBtn.innerText = "TRANSLATE";
     }
   }
+
+  // Auto-translate with debounce (500ms delay after typing stops)
+  document.getElementById("inputText").addEventListener("input",
+    debounce(() => {
+      const text = document.getElementById("inputText").value.trim();
+      if (text.length > 2) {
+        translateText();
+      }
+    }, 500)
+  );
 </script>
 </body></html>
