@@ -113,4 +113,109 @@ const getHistory = async (req, res) => {
   }
 };
 
-module.exports = { translate, getHistory };
+// IMPROVE SENTENCE (AI Tutor)
+const improve = async (req, res) => {
+  try {
+    const { text } = req.body;
+
+    if (!text) {
+      return res.status(400).json({ message: "Text is required" });
+    }
+
+    // Translate to English first to get proper form
+    const response = await axios.post(process.env.TRANSLATE_API_URL, {
+      q: text,
+      source: "auto",
+      target: "en",
+      format: "text"
+    });
+
+    const translated = response.data.translatedText;
+
+    // Build improvement suggestions
+    const suggestions = {
+      original: text,
+      improved: translated,
+      tips: []
+    };
+
+    // Basic analysis
+    if (text.length < 5) {
+      suggestions.tips.push("Try writing longer sentences for better practice");
+    }
+    if (text === text.toLowerCase()) {
+      suggestions.tips.push("Remember to capitalize the first letter of sentences");
+    }
+    if (!text.match(/[.!?]$/)) {
+      suggestions.tips.push("Add punctuation at the end of your sentence");
+    }
+    if (text.split(" ").length < 3) {
+      suggestions.tips.push("Try forming complete sentences with subject + verb + object");
+    }
+
+    res.json(suggestions);
+
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: "Improvement analysis failed" });
+  }
+};
+
+// EXPLAIN MEANING (AI Tutor)
+const explain = async (req, res) => {
+  try {
+    const { text } = req.body;
+
+    if (!text) {
+      return res.status(400).json({ message: "Text is required" });
+    }
+
+    // Translate word/phrase
+    const response = await axios.post(process.env.TRANSLATE_API_URL, {
+      q: text,
+      source: "auto",
+      target: "en",
+      format: "text"
+    });
+
+    const translated = response.data.translatedText;
+
+    // Build explanation
+    const words = text.trim().split(" ");
+    const wordBreakdown = [];
+
+    // Translate each word individually for breakdown
+    for (const word of words.slice(0, 10)) { // limit to 10 words
+      try {
+        const wordRes = await axios.post(process.env.TRANSLATE_API_URL, {
+          q: word,
+          source: "auto",
+          target: "en",
+          format: "text"
+        });
+        wordBreakdown.push({
+          original: word,
+          meaning: wordRes.data.translatedText
+        });
+      } catch {
+        wordBreakdown.push({
+          original: word,
+          meaning: "—"
+        });
+      }
+    }
+
+    res.json({
+      original: text,
+      fullMeaning: translated,
+      wordCount: words.length,
+      wordBreakdown: wordBreakdown
+    });
+
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: "Explanation failed" });
+  }
+};
+
+module.exports = { translate, getHistory, improve, explain };
