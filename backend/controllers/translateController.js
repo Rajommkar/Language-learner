@@ -1,7 +1,12 @@
 const axios = require("axios");
 const Translation = require("../models/Translation");
 
-// TRANSLATE (and save to DB)
+// In-memory cache (key: text, value: { translated, timestamp })
+const cache = new Map();
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+const CACHE_MAX_SIZE = 500;
+
+// TRANSLATE (with caching + save to DB)
 const translate = async (req, res) => {
   try {
     const { text } = req.body;
@@ -10,7 +15,45 @@ const translate = async (req, res) => {
       return res.status(400).json({ message: "Text is required" });
     }
 
-    // call Translation API (URL from .env for easy swapping)
+    const cacheKey = text.trim().toLowerCase();
+
+    // 1. Check in-memory cache first (fastest)
+    if (cache.has(cacheKey)) {
+      const cached = cache.get(cacheKey);
+      if (Date.now() - cached.timestamp < CACHE_TTL) {
+        return res.json({
+          original: text,
+          translated: cached.translated,
+          source: "cache"
+        });
+      }
+      cache.delete(cacheKey); // expired
+    }
+
+    // 2. Check DB cache (if same text was translated before)
+    const existing = await Translation.findOne({
+      originalText: { $regex: new RegExp(`^${cacheKey}$`, "i") }
+    });
+
+    if (existing) {
+      // store in memory cache for next time
+      if (cache.size >= CACHE_MAX_SIZE) {
+        const firstKey = cache.keys().next().value;
+        cache.delete(firstKey);
+      }
+      cache.set(cacheKey, {
+        translated: existing.translatedText,
+        timestamp: Date.now()
+      });
+
+      return res.json({
+        original: text,
+        translated: existing.translatedText,
+        source: "database"
+      });
+    }
+
+    // 3. Call external API (last resort)
     const response = await axios.post(process.env.TRANSLATE_API_URL, {
       q: text,
       source: "auto",
@@ -20,7 +63,7 @@ const translate = async (req, res) => {
 
     const translatedText = response.data.translatedText;
 
-    // save translation to DB
+    // save to DB
     const translation = new Translation({
       userId: req.user ? req.user.id : null,
       originalText: text,
@@ -31,9 +74,20 @@ const translate = async (req, res) => {
 
     await translation.save();
 
+    // save to memory cache
+    if (cache.size >= CACHE_MAX_SIZE) {
+      const firstKey = cache.keys().next().value;
+      cache.delete(firstKey);
+    }
+    cache.set(cacheKey, {
+      translated: translatedText,
+      timestamp: Date.now()
+    });
+
     res.json({
       original: text,
-      translated: translatedText
+      translated: translatedText,
+      source: "api"
     });
 
   } catch (err) {
