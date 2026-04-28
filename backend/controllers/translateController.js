@@ -1,6 +1,7 @@
 const axios = require("axios");
+const Translation = require("../models/Translation");
 
-// TRANSLATE
+// TRANSLATE (and save to DB)
 const translate = async (req, res) => {
   try {
     const { text } = req.body;
@@ -17,9 +18,22 @@ const translate = async (req, res) => {
       format: "text"
     });
 
+    const translatedText = response.data.translatedText;
+
+    // save translation to DB
+    const translation = new Translation({
+      userId: req.user ? req.user.id : null,
+      originalText: text,
+      translatedText: translatedText,
+      sourceLanguage: "auto",
+      targetLanguage: "en",
+    });
+
+    await translation.save();
+
     res.json({
       original: text,
-      translated: response.data.translatedText
+      translated: translatedText
     });
 
   } catch (err) {
