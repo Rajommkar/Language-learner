@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 
 module.exports = function (req, res, next) {
   try {
-    // get token from header
     const authHeader = req.header("Authorization");
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -11,10 +10,8 @@ module.exports = function (req, res, next) {
 
     const token = authHeader.split(" ")[1];
 
-    // verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // attach user to request
     req.user = decoded;
 
     next();

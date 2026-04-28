@@ -9,7 +9,11 @@ const register = async (req, res) => {
 
     // input validation
     if (!name || !email || !password) {
-      return res.status(400).json({ message: "All fields required" });
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
     }
 
     // check if user exists
@@ -48,7 +52,7 @@ const login = async (req, res) => {
 
     // input validation
     if (!email || !password) {
-      return res.status(400).json({ message: "All fields required" });
+      return res.status(400).json({ message: "All fields are required" });
     }
 
     // check if user exists
