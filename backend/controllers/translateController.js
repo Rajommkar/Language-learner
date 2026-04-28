@@ -42,4 +42,21 @@ const translate = async (req, res) => {
   }
 };
 
-module.exports = { translate };
+// GET TRANSLATION HISTORY (Protected)
+const getHistory = async (req, res) => {
+  try {
+    const translations = await Translation.find({ userId: req.user.id })
+      .sort({ createdAt: -1 })
+      .limit(50);
+
+    res.json(translations);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({
+      message: "Server error",
+      error: err.message
+    });
+  }
+};
+
+module.exports = { translate, getHistory };
