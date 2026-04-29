@@ -28,6 +28,9 @@ app.use("/api", authRoutes);
 const translateRoutes = require("./routes/translate");
 app.use("/api", translateRoutes);
 
+const errorHandler = require("./middleware/errorHandler");
+app.use(errorHandler);
+
 const mongoose = require("mongoose");
 const PORT = 5000;
 
