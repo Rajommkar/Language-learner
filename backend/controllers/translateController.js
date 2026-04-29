@@ -1,21 +1,35 @@
-const axios = require("axios");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const Translation = require("../models/Translation");
 
-// In-memory cache (key: text, value: { translated, timestamp })
+// Initialize Gemini AI
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+// In-memory cache (key: text+target, value: { translated, timestamp })
 const cache = new Map();
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour
 const CACHE_MAX_SIZE = 500;
 
-// TRANSLATE (with caching + save to DB)
+// Helper: add to cache with eviction
+function addToCache(key, translated) {
+  if (cache.size >= CACHE_MAX_SIZE) {
+    const firstKey = cache.keys().next().value;
+    cache.delete(firstKey);
+  }
+  cache.set(key, { translated, timestamp: Date.now() });
+}
+
+// TRANSLATE (AI-powered with caching + save to DB)
 const translate = async (req, res) => {
   try {
-    const { text } = req.body;
+    const { text, targetLang } = req.body;
+    const target = targetLang || "en";
 
     if (!text) {
       return res.status(400).json({ message: "Text is required" });
     }
 
-    const cacheKey = text.trim().toLowerCase();
+    const cacheKey = `${text.trim().toLowerCase()}::${target}`;
 
     // 1. Check in-memory cache first (fastest)
     if (cache.has(cacheKey)) {
@@ -32,20 +46,12 @@ const translate = async (req, res) => {
 
     // 2. Check DB cache (if same text was translated before)
     const existing = await Translation.findOne({
-      originalText: { $regex: new RegExp(`^${cacheKey}$`, "i") }
+      originalText: { $regex: new RegExp(`^${text.trim()}$`, "i") },
+      targetLanguage: target
     });
 
     if (existing) {
-      // store in memory cache for next time
-      if (cache.size >= CACHE_MAX_SIZE) {
-        const firstKey = cache.keys().next().value;
-        cache.delete(firstKey);
-      }
-      cache.set(cacheKey, {
-        translated: existing.translatedText,
-        timestamp: Date.now()
-      });
-
+      addToCache(cacheKey, existing.translatedText);
       return res.json({
         original: text,
         translated: existing.translatedText,
@@ -53,53 +59,35 @@ const translate = async (req, res) => {
       });
     }
 
-    // 3. Call external API (last resort)
-    const response = await axios.post(
-      process.env.TRANSLATE_API_URL,
-      {
-        q: text,
-        source: "auto",
-        target: "en",
-        format: "text"
-      },
-      { timeout: 5000 }
-    );
+    // 3. Call Gemini AI (last resort)
+    const prompt = `Translate the following text to ${target}. Return ONLY the translated text, nothing else. No quotes, no explanation.\n\nText: "${text}"`;
 
-    const translatedText = response.data.translatedText;
+    const result = await model.generateContent(prompt);
+    const translatedText = result.response.text().trim();
 
-    // save to DB
+    // Save to DB
     const translation = new Translation({
       userId: req.user ? req.user.id : null,
       originalText: text,
       translatedText: translatedText,
       sourceLanguage: "auto",
-      targetLanguage: "en",
+      targetLanguage: target,
     });
 
     await translation.save();
 
-    // save to memory cache
-    if (cache.size >= CACHE_MAX_SIZE) {
-      const firstKey = cache.keys().next().value;
-      cache.delete(firstKey);
-    }
-    cache.set(cacheKey, {
-      translated: translatedText,
-      timestamp: Date.now()
-    });
+    // Save to memory cache
+    addToCache(cacheKey, translatedText);
 
     res.json({
       original: text,
       translated: translatedText,
-      source: "api"
+      source: "ai"
     });
 
   } catch (err) {
     console.log(err.message);
-    if (err.code === "ECONNABORTED") {
-      return res.status(504).json({ message: "Translation service timed out. Please try again." });
-    }
-    res.status(500).json({ message: "Translation failed" });
+    res.status(500).json({ message: "Translation failed. Please try again." });
   }
 };
 
@@ -120,7 +108,7 @@ const getHistory = async (req, res) => {
   }
 };
 
-// IMPROVE SENTENCE (AI Tutor)
+// IMPROVE SENTENCE (AI Tutor — Real AI Analysis)
 const improve = async (req, res) => {
   try {
     const { text } = req.body;
@@ -129,53 +117,50 @@ const improve = async (req, res) => {
       return res.status(400).json({ message: "Text is required" });
     }
 
-    // Translate to English first to get proper form
-    const response = await axios.post(
-      process.env.TRANSLATE_API_URL,
-      {
-        q: text,
-        source: "auto",
-        target: "en",
-        format: "text"
-      },
-      { timeout: 5000 }
-    );
+    const prompt = `You are an expert language tutor. Analyze the following sentence and return a JSON response (no markdown, no code fences, just raw JSON) with this exact structure:
+{
+  "original": "the original text",
+  "improved": "the grammatically correct and natural version in the same language",
+  "translated": "English translation of the improved version",
+  "tips": ["tip 1", "tip 2"],
+  "grammarScore": 85
+}
 
-    const translated = response.data.translatedText;
+Rules:
+- "improved" should fix grammar, spelling, and make it sound natural
+- "tips" should contain 2-4 specific, actionable writing tips
+- "grammarScore" should be 0-100 rating of the original text
+- If the text is already in English, still improve it and set "translated" to the improved version
 
-    // Build improvement suggestions
-    const suggestions = {
-      original: text,
-      improved: translated,
-      tips: []
-    };
+Sentence: "${text}"`;
 
-    // Basic analysis
-    if (text.length < 5) {
-      suggestions.tips.push("Try writing longer sentences for better practice");
-    }
-    if (text === text.toLowerCase()) {
-      suggestions.tips.push("Remember to capitalize the first letter of sentences");
-    }
-    if (!text.match(/[.!?]$/)) {
-      suggestions.tips.push("Add punctuation at the end of your sentence");
-    }
-    if (text.split(" ").length < 3) {
-      suggestions.tips.push("Try forming complete sentences with subject + verb + object");
+    const result = await model.generateContent(prompt);
+    const responseText = result.response.text().trim();
+
+    // Parse AI response
+    let parsed;
+    try {
+      parsed = JSON.parse(responseText);
+    } catch {
+      // Fallback if AI doesn't return clean JSON
+      parsed = {
+        original: text,
+        improved: responseText,
+        translated: responseText,
+        tips: ["Keep practicing to improve your writing!"],
+        grammarScore: 70
+      };
     }
 
-    res.json(suggestions);
+    res.json(parsed);
 
   } catch (err) {
     console.log(err.message);
-    if (err.code === "ECONNABORTED") {
-      return res.status(504).json({ message: "Translation service timed out. Please try again." });
-    }
     res.status(500).json({ message: "Improvement analysis failed" });
   }
 };
 
-// EXPLAIN MEANING (AI Tutor)
+// EXPLAIN MEANING (AI Tutor — Deep Word Breakdown)
 const explain = async (req, res) => {
   try {
     const { text } = req.body;
@@ -184,61 +169,50 @@ const explain = async (req, res) => {
       return res.status(400).json({ message: "Text is required" });
     }
 
-    // Translate word/phrase
-    const response = await axios.post(
-      process.env.TRANSLATE_API_URL,
-      {
-        q: text,
-        source: "auto",
-        target: "en",
-        format: "text"
-      },
-      { timeout: 5000 }
-    );
+    const prompt = `You are an expert language teacher. Explain the following text in detail. Return a JSON response (no markdown, no code fences, just raw JSON) with this exact structure:
+{
+  "original": "the original text",
+  "fullMeaning": "complete English translation/meaning",
+  "language": "detected source language",
+  "wordBreakdown": [
+    { "original": "word1", "meaning": "English meaning", "partOfSpeech": "noun/verb/etc" },
+    { "original": "word2", "meaning": "English meaning", "partOfSpeech": "noun/verb/etc" }
+  ],
+  "culturalContext": "any cultural or usage context (1-2 sentences)",
+  "exampleSentences": ["example sentence using similar structure 1", "example sentence 2"]
+}
 
-    const translated = response.data.translatedText;
+Rules:
+- Break down EVERY word (max 15 words)
+- Identify the source language
+- Include part of speech for each word
+- Add 2 example sentences for practice
+- Keep culturalContext brief and helpful
 
-    // Build explanation
-    const words = text.trim().split(" ");
-    const wordBreakdown = [];
+Text: "${text}"`;
 
-    // Translate each word individually for breakdown
-    for (const word of words.slice(0, 10)) { // limit to 10 words
-      try {
-        const wordRes = await axios.post(
-          process.env.TRANSLATE_API_URL,
-          {
-            q: word,
-            source: "auto",
-            target: "en",
-            format: "text"
-          },
-          { timeout: 5000 }
-        );
-        wordBreakdown.push({
-          original: word,
-          meaning: wordRes.data.translatedText
-        });
-      } catch {
-        wordBreakdown.push({
-          original: word,
-          meaning: "—"
-        });
-      }
+    const result = await model.generateContent(prompt);
+    const responseText = result.response.text().trim();
+
+    // Parse AI response
+    let parsed;
+    try {
+      parsed = JSON.parse(responseText);
+    } catch {
+      parsed = {
+        original: text,
+        fullMeaning: responseText,
+        language: "unknown",
+        wordBreakdown: [],
+        culturalContext: "",
+        exampleSentences: []
+      };
     }
 
-    res.json({
-      original: text,
-      fullMeaning: translated,
-      wordCount: words.length,
-      wordBreakdown: wordBreakdown
-    });
+    res.json(parsed);
 
   } catch (err) {
     console.log(err.message);
-    if (err.code === "ECONNABORTED") {
-      return res.status(504).json({ message: "Translation service timed out. Please try again." });
-    }
     res.status(500).json({ message: "Explanation failed" });
   }
 };
