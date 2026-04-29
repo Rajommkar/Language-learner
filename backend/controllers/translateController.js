@@ -54,12 +54,16 @@ const translate = async (req, res) => {
     }
 
     // 3. Call external API (last resort)
-    const response = await axios.post(process.env.TRANSLATE_API_URL, {
-      q: text,
-      source: "auto",
-      target: "en",
-      format: "text"
-    });
+    const response = await axios.post(
+      process.env.TRANSLATE_API_URL,
+      {
+        q: text,
+        source: "auto",
+        target: "en",
+        format: "text"
+      },
+      { timeout: 5000 }
+    );
 
     const translatedText = response.data.translatedText;
 
@@ -92,6 +96,9 @@ const translate = async (req, res) => {
 
   } catch (err) {
     console.log(err.message);
+    if (err.code === "ECONNABORTED") {
+      return res.status(504).json({ message: "Translation service timed out. Please try again." });
+    }
     res.status(500).json({ message: "Translation failed" });
   }
 };
@@ -123,12 +130,16 @@ const improve = async (req, res) => {
     }
 
     // Translate to English first to get proper form
-    const response = await axios.post(process.env.TRANSLATE_API_URL, {
-      q: text,
-      source: "auto",
-      target: "en",
-      format: "text"
-    });
+    const response = await axios.post(
+      process.env.TRANSLATE_API_URL,
+      {
+        q: text,
+        source: "auto",
+        target: "en",
+        format: "text"
+      },
+      { timeout: 5000 }
+    );
 
     const translated = response.data.translatedText;
 
@@ -157,6 +168,9 @@ const improve = async (req, res) => {
 
   } catch (err) {
     console.log(err.message);
+    if (err.code === "ECONNABORTED") {
+      return res.status(504).json({ message: "Translation service timed out. Please try again." });
+    }
     res.status(500).json({ message: "Improvement analysis failed" });
   }
 };
@@ -171,12 +185,16 @@ const explain = async (req, res) => {
     }
 
     // Translate word/phrase
-    const response = await axios.post(process.env.TRANSLATE_API_URL, {
-      q: text,
-      source: "auto",
-      target: "en",
-      format: "text"
-    });
+    const response = await axios.post(
+      process.env.TRANSLATE_API_URL,
+      {
+        q: text,
+        source: "auto",
+        target: "en",
+        format: "text"
+      },
+      { timeout: 5000 }
+    );
 
     const translated = response.data.translatedText;
 
@@ -187,12 +205,16 @@ const explain = async (req, res) => {
     // Translate each word individually for breakdown
     for (const word of words.slice(0, 10)) { // limit to 10 words
       try {
-        const wordRes = await axios.post(process.env.TRANSLATE_API_URL, {
-          q: word,
-          source: "auto",
-          target: "en",
-          format: "text"
-        });
+        const wordRes = await axios.post(
+          process.env.TRANSLATE_API_URL,
+          {
+            q: word,
+            source: "auto",
+            target: "en",
+            format: "text"
+          },
+          { timeout: 5000 }
+        );
         wordBreakdown.push({
           original: word,
           meaning: wordRes.data.translatedText
@@ -214,6 +236,9 @@ const explain = async (req, res) => {
 
   } catch (err) {
     console.log(err.message);
+    if (err.code === "ECONNABORTED") {
+      return res.status(504).json({ message: "Translation service timed out. Please try again." });
+    }
     res.status(500).json({ message: "Explanation failed" });
   }
 };
