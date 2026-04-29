@@ -23,4 +23,7 @@ const translationSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
+translationSchema.index({ userId: 1, createdAt: -1 });
+translationSchema.index({ originalText: 1 });
+
 module.exports = mongoose.model("Translation", translationSchema);
