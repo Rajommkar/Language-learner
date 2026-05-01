@@ -28,6 +28,9 @@ app.use("/api", authRoutes);
 const translateRoutes = require("./routes/translate");
 app.use("/api", translateRoutes);
 
+const lessonRoutes = require("./routes/lesson");
+app.use("/api", lessonRoutes);
+
 const errorHandler = require("./middleware/errorHandler");
 app.use(errorHandler);
 
