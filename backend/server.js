@@ -37,12 +37,16 @@ app.use(errorHandler);
 const mongoose = require("mongoose");
 const PORT = 5000;
 
-// Connect to MongoDB, then start server
+console.log("Connecting to MongoDB...");
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected ✅");
+
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
   })
-  .catch(err => console.log(err));
+  .catch((err) => {
+    console.log("MongoDB ERROR:", err.message);
+  });
