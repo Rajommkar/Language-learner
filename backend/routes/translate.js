@@ -6,8 +6,19 @@ const { translate, getHistory, improve, explain } = require("../controllers/tran
 // TRANSLATE API
 router.post("/translate", auth, translate);
 
+const Translation = require("../models/Translation");
+
 // TRANSLATION HISTORY (Protected)
-router.get("/translate/history", auth, getHistory);
+router.get("/translate/history", auth, async (req, res) => {
+  try {
+    const history = await Translation.find({ user: req.user.id })
+      .sort({ createdAt: -1 });
+
+    res.json(history);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching history" });
+  }
+});
 
 // AI TUTOR - Improve sentence
 router.post("/translate/improve", improve);
