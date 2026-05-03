@@ -266,6 +266,7 @@
 <h3 id="username" class="font-title-lg text-title-lg text-on-surface leading-tight">User</h3>
 <p id="level" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Level: 1</p>
 <p id="xp" class="font-label-sm text-label-sm text-on-surface-variant mt-1">XP: 0</p>
+<p id="progress" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Progress: 0%</p>
 <p id="streak" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Streak: 0</p>
 </div>
 </div>
@@ -349,6 +350,7 @@
       document.getElementById("username").innerText = user.name;
       document.getElementById("xp").innerText = "XP: " + user.xp;
       document.getElementById("level").innerText = "Level: " + user.level;
+      document.getElementById("progress").innerText = "Progress: " + (user.progress || 0) + "%";
       document.getElementById("streak").innerText = "Streak: " + user.streak;
 
     } catch (err) {
