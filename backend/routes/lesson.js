@@ -32,6 +32,8 @@ router.post("/submit", auth, async (req, res, next) => {
       return res.status(400).json({ message: "Invalid question" });
     }
 
+    const totalLessons = await Lesson.countDocuments();
+
     // check answer
     const isCorrect = question.correctAnswer === selectedAnswer;
 
@@ -42,15 +44,25 @@ router.post("/submit", auth, async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // update XP if correct
+    // update XP
     if (isCorrect) {
       user.xp += 10;
-      await user.save();
     }
+
+    // mark lesson complete (only once)
+    if (!user.completedLessons.includes(lessonId)) {
+      user.completedLessons.push(lessonId);
+    }
+
+    // update progress
+    user.progress = totalLessons > 0 ? Math.floor((user.completedLessons.length / totalLessons) * 100) : 0;
+
+    await user.save();
 
     res.json({
       correct: isCorrect,
-      xp: user.xp
+      xp: user.xp,
+      progress: user.progress
     });
 
   } catch (err) {
