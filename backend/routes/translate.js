@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 const { translate, getHistory, improve, explain } = require("../controllers/translateController");
 
 // TRANSLATE API
-router.post("/translate", translate);
+router.post("/translate", auth, translate);
 
 // TRANSLATION HISTORY (Protected)
 router.get("/translate/history", auth, getHistory);

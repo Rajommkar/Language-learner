@@ -63,11 +63,9 @@ const translate = async (req, res, next) => {
     const translatedText = result.response.text().trim();
 
     const translation = new Translation({
-      userId: req.user ? req.user.id : null,
+      user: req.user ? req.user.id : null,
       originalText: text,
       translatedText: translatedText,
-      sourceLanguage: "auto",
-      targetLanguage: target,
     });
 
     await translation.save();
@@ -81,7 +79,7 @@ const translate = async (req, res, next) => {
 
 const getHistory = async (req, res, next) => {
   try {
-    const translations = await Translation.find({ userId: req.user.id })
+    const translations = await Translation.find({ user: req.user.id })
       .sort({ createdAt: -1 })
       .limit(50);
     res.json(translations);
