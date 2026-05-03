@@ -17,6 +17,9 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
+const path = require("path");
+app.use(express.static(path.join(__dirname, "..")));
+
 // Test route
 app.get("/", (req, res) => {
   res.send("Server is running 🚀");
