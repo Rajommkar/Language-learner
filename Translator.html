@@ -262,10 +262,12 @@
     output.style.opacity = "0.5";
 
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch("http://localhost:5000/api/translate", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
         },
         body: JSON.stringify({ text })
       });
@@ -275,6 +277,7 @@
       if (res.ok) {
         output.innerText = data.translated;
         output.style.opacity = "1";
+        getHistory();
       } else {
         output.innerText = "Error: " + (data.message || "Translation failed");
         output.style.opacity = "1";
@@ -301,5 +304,50 @@
       }
     }, 500)
   );
+
+  // FETCH HISTORY
+  async function getHistory() {
+    const token = localStorage.getItem("token");
+    const historyList = document.getElementById("historyList");
+
+    if (!token) {
+      historyList.innerHTML = '<p class="text-outline col-span-full italic">Please login to see your translation history.</p>';
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/translate/history", {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      });
+
+      const history = await res.json();
+
+      if (history.length === 0) {
+        historyList.innerHTML = '<p class="text-outline col-span-full italic">No translation history found.</p>';
+        return;
+      }
+
+      historyList.innerHTML = history.map(item => `
+        <div class="glass-panel p-6 flex flex-col gap-3 group hover:border-primary/50 transition-all cursor-pointer">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-label-sm text-outline uppercase tracking-widest">${new Date(item.createdAt).toLocaleDateString()}</span>
+            <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-sm">open_in_new</span>
+          </div>
+          <p class="text-on-surface font-medium line-clamp-1">${item.originalText}</p>
+          <p class="text-outline text-sm line-clamp-2 italic">${item.translatedText}</p>
+        </div>
+      `).join('');
+
+    } catch (err) {
+      console.error(err);
+      historyList.innerHTML = '<p class="text-error col-span-full">Failed to load history.</p>';
+    }
+  }
+
+  // Initial load
+  getHistory();
 </script>
 </body></html>
