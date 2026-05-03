@@ -35,7 +35,7 @@ router.post("/submit", auth, async (req, res, next) => {
     const totalLessons = await Lesson.countDocuments();
 
     // check answer
-    const isCorrect = question.correctAnswer === selectedAnswer;
+    const isCorrect = String(question.correctAnswer).trim() === String(selectedAnswer).trim();
 
     // find user
     const user = await User.findById(req.user.id);
