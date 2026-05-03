@@ -172,32 +172,119 @@
 <span class="mt-6 font-label-sm text-label-sm text-primary uppercase tracking-widest opacity-80">Hold to Speak</span>
 </div>
 <!-- Options Grid -->
-<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high border border-outline-variant rounded-DEFAULT p-6 transition-all duration-200 focus:outline-none focus:border-primary focus:bg-surface-container flex items-center justify-between group">
-<span class="font-body-lg text-body-lg text-on-surface">The architect presented the blueprints.</span>
-<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
-</button>
-<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high border border-outline-variant rounded-DEFAULT p-6 transition-all duration-200 focus:outline-none focus:border-primary focus:bg-surface-container flex items-center justify-between group">
-<span class="font-body-lg text-body-lg text-on-surface">The building was completed on schedule.</span>
-<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
-</button>
-<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high border border-outline-variant rounded-DEFAULT p-6 transition-all duration-200 focus:outline-none focus:border-primary focus:bg-surface-container flex items-center justify-between group">
-<span class="font-body-lg text-body-lg text-on-surface">We must review the structural integrity.</span>
-<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
-</button>
-<button class="w-full text-left bg-surface-container-low hover:bg-surface-container-high border border-outline-variant rounded-DEFAULT p-6 transition-all duration-200 focus:outline-none focus:border-primary focus:bg-surface-container flex items-center justify-between group">
-<span class="font-body-lg text-body-lg text-on-surface">The gallery opens tomorrow evening.</span>
-<span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
-</button>
-</div>
+<div id="options-grid" class="w-full grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+<div id="result" class="text-xl font-bold mt-6 text-center text-on-surface"></div>
 </main>
 <!-- Bottom Action Bar (Contextual) -->
 <div class="fixed bottom-0 w-full p-6 glass-panel border-t border-white/5 flex justify-between items-center">
 <button class="px-6 py-3 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest hover:text-on-surface transition-colors focus:outline-none">
             Skip
         </button>
-<button class="px-8 py-3 bg-surface-container-high border border-outline-variant rounded-none font-label-md text-label-md text-on-surface uppercase tracking-widest opacity-50 cursor-not-allowed">
+<button id="check-btn" class="px-8 py-3 bg-surface-container-high border border-outline-variant rounded-none font-label-md text-label-md text-on-surface uppercase tracking-widest opacity-50 cursor-not-allowed">
             Check
         </button>
 </div>
+<script>
+  let currentLessonId = null;
+  let currentQuestionIndex = 0;
+  let selectedOption = null;
+  let lessons = [];
+
+  async function loadLessons() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      document.getElementById("result").innerText = "Please login first.";
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/lessons", {
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      });
+      lessons = await res.json();
+      if (lessons.length > 0) {
+        currentLessonId = lessons[0]._id;
+        displayQuestion(lessons[0].questions[0]);
+      } else {
+        document.getElementById("result").innerText = "No lessons available.";
+      }
+    } catch (err) {
+      console.error(err);
+      document.getElementById("result").innerText = "Failed to load lessons.";
+    }
+  }
+
+  function displayQuestion(question) {
+    if (!question) {
+      document.getElementById("result").innerText = "No question found in this lesson.";
+      return;
+    }
+
+    const optionsGrid = document.getElementById("options-grid");
+    optionsGrid.innerHTML = question.options.map((option, idx) => `
+      <button onclick="selectAnswer(this, '${option}')" class="option-btn w-full text-left bg-surface-container-low hover:bg-surface-container-high border border-outline-variant rounded-DEFAULT p-6 transition-all duration-200 focus:outline-none focus:border-primary flex items-center justify-between group">
+        <span class="font-body-lg text-body-lg text-on-surface">${option}</span>
+        <span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+      </button>
+    `).join('');
+  }
+
+  function selectAnswer(btn, option) {
+    selectedOption = option;
+    
+    // clear previous selection styles
+    document.querySelectorAll(".option-btn").forEach(b => {
+      b.classList.remove("border-primary", "bg-surface-container");
+      b.classList.add("border-outline-variant", "bg-surface-container-low");
+    });
+
+    // apply styles to clicked button
+    btn.classList.remove("border-outline-variant", "bg-surface-container-low");
+    btn.classList.add("border-primary", "bg-surface-container");
+
+    // Enable check button
+    const checkBtn = document.getElementById("check-btn");
+    checkBtn.classList.remove("opacity-50", "cursor-not-allowed");
+    checkBtn.classList.add("hover:bg-primary-container", "cursor-pointer");
+    checkBtn.disabled = false;
+  }
+
+  document.getElementById("check-btn").addEventListener("click", async () => {
+    if (!selectedOption) return;
+
+    const token = localStorage.getItem("token");
+    try {
+      const res = await fetch("http://localhost:5000/api/submit", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          lessonId: currentLessonId,
+          questionIndex: currentQuestionIndex,
+          selectedAnswer: selectedOption
+        })
+      });
+
+      const data = await res.json();
+      
+      if (data.correct) {
+        document.getElementById("result").innerText =
+          "✅ Correct! XP: " + data.xp + " | Progress: " + data.progress + "%";
+      } else {
+        document.getElementById("result").innerText =
+          "❌ Wrong! XP: " + data.xp + " | Progress: " + data.progress + "%";
+      }
+    } catch (err) {
+      console.error(err);
+      document.getElementById("result").innerText = "Failed to submit answer.";
+    }
+  });
+
+  // initial load
+  loadLessons();
+</script>
 </body></html>
