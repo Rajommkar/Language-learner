@@ -350,7 +350,7 @@
       document.getElementById("username").innerText = user.name;
       document.getElementById("xp").innerText = "XP: " + user.xp;
       document.getElementById("level").innerText = "Level: " + user.level;
-      document.getElementById("progress").innerText = "Progress: " + (user.progress || 0) + "%";
+      document.getElementById("progress").innerText = "Progress: " + user.progress + "%";
       document.getElementById("streak").innerText = "Streak: " + user.streak;
 
     } catch (err) {
