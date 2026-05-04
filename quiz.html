@@ -65,7 +65,10 @@ function showQuestion() {
 
     btn.innerText = option;
 
-    btn.onclick = () => submitAnswer(option);
+    btn.onclick = () => {
+      btn.style.transform = "scale(0.97)";
+      setTimeout(() => submitAnswer(option), 100);
+    };
 
     optionsDiv.appendChild(btn);
   });
@@ -90,6 +93,8 @@ async function submitAnswer(answer) {
   const data = await res.json();
 
   const result = document.getElementById("result");
+  result.style.transition = "all 0.3s ease";
+  result.style.opacity = "0";
 
   if (data.correct) {
     result.innerHTML = `✅ Correct<br>XP: ${data.xp} | Progress: ${data.progress}%`;
@@ -98,6 +103,10 @@ async function submitAnswer(answer) {
     result.innerHTML = `❌ Wrong<br>XP: ${data.xp} | Progress: ${data.progress}%`;
     result.className = "text-red-400 text-center mt-6";
   }
+
+  setTimeout(() => {
+    result.style.opacity = "1";
+  }, 10);
 
   currentQuestionIndex++;
 
