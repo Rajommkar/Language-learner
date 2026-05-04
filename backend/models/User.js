@@ -38,7 +38,8 @@ const userSchema = new mongoose.Schema({
   // Completed lessons
   completedLessons: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Lesson"
     },
   ],
 
