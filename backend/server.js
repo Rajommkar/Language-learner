@@ -18,7 +18,7 @@ const limiter = rateLimit({
   max: 100,
   message: { message: "Too many requests, please try again later" }
 });
-app.use(limiter);
+app.use("/api", limiter);
 
 const path = require("path");
 app.use(express.static(path.join(__dirname, "..")));
