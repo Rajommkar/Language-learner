@@ -184,6 +184,7 @@
             Check
         </button>
 </div>
+<script src="config.js"></script>
 <script>
   let currentLessonId = null;
   let currentQuestionIndex = 0;
@@ -198,7 +199,7 @@
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/lessons", {
+      const res = await fetch(`${BASE_URL}/api/lessons`, {
         headers: {
           "Authorization": "Bearer " + token
         }
@@ -256,7 +257,7 @@
 
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch("http://localhost:5000/api/submit", {
+      const res = await fetch(`${BASE_URL}/api/submit`, {
         method: "POST",
         headers: {
           "Authorization": "Bearer " + token,

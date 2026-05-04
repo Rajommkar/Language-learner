@@ -233,6 +233,7 @@
 </div>
 </div>
 </main>
+<script src="config.js"></script>
 <script>
   let debounceTimer = null;
   const translateBtn = document.querySelector('[onclick="translateText()"]');
@@ -263,7 +264,7 @@
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/translate", {
+      const res = await fetch(`${BASE_URL}/api/translate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -316,7 +317,7 @@
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/translate/history", {
+      const res = await fetch(`${BASE_URL}/api/translate/history`, {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + token

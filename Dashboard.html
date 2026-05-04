@@ -326,6 +326,7 @@
 </aside>
 </div>
 </main>
+<script src="config.js"></script>
 <script>
   async function getUserData() {
     const token = localStorage.getItem("token");
@@ -337,7 +338,7 @@
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/user", {
+      const res = await fetch(`${BASE_URL}/api/user`, {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + token
