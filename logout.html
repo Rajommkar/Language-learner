@@ -195,10 +195,10 @@
 </div>
 <!-- Actions -->
 <div class="flex flex-col sm:flex-row gap-4 mt-4 pt-4 border-t border-on-surface/10">
-<button class="flex-1 px-6 py-3 border border-outline text-on-surface hover:bg-white/5 transition-all duration-300 font-label-md text-label-md uppercase tracking-widest rounded-none" type="button">
+<button onclick="window.location.href='Dashboard.html'" class="flex-1 px-6 py-3 border border-outline text-on-surface hover:bg-white/5 transition-all duration-300 font-label-md text-label-md uppercase tracking-widest rounded-none" type="button">
                         Cancel
                     </button>
-<button class="flex-1 px-6 py-3 bg-error text-on-error relative group overflow-hidden rounded-none shadow-[0_0_15px_rgba(255,180,171,0.2)] hover:shadow-[0_0_25px_rgba(255,180,171,0.4)] transition-all duration-300" type="button">
+<button onclick="OdysseyUtils.logoutUser()" class="flex-1 px-6 py-3 bg-error text-on-error relative group overflow-hidden rounded-none shadow-[0_0_15px_rgba(255,180,171,0.2)] hover:shadow-[0_0_25px_rgba(255,180,171,0.4)] transition-all duration-300" type="button">
 <!-- Top Bevel highlight -->
 <div class="absolute inset-x-0 top-0 h-[1px] bg-white/30"></div>
 <span class="relative z-10 font-label-md text-label-md uppercase tracking-widest">Yes, Log Out</span>
@@ -207,4 +207,5 @@
 </div>
 </div>
 </main>
+<script src="utils.js"></script>
 </body></html>
