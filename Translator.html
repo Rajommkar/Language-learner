@@ -275,18 +275,17 @@
 
       const data = await res.json();
 
-      if (res.ok) {
-        output.innerText = data.translated;
-        output.style.opacity = "1";
-        getHistory();
-      } else {
-        output.innerText = "Error: " + (data.message || "Translation failed");
-        output.style.opacity = "1";
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong");
       }
+
+      output.innerText = data.translated;
+      output.style.opacity = "1";
+      getHistory();
 
     } catch (err) {
       console.error(err);
-      output.innerText = "Network error — is the server running?";
+      output.innerText = "⚠️ Something went wrong. Try again.";
       output.style.opacity = "1";
     } finally {
       // Reset button
@@ -326,6 +325,10 @@
 
       const history = await res.json();
 
+      if (!res.ok) {
+        throw new Error(history.message || "Failed to fetch history");
+      }
+
       if (history.length === 0) {
         historyList.innerHTML = '<p class="text-outline col-span-full italic">No translation history found.</p>';
         return;
@@ -344,7 +347,7 @@
 
     } catch (err) {
       console.error(err);
-      historyList.innerHTML = '<p class="text-error col-span-full">Failed to load history.</p>';
+      historyList.innerHTML = '<p class="text-error col-span-full">⚠️ Something went wrong. Try again.</p>';
     }
   }
 

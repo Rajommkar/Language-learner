@@ -347,6 +347,10 @@
 
       const user = await res.json();
 
+      if (!res.ok) {
+        throw new Error(user.message || "Something went wrong");
+      }
+
       // update UI
       document.getElementById("username").innerText = user.name;
       document.getElementById("xp").innerText = "XP: " + user.xp;
@@ -356,7 +360,7 @@
 
     } catch (err) {
       console.error(err);
-      alert("Error loading user data");
+      alert("⚠️ Something went wrong. Try again.");
     }
   }
 

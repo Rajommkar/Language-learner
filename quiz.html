@@ -38,11 +38,20 @@ let lesson = null;
 let currentQuestionIndex = 0;
 
 async function loadLesson() {
-  const res = await fetch(`${BASE_URL}/api/lessons`);
-  const data = await res.json();
+  try {
+    const res = await fetch(`${BASE_URL}/api/lessons`);
+    const data = await res.json();
 
-  lesson = data[0];
-  showQuestion();
+    if (!res.ok) {
+      throw new Error(data.message || "Something went wrong");
+    }
+
+    lesson = data[0];
+    showQuestion();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("questionText").innerText = "⚠️ Something went wrong. Try again.";
+  }
 }
 
 function showQuestion() {
@@ -75,49 +84,61 @@ function showQuestion() {
 }
 
 async function submitAnswer(answer) {
-  const token = localStorage.getItem("token");
+  try {
+    const token = localStorage.getItem("token");
 
-  const res = await fetch(`${BASE_URL}/api/submit`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
-    },
-    body: JSON.stringify({
-      lessonId: lesson._id,
-      questionIndex: currentQuestionIndex,
-      selectedAnswer: answer
-    })
-  });
+    const res = await fetch(`${BASE_URL}/api/submit`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+        lessonId: lesson._id,
+        questionIndex: currentQuestionIndex,
+        selectedAnswer: answer
+      })
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  const result = document.getElementById("result");
-  result.style.transition = "all 0.3s ease";
-  result.style.opacity = "0";
+    if (!res.ok) {
+      throw new Error(data.message || "Something went wrong");
+    }
 
-  if (data.correct) {
-    result.innerHTML = `✅ Correct<br>XP: ${data.xp} | Progress: ${data.progress}%`;
-    result.className = "text-green-400 text-center mt-6";
-  } else {
-    result.innerHTML = `❌ Wrong<br>XP: ${data.xp} | Progress: ${data.progress}%`;
-    result.className = "text-red-400 text-center mt-6";
-  }
+    const result = document.getElementById("result");
+    result.style.transition = "all 0.3s ease";
+    result.style.opacity = "0";
 
-  setTimeout(() => {
-    result.style.opacity = "1";
-  }, 10);
+    if (data.correct) {
+      result.innerHTML = `✅ Correct<br>XP: ${data.xp} | Progress: ${data.progress}%`;
+      result.className = "text-green-400 text-center mt-6";
+    } else {
+      result.innerHTML = `❌ Wrong<br>XP: ${data.xp} | Progress: ${data.progress}%`;
+      result.className = "text-red-400 text-center mt-6";
+    }
 
-  currentQuestionIndex++;
-
-  if (currentQuestionIndex < lesson.questions.length) {
     setTimeout(() => {
-      result.innerText = "";
-      showQuestion();
-    }, 1200);
-  } else {
-    document.getElementById("questionText").innerText = "🎉 Lesson Complete";
-    document.getElementById("options").innerHTML = "";
+      result.style.opacity = "1";
+    }, 10);
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < lesson.questions.length) {
+      setTimeout(() => {
+        result.innerText = "";
+        showQuestion();
+      }, 1200);
+    } else {
+      document.getElementById("questionText").innerText = "🎉 Lesson Complete";
+      document.getElementById("options").innerHTML = "";
+    }
+  } catch (err) {
+    console.error(err);
+    const result = document.getElementById("result");
+    result.innerHTML = "⚠️ Something went wrong. Try again.";
+    result.className = "text-red-400 text-center mt-6";
+    result.style.opacity = "1";
   }
 }
 

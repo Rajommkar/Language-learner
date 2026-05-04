@@ -205,6 +205,10 @@
         }
       });
       lessons = await res.json();
+      if (!res.ok) {
+        throw new Error(lessons.message || "Failed to load lessons");
+      }
+
       if (lessons.length > 0) {
         currentLessonId = lessons[0]._id;
         displayQuestion(lessons[0].questions[0]);
@@ -213,7 +217,7 @@
       }
     } catch (err) {
       console.error(err);
-      document.getElementById("result").innerText = "Failed to load lessons.";
+      document.getElementById("result").innerText = "⚠️ Something went wrong. Try again.";
     }
   }
 
@@ -272,6 +276,10 @@
 
       const data = await res.json();
       
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong");
+      }
+
       if (data.correct) {
         document.getElementById("result").innerText =
           "✅ Correct! XP: " + data.xp + " | Progress: " + data.progress + "%";
@@ -281,7 +289,7 @@
       }
     } catch (err) {
       console.error(err);
-      document.getElementById("result").innerText = "Failed to submit answer.";
+      document.getElementById("result").innerText = "⚠️ Something went wrong. Try again.";
     }
   });
 
