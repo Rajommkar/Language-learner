@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html class="dark">
 <head>
+  <script>
+    if (!localStorage.getItem("token")) {
+      window.location.href = "login.html";
+    }
+  </script>
   <meta charset="UTF-8" />
   <title>Odyssey Practice</title>
   <script src="https://cdn.tailwindcss.com"></script>
