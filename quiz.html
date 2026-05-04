@@ -39,7 +39,17 @@ let currentQuestionIndex = 0;
 
 async function loadLesson() {
   try {
-    const res = await fetch(`${BASE_URL}/api/lessons`);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const res = await fetch(`${BASE_URL}/api/lessons`, {
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    });
     const data = await res.json();
 
     if (!res.ok) {
@@ -86,6 +96,10 @@ function showQuestion() {
 async function submitAnswer(answer) {
   try {
     const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+      return;
+    }
 
     const res = await fetch(`${BASE_URL}/api/submit`, {
       method: "POST",

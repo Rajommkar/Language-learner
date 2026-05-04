@@ -194,7 +194,7 @@
   async function loadLessons() {
     const token = localStorage.getItem("token");
     if (!token) {
-      document.getElementById("result").innerText = "Please login first.";
+      window.location.href = "login.html";
       return;
     }
 
@@ -260,6 +260,10 @@
     if (!selectedOption) return;
 
     const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+      return;
+    }
     try {
       const res = await fetch(`${BASE_URL}/api/submit`, {
         method: "POST",
