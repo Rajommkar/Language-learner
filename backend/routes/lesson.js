@@ -44,13 +44,9 @@ router.post("/submit", auth, async (req, res, next) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // update XP
-    if (isCorrect) {
-      user.xp += 10;
-    }
-
-    // mark lesson complete (only if correct and not already complete)
+    // update XP and mark lesson complete (only once)
     if (isCorrect && !user.completedLessons.includes(lessonId)) {
+      user.xp += 10;
       user.completedLessons.push(lessonId);
     }
 
