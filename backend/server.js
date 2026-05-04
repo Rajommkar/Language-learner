@@ -5,7 +5,10 @@ require("dotenv").config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || ["http://localhost:5000", "http://127.0.0.1:5500"],
+  credentials: true
+}));
 app.use(express.json());
 
 // Rate limiting (max 100 requests per 15 min per IP)
