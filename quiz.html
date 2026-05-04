@@ -20,6 +20,11 @@
       Loading...
     </h2>
 
+    <!-- Question Progress -->
+    <p class="text-center text-sm opacity-70 mb-2">
+      Question <span id="qIndex"></span> / <span id="totalQ"></span>
+    </p>
+
     <!-- Question -->
     <p id="questionText" class="text-2xl font-medium text-center mb-10">
       ...
@@ -68,6 +73,8 @@ function showQuestion() {
   const q = lesson.questions[currentQuestionIndex];
 
   document.getElementById("lessonTitle").innerText = lesson.title;
+  document.getElementById("qIndex").innerText = currentQuestionIndex + 1;
+  document.getElementById("totalQ").innerText = lesson.questions.length;
   document.getElementById("questionText").innerText = q.question;
 
   const optionsDiv = document.getElementById("options");
@@ -129,6 +136,7 @@ async function submitAnswer(answer) {
       result.className = "text-green-400 text-center mt-6";
     } else {
       result.innerHTML = `❌ Wrong<br>XP: ${data.xp} | Progress: ${data.progress}%`;
+      result.innerHTML += `<br>Correct: ${lesson.questions[currentQuestionIndex].correctAnswer}`;
       result.className = "text-red-400 text-center mt-6";
     }
 
