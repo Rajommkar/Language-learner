@@ -49,8 +49,8 @@ router.post("/submit", auth, async (req, res, next) => {
       user.xp += 10;
     }
 
-    // mark lesson complete (only once)
-    if (!user.completedLessons.includes(lessonId)) {
+    // mark lesson complete (only if correct and not already complete)
+    if (isCorrect && !user.completedLessons.includes(lessonId)) {
       user.completedLessons.push(lessonId);
     }
 
