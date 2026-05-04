@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <title>Odyssey Practice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="config.js"></script>
+</head>
+
+<body class="bg-[#0c0e10] text-white min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-2xl p-8 backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl">
+
+    <!-- Lesson Title -->
+    <h2 id="lessonTitle" class="text-xl font-semibold mb-6 text-center text-white/80">
+      Loading...
+    </h2>
+
+    <!-- Question -->
+    <p id="questionText" class="text-2xl font-medium text-center mb-10">
+      ...
+    </p>
+
+    <!-- Options -->
+    <div id="options" class="flex flex-col gap-4"></div>
+
+    <!-- Result -->
+    <p id="result" class="text-center mt-6 text-lg"></p>
+
+  </div>
+
+<script>
+let lesson = null;
+let currentQuestionIndex = 0;
+
+async function loadLesson() {
+  const res = await fetch(`${BASE_URL}/api/lessons`);
+  const data = await res.json();
+
+  lesson = data[0];
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = lesson.questions[currentQuestionIndex];
+
+  document.getElementById("lessonTitle").innerText = lesson.title;
+  document.getElementById("questionText").innerText = q.question;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+
+  q.options.forEach(option => {
+    const btn = document.createElement("div");
+
+    btn.className = `
+      p-4 border border-white/10 rounded-lg cursor-pointer
+      hover:bg-white/10 transition-all
+    `;
+
+    btn.innerText = option;
+
+    btn.onclick = () => submitAnswer(option);
+
+    optionsDiv.appendChild(btn);
+  });
+}
+
+async function submitAnswer(answer) {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${BASE_URL}/api/submit`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify({
+      lessonId: lesson._id,
+      questionIndex: currentQuestionIndex,
+      selectedAnswer: answer
+    })
+  });
+
+  const data = await res.json();
+
+  const result = document.getElementById("result");
+
+  if (data.correct) {
+    result.innerHTML = `✅ Correct<br>XP: ${data.xp} | Progress: ${data.progress}%`;
+    result.className = "text-green-400 text-center mt-6";
+  } else {
+    result.innerHTML = `❌ Wrong<br>XP: ${data.xp} | Progress: ${data.progress}%`;
+    result.className = "text-red-400 text-center mt-6";
+  }
+
+  currentQuestionIndex++;
+
+  if (currentQuestionIndex < lesson.questions.length) {
+    setTimeout(() => {
+      result.innerText = "";
+      showQuestion();
+    }, 1200);
+  } else {
+    document.getElementById("questionText").innerText = "🎉 Lesson Complete";
+    document.getElementById("options").innerHTML = "";
+  }
+}
+
+loadLesson();
+</script>
+</body>
+</html>
