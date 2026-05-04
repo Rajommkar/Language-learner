@@ -14,6 +14,18 @@ const submitAnswer = async (req, res, next) => {
   try {
     const { lessonId, questionIndex, selectedAnswer } = req.body;
 
+    if (!lessonId || questionIndex === undefined || selectedAnswer === undefined) {
+      return res.status(400).json({ message: "lessonId, questionIndex, and selectedAnswer are required" });
+    }
+
+    if (typeof questionIndex !== "number" || questionIndex < 0) {
+      return res.status(400).json({ message: "questionIndex must be a non-negative number" });
+    }
+
+    if (!/^[0-9a-fA-F]{24}$/.test(lessonId)) {
+      return res.status(400).json({ message: "Invalid lessonId format" });
+    }
+
     // find lesson
     const lesson = await Lesson.findById(lessonId);
 
