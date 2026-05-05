@@ -52,7 +52,8 @@ const submitAnswer = async (req, res, next) => {
     }
 
     // update XP and mark lesson complete (only once)
-    if (isCorrect && !user.completedLessons.includes(lessonId)) {
+    const hasCompleted = user.completedLessons.some(id => id.toString() === String(lessonId));
+    if (isCorrect && !hasCompleted) {
       user.xp += 10;
       user.completedLessons.push(lessonId);
     }
