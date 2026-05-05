@@ -34,8 +34,8 @@ const translate = async (req, res, next) => {
     const { text, targetLang } = req.body;
     const target = targetLang || "en";
 
-    if (!text) {
-      return res.status(400).json({ message: "Text is required" });
+    if (!text || text.length > 5000) {
+      return res.status(400).json({ message: "Invalid input" });
     }
 
     const cacheKey = `${text.trim().toLowerCase()}::${target}`;
@@ -91,7 +91,7 @@ const getHistory = async (req, res, next) => {
 const improve = async (req, res, next) => {
   try {
     const { text } = req.body;
-    if (!text) return res.status(400).json({ message: "Text is required" });
+    if (!text || text.length > 5000) return res.status(400).json({ message: "Invalid input" });
 
     const prompt = `You are an expert language tutor. Analyze the following sentence and return a JSON response (no markdown, no code fences, just raw JSON) with this exact structure:
 {
@@ -114,7 +114,7 @@ Sentence: "${text}"`;
 const explain = async (req, res, next) => {
   try {
     const { text } = req.body;
-    if (!text) return res.status(400).json({ message: "Text is required" });
+    if (!text || text.length > 5000) return res.status(400).json({ message: "Invalid input" });
 
     const prompt = `You are an expert language teacher. Explain the following text in detail. Return a JSON response (no markdown, no code fences, just raw JSON) with this exact structure:
 {
