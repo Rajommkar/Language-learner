@@ -106,6 +106,10 @@ function showQuestion() {
 }
 
 async function submitAnswer(answer) {
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.style.pointerEvents = "none";
+  optionsDiv.style.opacity = "0.7";
+
   try {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -155,6 +159,8 @@ async function submitAnswer(answer) {
       setTimeout(() => {
         result.innerText = "";
         showQuestion();
+        optionsDiv.style.pointerEvents = "auto";
+        optionsDiv.style.opacity = "1";
       }, 1200);
     } else {
       document.getElementById("questionText").innerText = "🎉 Lesson Complete";
@@ -166,6 +172,8 @@ async function submitAnswer(answer) {
     result.innerHTML = "⚠️ Something went wrong. Try again.";
     result.className = "text-red-400 text-center mt-6";
     result.style.opacity = "1";
+    optionsDiv.style.pointerEvents = "auto";
+    optionsDiv.style.opacity = "1";
   }
 }
 
