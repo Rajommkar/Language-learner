@@ -77,6 +77,33 @@ const login = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Streak Logic
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const lastActiveDate = new Date(user.lastActive.getFullYear(), user.lastActive.getMonth(), user.lastActive.getDate());
+    
+    const diffTime = today - lastActiveDate;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+      // Active yesterday, increment streak
+      user.streak += 1;
+    } else if (diffDays > 1) {
+      // Missed a day or more, reset streak
+      user.streak = 1;
+    } else if (user.streak === 0) {
+      // First time setting streak
+      user.streak = 1;
+    }
+    // if diffDays === 0, already active today, do nothing to streak
+
+    user.lastActive = now;
+    await user.save();
+
     res.json(user);
   } catch (err) {
     next(err);

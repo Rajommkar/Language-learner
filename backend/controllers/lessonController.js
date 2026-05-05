@@ -56,6 +56,9 @@ const submitAnswer = async (req, res, next) => {
     if (isCorrect && !hasCompleted) {
       user.xp += 10;
       user.completedLessons.push(lessonId);
+      
+      // Update Level (100 XP per level)
+      user.level = Math.floor(user.xp / 100) + 1;
     }
 
     // update progress
