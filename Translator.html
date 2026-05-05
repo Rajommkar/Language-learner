@@ -283,11 +283,11 @@
         body: JSON.stringify({ text })
       });
 
-      const data = await res.json();
-
       if (!res.ok) {
-        throw new Error(data.message || "Something went wrong");
+        const data = await res.json();
+        throw new Error(data.message || "Request failed");
       }
+      const data = await res.json();
 
       output.innerText = data.translated;
       output.style.opacity = "1";
@@ -333,11 +333,11 @@
         }
       });
 
-      const history = await res.json();
-
       if (!res.ok) {
-        throw new Error(history.message || "Failed to fetch history");
+        const data = await res.json();
+        throw new Error(data.message || "Request failed");
       }
+      const history = await res.json();
 
       if (history.length === 0) {
         historyList.innerHTML = '<p class="italic text-center opacity-70 col-span-full">No history yet — start translating 🚀</p>';

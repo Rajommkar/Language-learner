@@ -209,10 +209,11 @@
           "Authorization": "Bearer " + token
         }
       });
-      lessons = await res.json();
       if (!res.ok) {
-        throw new Error(lessons.message || "Failed to load lessons");
+        const data = await res.json();
+        throw new Error(data.message || "Request failed");
       }
+      lessons = await res.json();
 
       if (lessons.length > 0) {
         currentLessonId = lessons[0]._id;
@@ -283,11 +284,11 @@
         })
       });
 
-      const data = await res.json();
-      
       if (!res.ok) {
-        throw new Error(data.message || "Something went wrong");
+        const data = await res.json();
+        throw new Error(data.message || "Request failed");
       }
+      const data = await res.json();
 
       if (data.correct) {
         document.getElementById("result").innerText =

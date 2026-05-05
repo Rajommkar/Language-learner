@@ -350,11 +350,11 @@
         }
       });
 
-      const user = await res.json();
-
       if (!res.ok) {
-        throw new Error(user.message || "Something went wrong");
+        const data = await res.json();
+        throw new Error(data.message || "Request failed");
       }
+      const user = await res.json();
 
       // update UI
       document.getElementById("username").innerText = user.name;

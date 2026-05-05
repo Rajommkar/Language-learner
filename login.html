@@ -188,11 +188,11 @@
         body: JSON.stringify({ email, password })
       });
 
-      const data = await res.json();
-
       if (!res.ok) {
-        throw new Error(data.message || "Something went wrong");
+        const data = await res.json();
+        throw new Error(data.message || "Request failed");
       }
+      const data = await res.json();
 
       // store token
       localStorage.setItem("token", data.token);

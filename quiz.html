@@ -60,11 +60,11 @@ async function loadLesson() {
         "Authorization": "Bearer " + token
       }
     });
-    const data = await res.json();
-
     if (!res.ok) {
-      throw new Error(data.message || "Something went wrong");
+      const data = await res.json();
+      throw new Error(data.message || "Request failed");
     }
+    const data = await res.json();
 
     lesson = data[0];
     showQuestion();
@@ -126,11 +126,11 @@ async function submitAnswer(answer) {
       })
     });
 
-    const data = await res.json();
-
     if (!res.ok) {
-      throw new Error(data.message || "Something went wrong");
+      const data = await res.json();
+      throw new Error(data.message || "Request failed");
     }
+    const data = await res.json();
 
     const result = document.getElementById("result");
     result.style.transition = "all 0.3s ease";
