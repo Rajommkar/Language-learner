@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Odyssey - Register</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#b0c6ff",
+                        "on-primary": "#002c6f",
+                        "surface": "#121416",
+                        "on-surface": "#e2e2e5",
+                        "surface-container-highest": "#333537",
+                        "outline-variant": "#434653"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #121416; font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="text-on-surface min-h-screen flex items-center justify-center p-6">
+    <div class="w-full max-w-md bg-surface-container-highest/50 backdrop-blur-xl border border-outline-variant/30 p-8 rounded-lg shadow-2xl">
+        <h1 class="text-3xl font-serif text-white mb-2">Join the Odyssey</h1>
+        <p class="text-on-surface/60 mb-8">Create your linguistic profile.</p>
+
+        <form onsubmit="event.preventDefault(); registerUser();" class="flex flex-col gap-6">
+            <div class="flex flex-col gap-2">
+                <label class="text-xs uppercase tracking-widest text-on-surface/50">Full Name</label>
+                <input id="name" type="text" class="bg-surface border-none text-on-surface p-3 rounded" placeholder="John Doe" required>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-xs uppercase tracking-widest text-on-surface/50">Email Address</label>
+                <input id="email" type="email" class="bg-surface border-none text-on-surface p-3 rounded" placeholder="name@example.com" required>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="text-xs uppercase tracking-widest text-on-surface/50">Password</label>
+                <input id="password" type="password" class="bg-surface border-none text-on-surface p-3 rounded" placeholder="••••••••" required>
+            </div>
+
+            <button id="regBtn" class="bg-primary text-on-primary py-4 rounded font-bold uppercase tracking-widest hover:opacity-90 transition-opacity mt-4">
+                Create Account
+            </button>
+        </form>
+
+        <p class="mt-8 text-center text-sm text-on-surface/60">
+            Already have an account? <a href="login.html" class="text-primary hover:underline">Login here</a>
+        </p>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        async function registerUser() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const regBtn = document.getElementById("regBtn");
+
+            regBtn.disabled = true;
+            regBtn.innerText = "Registering...";
+
+            try {
+                const res = await fetch(`${BASE_URL}/api/register`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                if (!res.ok) {
+                    const data = await res.json();
+                    throw new Error(data.message || "Registration failed");
+                }
+
+                alert("Registration successful! ✅ Please login.");
+                window.location.href = "login.html";
+            } catch (err) {
+                console.error(err);
+                alert("⚠️ " + err.message);
+            } finally {
+                regBtn.disabled = false;
+                regBtn.innerText = "Create Account";
+            }
+        }
+    </script>
+</body>
+</html>
