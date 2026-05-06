@@ -30,9 +30,12 @@ function logoutUser() {
 }
 
 // Export functions to global window object
-window.OdysseyUtils = {
+window.TranslifyUtils = {
   API_BASE_URL,
   initRouteGuard,
   getToken,
   logoutUser
 };
+
+// Backward compatibility for old name
+window.OdysseyUtils = window.TranslifyUtils;
