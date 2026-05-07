@@ -221,7 +221,7 @@
 </select>
 </div>
 <!-- Text Area -->
-<textarea id="inputText" class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-lg text-body-lg text-on-surface placeholder:text-outline p-0 h-48 md:h-64" placeholder="Enter text..."></textarea>
+<textarea id="inputText" maxlength="5000" class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-lg text-body-lg text-on-surface placeholder:text-outline p-0 h-48 md:h-64" placeholder="Enter text..."></textarea>
 <!-- Action row -->
 <div class="flex justify-between items-center mt-auto border-t border-outline-variant/30 pt-4">
 <div class="flex gap-4 text-outline">
@@ -229,7 +229,7 @@
 <button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
 </div>
 <button id="translateBtn" onclick="translateText()" class="bg-primary text-on-primary px-6 py-2 text-sm uppercase tracking-widest font-semibold hover:opacity-90 transition-opacity">TRANSLATE</button>
-<span class="font-label-sm text-label-sm text-outline">0 / 5000</span>
+<span id="charCount" class="font-label-sm text-label-sm text-outline">0 / 5000</span>
 </div>
 </div>
 <!-- Divider / Swap Action -->
@@ -303,6 +303,22 @@
 
   sourceLang.addEventListener("change", validateLanguages);
   targetLang.addEventListener("change", validateLanguages);
+
+  const inputText = document.getElementById("inputText");
+  const charCount = document.getElementById("charCount");
+
+  inputText.addEventListener("input", () => {
+    const currentLength = inputText.value.length;
+    charCount.innerText = `${currentLength} / 5000`;
+
+    if (currentLength >= 5000) {
+      charCount.style.color = "#ff4d4d"; // Red warning
+    } else if (currentLength > 4000) {
+      charCount.style.color = "#ffb347"; // Orange warning
+    } else {
+      charCount.style.color = "#a0a0a0"; // Standard gray
+    }
+  });
 
   // Debounce utility - prevents rapid API calls
   function debounce(fn, delay) {
