@@ -73,6 +73,15 @@
                 transform: rotate(360deg);
             }
         }
+        .history-card {
+            transition: all 0.3s ease;
+        }
+
+        .history-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(120,140,255,0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
@@ -516,7 +525,7 @@
       }
 
       historyList.innerHTML = history.map(item => `
-        <div class="glass-panel p-6 flex flex-col gap-3 group hover:border-primary/50 transition-all cursor-pointer">
+        <div class="glass-panel history-card p-6 flex flex-col gap-3 group cursor-pointer">
           <div class="flex justify-between items-start">
             <span class="text-xs font-label-sm text-outline uppercase tracking-widest">${new Date(item.createdAt).toLocaleDateString()}</span>
             <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-sm">open_in_new</span>
