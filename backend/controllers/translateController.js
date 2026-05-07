@@ -1,5 +1,6 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const Translation = require("../models/Translation");
+const axios = require("axios");
 
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -49,8 +50,7 @@ const translate = async (req, res, next) => {
     }
 
     const existing = await Translation.findOne({
-      originalText: { $regex: new RegExp(`^${text.trim()}$`, "i") },
-      targetLanguage: target
+      originalText: { $regex: new RegExp(`^${text.trim()}$`, "i") }
     });
 
     if (existing) {
@@ -58,9 +58,33 @@ const translate = async (req, res, next) => {
       return res.json({ original: text, translated: existing.translatedText, source: "database" });
     }
 
-    const prompt = `Translate the following text to ${target}. Return ONLY the translated text, nothing else. No quotes, no explanation.\n\nText: "${text}"`;
-    const result = await model.generateContent(prompt);
-    const translatedText = result.response.text().trim();
+    let translatedText;
+    let source = "ai";
+
+    try {
+      const prompt = `Translate the following text to ${target}. Return ONLY the translated text, nothing else. No quotes, no explanation.\n\nText: "${text}"`;
+      const result = await model.generateContent(prompt);
+      translatedText = result.response.text().trim();
+    } catch (aiError) {
+      console.warn("Gemini AI failed, trying MyMemory fallback API...", aiError.message);
+      try {
+        const response = await axios.get("https://api.mymemory.translated.net/get", {
+          params: {
+            q: text,
+            langpair: `en|${target}`
+          }
+        });
+        if (response.data && response.data.responseData) {
+          translatedText = response.data.responseData.translatedText;
+          source = "fallback-api";
+        } else {
+          throw new Error("Invalid response structure from MyMemory");
+        }
+      } catch (fallbackError) {
+        console.error("MyMemory fallback API also failed:", fallbackError.message);
+        throw new Error("Translation failed. Both Gemini AI and fallback translation APIs are offline.");
+      }
+    }
 
     const translation = new Translation({
       user: req.user ? req.user.id : null,
@@ -71,7 +95,7 @@ const translate = async (req, res, next) => {
     await translation.save();
     addToCache(cacheKey, translatedText);
 
-    res.json({ original: text, translated: translatedText, source: "ai" });
+    res.json({ original: text, translated: translatedText, source: source });
   } catch (err) {
     next(err);
   }

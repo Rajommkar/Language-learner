@@ -31,6 +31,30 @@
                         radial-gradient(circle at 50% 50%, rgba(29, 89, 193, 0.05) 0%, transparent 70%);
             background-color: #0c0e10; /* surface-container-lowest */
         }
+        /* Premium Toast Styles */
+        #coming-soon-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: rgba(18, 20, 22, 0.9);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(176, 198, 255, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            padding: 14px 24px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #coming-soon-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
@@ -135,11 +159,11 @@
 <a class="text-slate-400 hover:text-slate-200 hover:backdrop-blur-3xl transition-all duration-300 active:scale-[0.99] transition-transform" href="#">Community</a>
 </nav>
 <div class="flex items-center gap-4">
-<button class="text-slate-400 hover:text-slate-200 transition-colors">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<button onclick="showComingSoonToast()" class="text-slate-400 hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">lock</span>
 </button>
-<button class="text-slate-400 hover:text-slate-200 transition-colors">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<button onclick="showComingSoonToast()" class="text-slate-400 hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">lock</span>
 </button>
 <img alt="User profile" class="w-8 h-8 rounded-full border border-white/10" data-alt="Close up portrait of a young woman with natural makeup looking directly at camera, soft lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB94mpY7KsrQeO05lzFtl-UE_oobO4CYvnshIc6VNUmaS_7ZWS4n4DaiXNfIatDyYX05sQHdsIygQ0jt1WjIr_KvqwUBtglFfNTmoRcNfcdmDMhLvSKPxGfksi7lKPMXjETGIbGMubyBAlQeM0rY02zhNxyy1KHKQHvaqxqsxfSO-_Ho4IxiFK9sQV2Ba8hWRK1q7H_8aJp0N8gOQlSbA9hiMkBltLpVwZAgP459gtDya4wv2m2C4LvvMBz56xcyMnc_3Zu2D2QjFA"/>
 </div>
@@ -147,29 +171,33 @@
 <!-- SideNavBar (Desktop Only, acting as semantic shell anchor) -->
 <aside class="hidden md:flex fixed left-0 top-0 h-full flex-col py-8 bg-slate-950/85 backdrop-blur-[32px] font-serif text-left border-r border-white/10 w-64 z-40 mt-16">
 <nav class="flex-1 flex flex-col gap-2 mt-8">
-<a class="text-blue-500 font-semibold flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="Dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-blue-500 font-semibold flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="Translator.html">
 <span class="material-symbols-outlined" data-icon="translate">translate</span>
 <span>Translate</span>
 </a>
-<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#historyList">
 <span class="material-symbols-outlined" data-icon="history">history</span>
 <span>History</span>
 </a>
-<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
-<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<a class="text-zinc-600 flex items-center gap-3 py-3 px-4 hover:bg-white/5 opacity-50 cursor-not-allowed transition-colors" href="#" onclick="showComingSoonToast()">
+<span class="material-symbols-outlined">lock</span>
 <span>Saved</span>
 </a>
-<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="quiz.html">
 <span class="material-symbols-outlined" data-icon="exercise">exercise</span>
 <span>Practice</span>
 </a>
 </nav>
 <div class="mt-auto flex flex-col gap-2">
-<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
-<span class="material-symbols-outlined" data-icon="help">help</span>
+<a class="text-zinc-600 flex items-center gap-3 py-3 px-4 hover:bg-white/5 opacity-50 cursor-not-allowed transition-colors" href="#" onclick="showComingSoonToast()">
+<span class="material-symbols-outlined">lock</span>
 <span>Help</span>
 </a>
-<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="#">
+<a class="text-slate-400 flex items-center gap-3 py-3 px-4 hover:bg-white/5 transition-colors duration-200 active:opacity-80" href="logout.html">
 <span class="material-symbols-outlined" data-icon="logout">logout</span>
 <span>Logout</span>
 </a>
@@ -237,6 +265,17 @@
 </div>
 </div>
 </div>
+
+<!-- Beautiful Premium History Panel -->
+<div class="w-full max-w-5xl mt-12 bg-slate-900/40 backdrop-blur-md border border-white/5 rounded-2xl p-8 shadow-xl">
+  <div class="flex items-center gap-3 mb-6">
+    <span class="material-symbols-outlined text-primary text-2xl">history</span>
+    <h2 class="text-xl font-serif text-white tracking-wide">Translation History</h2>
+  </div>
+  <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+    <!-- History items will be inserted here dynamically -->
+  </div>
+</div>
 </main>
 <script src="config.js"></script>
 <script>
@@ -280,7 +319,7 @@
           "Content-Type": "application/json",
           "Authorization": "Bearer " + token
         },
-        body: JSON.stringify({ text })
+        body: JSON.stringify({ text, targetLang: "es" })
       });
 
       if (!res.ok) {
@@ -363,5 +402,25 @@
 
   // Initial load
   getHistory();
+
+  // Premium Coming Soon Toast Trigger
+  function showComingSoonToast() {
+    let toast = document.getElementById("coming-soon-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "coming-soon-toast";
+      toast.innerHTML = `
+        <span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">lock</span>
+        <span class="font-label-md text-label-md text-on-surface">Feature coming soon in next update.</span>
+      `;
+      document.body.appendChild(toast);
+    }
+    // Trigger animation
+    setTimeout(() => toast.classList.add("show"), 10);
+    // Dismiss after 3s
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3000);
+  }
 </script>
 </body></html>
