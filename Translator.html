@@ -55,6 +55,24 @@
             transform: translateY(0);
             opacity: 1;
         }
+        /* Premium Spinner Loader CSS */
+        .loader {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
@@ -403,8 +421,11 @@
 
     // Loading state
     translateBtn.disabled = true;
-    translateBtn.style.opacity = "0.5";
-    translateBtn.innerText = "Translating...";
+    translateBtn.style.opacity = "0.7";
+    translateBtn.innerHTML = `
+      <span class="loader"></span>
+      Translating...
+    `;
     output.innerHTML = "Translating<span class='animate-pulse'>...</span>";
     output.style.opacity = "0.5";
 
@@ -451,7 +472,7 @@
       // Reset button
       translateBtn.disabled = false;
       translateBtn.style.opacity = "1";
-      translateBtn.innerText = "TRANSLATE";
+      translateBtn.innerHTML = "TRANSLATE";
     }
   }
 
