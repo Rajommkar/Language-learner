@@ -260,7 +260,7 @@
 <div class="flex justify-between items-center mt-auto border-t border-outline-variant/30 pt-4">
 <div class="flex gap-4 text-outline">
 <button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
-<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">content_copy</span></button>
+<button id="copyBtn" class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">content_copy</span></button>
 <button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">share</span></button>
 </div>
 <div class="flex gap-2 text-outline">
@@ -317,6 +317,32 @@
       charCount.style.color = "#ffb347"; // Orange warning
     } else {
       charCount.style.color = "#a0a0a0"; // Standard gray
+    }
+  });
+
+  const copyBtn = document.getElementById("copyBtn");
+  const outputText = document.getElementById("outputText");
+
+  copyBtn.addEventListener("click", async () => {
+    const rawText = outputText.innerText.trim();
+    if (!rawText || rawText === "Translation will appear here..." || rawText.startsWith("Translating")) {
+      showToast("Nothing to copy.", "warning");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(rawText);
+      showToast("Copied Successfully", "check_circle");
+
+      // Premium icon feedback
+      copyBtn.innerHTML = '<span class="material-symbols-outlined text-green-400">check</span>';
+
+      setTimeout(() => {
+        copyBtn.innerHTML = '<span class="material-symbols-outlined">content_copy</span>';
+      }, 1500);
+
+    } catch (error) {
+      showToast("Copy failed.", "error");
     }
   });
 
