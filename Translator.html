@@ -234,7 +234,7 @@
 </div>
 <!-- Divider / Swap Action -->
 <div class="md:w-px bg-outline-variant/30 h-px md:h-auto w-full relative flex items-center justify-center">
-<button class="absolute z-20 bg-surface-container-highest border border-outline-variant text-on-surface w-10 h-10 flex items-center justify-center hover:bg-surface-variant hover:text-primary transition-all active:scale-95 group">
+<button id="swapBtn" class="absolute z-20 bg-surface-container-highest border border-outline-variant text-on-surface w-10 h-10 flex items-center justify-center hover:bg-surface-variant hover:text-primary transition-all active:scale-95 group">
 <span class="material-symbols-outlined transform group-hover:rotate-180 transition-transform duration-500">swap_horiz</span>
 </button>
 </div>
@@ -343,6 +343,42 @@
 
     } catch (error) {
       showToast("Copy failed.", "error");
+    }
+  });
+
+  const swapBtn = document.getElementById("swapBtn");
+
+  swapBtn.addEventListener("click", () => {
+    if (sourceLang.value === "auto") {
+      showToast("Auto Detect cannot be swapped.", "warning");
+      return;
+    }
+
+    // Swap languages
+    const tempLang = sourceLang.value;
+    sourceLang.value = targetLang.value;
+    targetLang.value = tempLang;
+
+    // Swap text values (safeguard against default placeholder)
+    let currentOutput = outputText.innerText.trim();
+    if (currentOutput === "Translation will appear here...") {
+      currentOutput = "";
+    }
+    const tempText = inputText.value;
+    inputText.value = currentOutput;
+    outputText.innerText = tempText || "Translation will appear here...";
+
+    validateLanguages();
+
+    // Trigger character counter live update
+    const currentLength = inputText.value.length;
+    charCount.innerText = `${currentLength} / 5000`;
+    if (currentLength >= 5000) {
+      charCount.style.color = "#ff4d4d";
+    } else if (currentLength > 4000) {
+      charCount.style.color = "#ffb347";
+    } else {
+      charCount.style.color = "#a0a0a0";
     }
   });
 
