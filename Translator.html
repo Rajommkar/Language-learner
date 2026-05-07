@@ -32,7 +32,7 @@
             background-color: #0c0e10; /* surface-container-lowest */
         }
         /* Premium Toast Styles */
-        #coming-soon-toast {
+        #coming-soon-toast, #message-toast {
             position: fixed;
             bottom: 24px;
             right: 24px;
@@ -51,7 +51,7 @@
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        #coming-soon-toast.show {
+        #coming-soon-toast.show, #message-toast.show {
             transform: translateY(0);
             opacity: 1;
         }
@@ -335,7 +335,7 @@
     const target = targetLang.value;
 
     if (!text) {
-      output.innerText = "⚠️ Enter text first";
+      showToast("Please enter text to translate.", "warning");
       return;
     }
 
@@ -464,6 +464,26 @@
       `;
       document.body.appendChild(toast);
     }
+    // Trigger animation
+    setTimeout(() => toast.classList.add("show"), 10);
+    // Dismiss after 3s
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3000);
+  }
+
+  // Premium Generic Toast System
+  function showToast(message, iconName = "info") {
+    let toast = document.getElementById("message-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "message-toast";
+      document.body.appendChild(toast);
+    }
+    toast.innerHTML = `
+      <span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">${iconName}</span>
+      <span class="font-label-md text-label-md text-on-surface">${message}</span>
+    `;
     // Trigger animation
     setTimeout(() => toast.classList.add("show"), 10);
     // Dismiss after 3s
