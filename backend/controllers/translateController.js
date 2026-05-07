@@ -32,11 +32,22 @@ function parseAIResponse(text) {
 
 const translate = async (req, res, next) => {
   try {
-    const { text, targetLang } = req.body;
+    const { text, targetLang, translatedText: passedTranslation } = req.body;
     const target = targetLang || "en";
 
     if (!text || text.length > 5000) {
       return res.status(400).json({ message: "Invalid input" });
+    }
+
+    // If passedTranslation is already provided by frontend direct fetch, save it directly!
+    if (passedTranslation) {
+      const translation = new Translation({
+        user: req.user ? req.user.id : null,
+        originalText: text,
+        translatedText: passedTranslation,
+      });
+      await translation.save();
+      return res.json({ original: text, translated: passedTranslation, source: "direct" });
     }
 
     const cacheKey = `${text.trim().toLowerCase()}::${target}`;
