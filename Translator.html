@@ -534,7 +534,7 @@
       }
 
       historyList.innerHTML = history.map(item => `
-        <div class="glass-panel history-card p-6 flex flex-col gap-3 group cursor-pointer">
+        <div class="glass-panel history-card p-6 flex flex-col gap-3 group cursor-pointer" onclick='restoreTranslation(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
           <div class="flex justify-between items-start">
             <span class="text-xs font-label-sm text-outline uppercase tracking-widest">${new Date(item.createdAt).toLocaleDateString()}</span>
             <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-sm">open_in_new</span>
@@ -548,6 +548,18 @@
       console.error(err);
       historyList.innerHTML = '<p class="text-error col-span-full">⚠️ Something went wrong. Try again.</p>';
     }
+  }
+
+  function restoreTranslation(item) {
+    inputText.value = item.originalText;
+    outputText.innerText = item.translatedText;
+    targetLang.value = item.targetLang || "en";
+
+    // update character count
+    const currentLength = item.originalText.length;
+    charCount.innerText = `${currentLength} / 5000`;
+
+    showToast("Translation restored", "history");
   }
 
   // Initial load
