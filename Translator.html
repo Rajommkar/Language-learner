@@ -273,9 +273,9 @@
 <div class="relative">
 <select id="targetLang" class="bg-slate-950/80 text-on-surface border border-white/10 rounded px-4 py-2 font-body-md text-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none cursor-pointer">
   <option value="auto">Auto Detect</option>
-  <option value="en">English</option>
+  <option value="en" selected>English</option>
   <option value="hi">Hindi</option>
-  <option value="es" selected>Spanish</option>
+  <option value="es">Spanish</option>
   <option value="fr">French</option>
   <option value="de">German</option>
   <option value="ja">Japanese</option>
@@ -317,6 +317,13 @@
   const sourceLang = document.getElementById("sourceLang");
   const targetLang = document.getElementById("targetLang");
   const translateBtn = document.getElementById("translateBtn");
+
+  // Auto-set target language from browser if supported
+  const browserLang = navigator.language.slice(0, 2);
+  const supportedTargetLangs = Array.from(targetLang.options).map(opt => opt.value);
+  if (browserLang !== "en" && supportedTargetLangs.includes(browserLang)) {
+    targetLang.value = browserLang;
+  }
 
   function validateLanguages() {
     if (sourceLang.value === targetLang.value && sourceLang.value !== "auto") {
