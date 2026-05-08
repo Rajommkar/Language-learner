@@ -66,10 +66,15 @@ const submitAnswer = async (req, res, next) => {
 
     await user.save();
 
+    const totalQuestions = lesson.questions.length;
+    const progress = Math.floor(
+      ((questionIndex + 1) / totalQuestions) * 100
+    );
+
     res.json({
       correct: isCorrect,
       xp: user.xp,
-      progress: user.progress
+      progress
     });
 
   } catch (err) {
