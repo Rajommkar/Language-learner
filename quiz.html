@@ -76,6 +76,8 @@ async function loadLesson() {
     const data = await res.json();
 
     lesson = data[0];
+    // Randomize question order to increase replayability
+    lesson.questions = lesson.questions.sort(() => Math.random() - 0.5);
     showQuestion();
   } catch (err) {
     console.error(err);
@@ -98,7 +100,8 @@ function showQuestion() {
   const optionsDiv = document.getElementById("options");
   optionsDiv.innerHTML = "";
 
-  q.options.forEach(option => {
+  const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+  shuffledOptions.forEach(option => {
     const btn = document.createElement("div");
 
     btn.className = `

@@ -21,6 +21,41 @@ const lessons = [
         question: "How do you say 'Thank you'?",
         options: ["De nada", "Gracias", "Hola", "Perdón"],
         correctAnswer: "Gracias"
+      },
+      {
+        question: "How do you say 'Good Morning' in Spanish?",
+        options: ["Buenos días", "Buenas noches", "Gracias", "Hola"],
+        correctAnswer: "Buenos días"
+      },
+      {
+        question: "What does 'Gracias' mean?",
+        options: ["Sorry", "Please", "Thank you", "Goodbye"],
+        correctAnswer: "Thank you"
+      },
+      {
+        question: "How do you say 'Please' in Spanish?",
+        options: ["Hola", "Por favor", "Gracias", "Adiós"],
+        correctAnswer: "Por favor"
+      },
+      {
+        question: "What does 'Adiós' mean?",
+        options: ["Goodbye", "Hello", "Morning", "Night"],
+        correctAnswer: "Goodbye"
+      },
+      {
+        question: "How do you say 'Good Night' in Spanish?",
+        options: ["Buenas noches", "Buenos días", "Gracias", "Hola"],
+        correctAnswer: "Buenas noches"
+      },
+      {
+        question: "What does 'De nada' mean?",
+        options: ["Please", "You are welcome", "Thank you", "Sorry"],
+        correctAnswer: "You are welcome"
+      },
+      {
+        question: "How do you say 'Good Afternoon' in Spanish?",
+        options: ["Buenas tardes", "Buenos días", "Buenas noches", "Adiós"],
+        correctAnswer: "Buenas tardes"
       }
     ]
   },
