@@ -142,7 +142,8 @@ async function submitAnswer(answer) {
       body: JSON.stringify({
         lessonId: lesson._id,
         questionIndex: currentQuestionIndex,
-        selectedAnswer: answer
+        selectedAnswer: answer,
+        questionText: lesson.questions[currentQuestionIndex].question
       })
     });
 

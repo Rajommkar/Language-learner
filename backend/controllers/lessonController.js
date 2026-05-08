@@ -12,7 +12,7 @@ const getLessons = async (req, res, next) => {
 
 const submitAnswer = async (req, res, next) => {
   try {
-    const { lessonId, questionIndex, selectedAnswer } = req.body;
+    const { lessonId, questionIndex, selectedAnswer, questionText } = req.body;
 
     if (!lessonId || questionIndex === undefined || selectedAnswer === undefined) {
       return res.status(400).json({ message: "lessonId, questionIndex, and selectedAnswer are required" });
@@ -33,7 +33,12 @@ const submitAnswer = async (req, res, next) => {
       return res.status(404).json({ message: "Lesson not found" });
     }
 
-    const question = lesson.questions[questionIndex];
+    let question;
+    if (questionText) {
+      question = lesson.questions.find(q => String(q.question).trim() === String(questionText).trim());
+    } else {
+      question = lesson.questions[questionIndex];
+    }
 
     if (!question) {
       return res.status(400).json({ message: "Invalid question" });
