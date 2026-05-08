@@ -84,6 +84,15 @@
             border-color: rgba(120,140,255,0.4);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
+
+        #translateBtn {
+            transition: all 0.25s ease;
+        }
+
+        #translateBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(120,140,255,0.25);
+        }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
@@ -483,6 +492,13 @@
       // 3. Update UI
       output.innerText = translatedText;
       output.style.opacity = "1";
+
+      // +5 XP Reward System
+      showToast("+5 XP Earned", "bolt");
+      let currentXP = Number(localStorage.getItem("xp")) || 0;
+      currentXP += 5;
+      localStorage.setItem("xp", currentXP);
+
       getHistory();
 
     } catch (err) {
