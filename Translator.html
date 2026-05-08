@@ -487,15 +487,12 @@
     }
   }
 
-  // Auto-translate with debounce (500ms delay after typing stops)
-  document.getElementById("inputText").addEventListener("input",
-    debounce(() => {
-      const text = document.getElementById("inputText").value.trim();
-      if (text.length > 2) {
-        translateText();
-      }
-    }, 500)
-  );
+  // Keydown listener for Ctrl+Enter / Cmd+Enter translation shortcut
+  document.getElementById("inputText").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      translateText();
+    }
+  });
 
   // FETCH HISTORY
   async function getHistory() {
