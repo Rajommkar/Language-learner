@@ -222,6 +222,8 @@ async function submitAnswer(answer) {
         }
       });
 
+      showXP(data.xpEarned || 10);
+
       result.innerHTML = `✅ Correct<br>XP: ${data.xp} | Progress: ${data.progress}%`;
       result.className = "text-green-400 text-center mt-6";
     } else {
