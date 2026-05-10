@@ -92,6 +92,14 @@
 let lesson = null;
 let currentQuestionIndex = 0;
 
+function showXP(amount) {
+    const popup = document.getElementById("xpPopup");
+    popup.innerText = `+${amount} XP`;
+    popup.classList.remove("animate-xp");
+    void popup.offsetWidth; // trigger reflow
+    popup.classList.add("animate-xp");
+}
+
 async function loadLesson() {
   try {
     const token = localStorage.getItem("token");
