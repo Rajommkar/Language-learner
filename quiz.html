@@ -269,8 +269,6 @@ async function submitAnswer(answer) {
       }, 1200);
     } else {
       document.getElementById("progressBar").style.width = "100%";
-      document.getElementById("questionText").innerText = "🎉 Lesson Complete";
-      document.getElementById("options").innerHTML = "";
     }
   } catch (err) {
     console.error(err);
