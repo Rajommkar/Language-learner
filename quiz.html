@@ -169,8 +169,16 @@ async function submitAnswer(answer) {
     result.style.transition = "all 0.3s ease";
     result.style.opacity = "0";
 
+    const buttons = document.querySelectorAll("#options div");
+    
+    // Step 4 - Fade non-selected options for focus
+    buttons.forEach(btn => {
+      if (btn.innerText !== answer) {
+        btn.style.opacity = "0.5";
+      }
+    });
+
     if (data.correct) {
-      const buttons = document.querySelectorAll("#options div");
       buttons.forEach(btn => {
         if (btn.innerText === answer) {
           btn.classList.add(
@@ -185,7 +193,6 @@ async function submitAnswer(answer) {
       result.innerHTML = `✅ Correct<br>XP: ${data.xp} | Progress: ${data.progress}%`;
       result.className = "text-green-400 text-center mt-6";
     } else {
-      const buttons = document.querySelectorAll("#options div");
       buttons.forEach(btn => {
         // wrong selected answer
         if (btn.innerText === answer) {
