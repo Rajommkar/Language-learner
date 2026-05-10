@@ -158,6 +158,18 @@ async function submitAnswer(answer) {
     result.style.opacity = "0";
 
     if (data.correct) {
+      const buttons = document.querySelectorAll("#options div");
+      buttons.forEach(btn => {
+        if (btn.innerText === answer) {
+          btn.classList.add(
+            "bg-green-500/20",
+            "border-green-400",
+            "shadow-lg",
+            "shadow-green-500/20"
+          );
+        }
+      });
+
       result.innerHTML = `✅ Correct<br>XP: ${data.xp} | Progress: ${data.progress}%`;
       result.className = "text-green-400 text-center mt-6";
     } else {
