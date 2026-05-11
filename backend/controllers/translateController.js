@@ -75,7 +75,7 @@ const translate = async (req, res, next) => {
     }
 
     let translatedText;
-    let source = "ai";
+    let provider = "ai";
 
     try {
       const prompt = `Translate the following text from ${source === 'auto' ? 'detected language' : source} to ${target}. Return ONLY the translated text, nothing else. No quotes, no explanation.\n\nText: "${text}"`;
@@ -92,7 +92,7 @@ const translate = async (req, res, next) => {
         });
         if (response.data && response.data.responseData) {
           translatedText = response.data.responseData.translatedText;
-          source = "fallback-api";
+          provider = "fallback-api";
         } else {
           throw new Error("Invalid response structure from MyMemory");
         }
@@ -115,7 +115,7 @@ const translate = async (req, res, next) => {
     await translation.save();
     addToCache(cacheKey, translatedText);
 
-    res.json({ original: text, translated: translatedText, source: source });
+    res.json({ original: text, translated: translatedText, source: provider });
   } catch (err) {
     next(err);
   }
