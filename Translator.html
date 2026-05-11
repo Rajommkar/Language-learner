@@ -571,9 +571,13 @@
       historyList.innerHTML = history.map(item => `
         <div class="glass-panel history-card p-6 flex flex-col gap-3 group cursor-pointer" onclick='restoreTranslation(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
           <div class="flex justify-between items-start">
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-2">
               <span class="text-xs font-label-sm text-outline uppercase tracking-widest">${new Date(item.createdAt).toLocaleDateString()}</span>
-              <span class="text-[10px] text-primary font-medium uppercase tracking-wider font-serif">${item.sourceLanguage || 'Auto'} → ${item.targetLanguage || 'Translation'}</span>
+              <div class="flex items-center gap-1.5">
+                <span class="px-2 py-0.5 bg-primary/10 border border-primary/20 text-primary text-[9px] font-bold rounded-sm uppercase tracking-widest">${item.sourceLanguage || 'Auto'}</span>
+                <span class="text-outline-variant text-[9px]">→</span>
+                <span class="px-2 py-0.5 bg-primary/10 border border-primary/20 text-primary text-[9px] font-bold rounded-sm uppercase tracking-widest">${item.targetLanguage || 'Target'}</span>
+              </div>
             </div>
             <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-sm">open_in_new</span>
           </div>
