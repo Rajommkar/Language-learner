@@ -178,8 +178,8 @@ function showQuestion() {
   const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
   shuffledOptions.forEach(option => {
     const btn = document.createElement("div");
-
     btn.className = `
+      option-enter
       p-5
       border
       border-white/10
