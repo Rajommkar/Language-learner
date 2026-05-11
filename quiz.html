@@ -228,6 +228,7 @@ async function submitAnswer(answer) {
     });
 
     if (data.correct) {
+      correctAnswers++;
       buttons.forEach(btn => {
         if (btn.innerText === answer) {
           btn.classList.add(
