@@ -494,7 +494,14 @@
               "Content-Type": "application/json",
               "Authorization": "Bearer " + token
             },
-            body: JSON.stringify({ text, targetLang: target, translatedText })
+            body: JSON.stringify({ 
+              text, 
+              sourceLang: source, 
+              targetLang: target, 
+              sourceLanguage: sourceLang.options[sourceLang.selectedIndex].text,
+              targetLanguage: targetLang.options[targetLang.selectedIndex].text,
+              translatedText 
+            })
           });
         } catch (saveError) {
           console.warn("Backend save failed, but translation succeeded:", saveError);
@@ -564,7 +571,10 @@
       historyList.innerHTML = history.map(item => `
         <div class="glass-panel history-card p-6 flex flex-col gap-3 group cursor-pointer" onclick='restoreTranslation(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
           <div class="flex justify-between items-start">
-            <span class="text-xs font-label-sm text-outline uppercase tracking-widest">${new Date(item.createdAt).toLocaleDateString()}</span>
+            <div class="flex flex-col gap-1">
+              <span class="text-xs font-label-sm text-outline uppercase tracking-widest">${new Date(item.createdAt).toLocaleDateString()}</span>
+              <span class="text-[10px] text-primary font-medium uppercase tracking-wider font-serif">${item.sourceLanguage || 'Auto'} → ${item.targetLanguage || 'Translation'}</span>
+            </div>
             <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-sm">open_in_new</span>
           </div>
           <p class="text-on-surface font-medium line-clamp-1">${item.originalText}</p>
@@ -581,6 +591,7 @@
   function restoreTranslation(item) {
     inputText.value = item.originalText;
     outputText.innerText = item.translatedText;
+    sourceLang.value = item.sourceLang || "auto";
     targetLang.value = item.targetLang || "en";
 
     // update character count

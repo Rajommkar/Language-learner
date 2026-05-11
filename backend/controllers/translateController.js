@@ -32,7 +32,8 @@ function parseAIResponse(text) {
 
 const translate = async (req, res, next) => {
   try {
-    const { text, targetLang, translatedText: passedTranslation } = req.body;
+    const { text, sourceLang, targetLang, sourceLanguage, targetLanguage, translatedText: passedTranslation } = req.body;
+    const source = sourceLang || "auto";
     const target = targetLang || "en";
 
     if (!text || text.length > 5000) {
@@ -45,12 +46,16 @@ const translate = async (req, res, next) => {
         user: req.user ? req.user.id : null,
         originalText: text,
         translatedText: passedTranslation,
+        sourceLang: source,
+        targetLang: target,
+        sourceLanguage,
+        targetLanguage
       });
       await translation.save();
       return res.json({ original: text, translated: passedTranslation, source: "direct" });
     }
 
-    const cacheKey = `${text.trim().toLowerCase()}::${target}`;
+    const cacheKey = `${text.trim().toLowerCase()}::${source}::${target}`;
 
     if (cache.has(cacheKey)) {
       const cached = cache.get(cacheKey);
@@ -73,7 +78,7 @@ const translate = async (req, res, next) => {
     let source = "ai";
 
     try {
-      const prompt = `Translate the following text to ${target}. Return ONLY the translated text, nothing else. No quotes, no explanation.\n\nText: "${text}"`;
+      const prompt = `Translate the following text from ${source === 'auto' ? 'detected language' : source} to ${target}. Return ONLY the translated text, nothing else. No quotes, no explanation.\n\nText: "${text}"`;
       const result = await model.generateContent(prompt);
       translatedText = result.response.text().trim();
     } catch (aiError) {
@@ -82,7 +87,7 @@ const translate = async (req, res, next) => {
         const response = await axios.get("https://api.mymemory.translated.net/get", {
           params: {
             q: text,
-            langpair: `en|${target}`
+            langpair: `${source}|${target}`
           }
         });
         if (response.data && response.data.responseData) {
@@ -101,6 +106,10 @@ const translate = async (req, res, next) => {
       user: req.user ? req.user.id : null,
       originalText: text,
       translatedText: translatedText,
+      sourceLang: source,
+      targetLang: target,
+      sourceLanguage,
+      targetLanguage
     });
 
     await translation.save();
