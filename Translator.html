@@ -329,6 +329,8 @@ const LANGUAGES = {
   const targetLang = document.getElementById("targetLang");
   const translateBtn = document.getElementById("translateBtn");
 
+  populateLanguages();
+
   function populateLanguages() {
 
     Object.entries(LANGUAGES).forEach(([code, name]) => {
@@ -348,8 +350,6 @@ const LANGUAGES = {
     sourceLang.value = "auto";
     targetLang.value = "en";
   }
-
-  populateLanguages();
 
   // Auto-set target language from browser if supported
   const browserLang = navigator.language.slice(0, 2);
