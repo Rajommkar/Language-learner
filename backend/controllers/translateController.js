@@ -82,23 +82,21 @@ const translate = async (req, res, next) => {
       const result = await model.generateContent(prompt);
       translatedText = result.response.text().trim();
     } catch (aiError) {
-      console.warn("Gemini AI failed, trying MyMemory fallback API...", aiError.message);
+      console.warn("Gemini AI failed (Rate Limit/Error), trying Lingva fallback API...", aiError.message);
       try {
-        const response = await axios.get("https://api.mymemory.translated.net/get", {
-          params: {
-            q: text,
-            langpair: `${source}|${target}`
-          }
-        });
-        if (response.data && response.data.responseData) {
-          translatedText = response.data.responseData.translatedText;
-          provider = "fallback-api";
+        // Fallback 1: Lingva API (Free Google Translate Proxy)
+        const response = await axios.get(`https://lingva.ml/api/v1/${source}/${target}/${encodeURIComponent(text)}`);
+        if (response.data && response.data.translation) {
+          translatedText = response.data.translation;
+          provider = "lingva-api";
         } else {
-          throw new Error("Invalid response structure from MyMemory");
+          throw new Error("Invalid response structure from Lingva");
         }
       } catch (fallbackError) {
-        console.error("MyMemory fallback API also failed:", fallbackError.message);
-        throw new Error("Translation failed. Both Gemini AI and fallback translation APIs are offline.");
+        console.warn("Lingva fallback API also failed, using mock translation:", fallbackError.message);
+        // Fallback 2: Mock Translation so the UI never breaks during development
+        translatedText = `[Mock] ${text} (${target.toUpperCase()})`;
+        provider = "mock";
       }
     }
 
