@@ -481,41 +481,29 @@ const LANGUAGES = {
     output.style.opacity = "0.5";
 
     try {
-      // 1. Hit MyMemory API directly on frontend for ultimate speed & reliability
-      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${source}|${target}`;
-      const myMemoryRes = await fetch(url);
-      if (!myMemoryRes.ok) throw new Error("MyMemory translation service failed");
-      const myMemoryData = await myMemoryRes.json();
-      
-      if (!myMemoryData || !myMemoryData.responseData) {
-        throw new Error("Invalid response from MyMemory API");
-      }
-      
-      const translatedText = myMemoryData.responseData.translatedText;
-
-      // 2. Save translation to backend history & trigger user progress save
+      // 1. Hit our robust backend API (handles Gemini + Fallback + DB Cache)
       const token = localStorage.getItem("token");
+      const headers = { "Content-Type": "application/json" };
       if (token) {
-        try {
-          await fetch(`${BASE_URL}/api/translate`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({ 
-              text, 
-              sourceLang: source, 
-              targetLang: target, 
-              translatedText 
-            })
-          });
-        } catch (saveError) {
-          console.warn("Backend save failed, but translation succeeded:", saveError);
-        }
+        headers["Authorization"] = "Bearer " + token;
       }
 
-      // 3. Update UI
+      const res = await fetch(`${BASE_URL}/api/translate`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ 
+          text, 
+          sourceLang: source, 
+          targetLang: target 
+        })
+      });
+
+      if (!res.ok) throw new Error("Backend translation service failed");
+      
+      const data = await res.json();
+      const translatedText = data.translated;
+
+      // 2. Update UI
       output.innerText = translatedText;
       output.style.opacity = "1";
 
