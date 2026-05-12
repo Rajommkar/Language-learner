@@ -329,23 +329,22 @@ const LANGUAGES = {
   const targetLang = document.getElementById("targetLang");
   const translateBtn = document.getElementById("translateBtn");
 
-  // Dynamically populate language options
   function populateLanguages() {
-    if (typeof LANGUAGES !== 'undefined') {
-      for (const [code, name] of Object.entries(LANGUAGES)) {
-        const optionSource = document.createElement("option");
-        optionSource.value = code;
-        optionSource.textContent = name;
-        sourceLang.appendChild(optionSource);
 
-        // Only add "auto" to target if you want it there, but original had it too
-        const optionTarget = document.createElement("option");
-        optionTarget.value = code;
-        optionTarget.textContent = name;
-        targetLang.appendChild(optionTarget);
-      }
-    }
+    Object.entries(LANGUAGES).forEach(([code, name]) => {
 
+        const sourceOption =
+            new Option(name, code);
+
+        const targetOption =
+            new Option(name, code);
+
+        sourceLang.add(sourceOption);
+        targetLang.add(targetOption);
+
+    });
+
+    // defaults
     sourceLang.value = "auto";
     targetLang.value = "en";
   }
