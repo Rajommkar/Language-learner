@@ -309,6 +309,21 @@
 </main>
 <script src="config.js"></script>
 <script>
+const LANGUAGES = {
+    auto: "Auto Detect",
+    en: "English",
+    hi: "Hindi",
+    es: "Spanish",
+    fr: "French",
+    de: "German",
+    ar: "Arabic",
+    "zh-CN": "Mandarin",
+    ja: "Japanese",
+    ru: "Russian",
+    ko: "Korean",
+    it: "Italian",
+    pt: "Portuguese"
+};
   let debounceTimer = null;
   const sourceLang = document.getElementById("sourceLang");
   const targetLang = document.getElementById("targetLang");
@@ -316,28 +331,19 @@
 
   // Dynamically populate language options
   function populateLanguages() {
-    const autoOptionSource = document.createElement("option");
-    autoOptionSource.value = "auto";
-    autoOptionSource.textContent = "Auto Detect";
-    sourceLang.appendChild(autoOptionSource);
-
-    const autoOptionTarget = document.createElement("option");
-    autoOptionTarget.value = "auto";
-    autoOptionTarget.textContent = "Auto Detect";
-    targetLang.appendChild(autoOptionTarget);
-
     if (typeof LANGUAGES !== 'undefined') {
-      LANGUAGES.forEach(lang => {
+      for (const [code, name] of Object.entries(LANGUAGES)) {
         const optionSource = document.createElement("option");
-        optionSource.value = lang.code;
-        optionSource.textContent = lang.name;
+        optionSource.value = code;
+        optionSource.textContent = name;
         sourceLang.appendChild(optionSource);
 
+        // Only add "auto" to target if you want it there, but original had it too
         const optionTarget = document.createElement("option");
-        optionTarget.value = lang.code;
-        optionTarget.textContent = lang.name;
+        optionTarget.value = code;
+        optionTarget.textContent = name;
         targetLang.appendChild(optionTarget);
-      });
+      }
     }
 
     sourceLang.value = "auto";
