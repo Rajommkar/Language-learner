@@ -398,9 +398,11 @@
       }
       const user = await res.json();
 
+      const xp = user.xp;
+
       // calculate level dynamically based on XP
-      const level = calculateLevel(user.xp);
-      const progress = calculateLevelProgress(user.xp);
+      const level = calculateLevel(xp);
+      const progress = calculateLevelProgress(xp);
 
       // fetch translations to get the count
       let translationsCount = 0;
