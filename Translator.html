@@ -565,14 +565,16 @@ const LANGUAGES = {
         return;
       }
 
-      historyList.innerHTML = history.map(item => `
+      historyList.innerHTML = history.map(item => {
+        const sourceLabel = item.sourceLanguage === "Auto Detect" ? "Detected" : (item.sourceLanguage || "Auto");
+        return `
         <div class="glass-panel history-card p-6 flex flex-col gap-3 group cursor-pointer" onclick='restoreTranslation(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
           <div class="flex justify-between items-start">
             <div class="flex flex-col gap-2">
               <span class="text-xs font-label-sm text-outline uppercase tracking-widest">${new Date(item.createdAt).toLocaleDateString()}</span>
               <div class="flex items-center gap-2 mb-3">
                 <span class="px-2 py-1 rounded-lg bg-blue-500/10 text-blue-300 text-xs border border-blue-400/20">
-                    ${item.sourceLanguage || 'Auto'}
+                    ${sourceLabel}
                 </span>
                 <span class="text-white/40 text-xs">
                     →
@@ -587,7 +589,7 @@ const LANGUAGES = {
           <p class="text-on-surface font-medium line-clamp-1">${item.originalText}</p>
           <p class="text-outline text-sm line-clamp-2 italic">${item.translatedText}</p>
         </div>
-      `).join('');
+      `}).join('');
 
     } catch (err) {
       console.error(err);
