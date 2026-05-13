@@ -368,6 +368,10 @@
     return Math.floor(xp / 100) + 1;
   }
 
+  function calculateLevelProgress(xp) {
+    return xp % 100;
+  }
+
   async function getUserData() {
     const token = localStorage.getItem("token");
 
@@ -393,7 +397,7 @@
 
       // calculate level dynamically based on XP
       const level = calculateLevel(user.xp);
-      const currentProgress = user.xp % 100;
+      const progress = calculateLevelProgress(user.xp);
 
       // fetch translations to get the count
       let translationsCount = 0;
@@ -414,15 +418,15 @@
       document.getElementById("username").innerText = user.name;
       document.getElementById("xp").innerText = "XP: " + user.xp;
       document.getElementById("userLevel").innerText = level;
-      document.getElementById("progress").innerText = "Progress: " + currentProgress + "%";
+      document.getElementById("progress").innerText = "Progress: " + progress + "%";
       document.getElementById("streak").innerText = "Streak: " + user.streak;
       document.getElementById("translations").innerText = "Translations: " + translationsCount;
 
       // Update Visual Progress Bar
       const progressBarText = document.getElementById("progressBarText");
       const progressBarFill = document.getElementById("progressBarFill");
-      if (progressBarText) progressBarText.innerText = currentProgress + "%";
-      if (progressBarFill) progressBarFill.style.width = currentProgress + "%";
+      if (progressBarText) progressBarText.innerText = progress + "%";
+      if (progressBarFill) progressBarFill.style.width = progress + "%";
 
     } catch (err) {
       console.error(err);
