@@ -310,7 +310,7 @@
 <div>
 <div class="flex justify-between text-sm mb-2">
 <span class="font-body-md text-body-md text-on-surface-variant">Level Progress</span>
-<span id="progressBarText" class="font-label-sm text-label-sm text-on-surface">0%</span>
+<span id="progressText" class="font-label-sm text-label-sm text-on-surface">0%</span>
 </div>
 <div class="w-full h-1 bg-surface-container rounded overflow-hidden">
 <div id="xpProgressBar" class="h-full bg-primary" style="width: 0%;"></div>
@@ -423,9 +423,9 @@
       document.getElementById("translations").innerText = "Translations: " + translationsCount;
 
       // Update Visual Progress Bar
-      const progressBarText = document.getElementById("progressBarText");
+      const progressText = document.getElementById("progressText");
       const xpProgressBar = document.getElementById("xpProgressBar");
-      if (progressBarText) progressBarText.innerText = progress + "%";
+      if (progressText) progressText.innerText = `${progress}%`;
       if (xpProgressBar) xpProgressBar.style.width = `${progress}%`;
 
     } catch (err) {
