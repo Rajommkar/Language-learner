@@ -363,6 +363,10 @@
 </main>
 <script src="config.js"></script>
 <script>
+  function calculateLevel(xp) {
+    return Math.floor(xp / 100) + 1;
+  }
+
   async function getUserData() {
     const token = localStorage.getItem("token");
 
@@ -386,10 +390,13 @@
       }
       const user = await res.json();
 
+      // calculate level dynamically based on XP
+      const level = calculateLevel(user.xp);
+
       // update UI
       document.getElementById("username").innerText = user.name;
       document.getElementById("xp").innerText = "XP: " + user.xp;
-      document.getElementById("level").innerText = "Level: " + user.level;
+      document.getElementById("level").innerText = "Level: " + level;
       document.getElementById("progress").innerText = "Progress: " + user.progress + "%";
       document.getElementById("streak").innerText = "Streak: " + user.streak;
 
