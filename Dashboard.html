@@ -300,7 +300,7 @@
 <div>
 <h3 id="username" class="font-title-lg text-title-lg text-on-surface leading-tight">User</h3>
 <p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Level: <span id="userLevel">1</span></p>
-<p id="xp" class="font-label-sm text-label-sm text-on-surface-variant mt-1">XP: 0</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">XP: <span id="userXP">0</span></p>
 <p id="progress" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Progress: 0%</p>
 <p id="streak" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Streak: 0</p>
 <p id="translations" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Translations: 0</p>
@@ -421,7 +421,7 @@
 
       // update UI
       document.getElementById("username").innerText = user.name;
-      document.getElementById("xp").innerText = "XP: " + user.xp;
+      document.getElementById("userXP").innerText = xp;
       document.getElementById("userLevel").innerText = level;
       document.getElementById("progress").innerText = "Progress: " + levelProgress + "%";
       document.getElementById("streak").innerText = "Streak: " + user.streak;
