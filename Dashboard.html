@@ -303,16 +303,17 @@
 <p id="xp" class="font-label-sm text-label-sm text-on-surface-variant mt-1">XP: 0</p>
 <p id="progress" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Progress: 0%</p>
 <p id="streak" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Streak: 0</p>
+<p id="translations" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Translations: 0</p>
 </div>
 </div>
 <div class="space-y-4">
 <div>
 <div class="flex justify-between text-sm mb-2">
-<span class="font-body-md text-body-md text-on-surface-variant">Cognitive Load</span>
-<span class="font-label-sm text-label-sm text-on-surface">78%</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Level Progress</span>
+<span id="progressBarText" class="font-label-sm text-label-sm text-on-surface">0%</span>
 </div>
 <div class="w-full h-1 bg-surface-container rounded overflow-hidden">
-<div class="h-full bg-primary" style="width: 78%;"></div>
+<div id="progressBarFill" class="h-full bg-primary" style="width: 0%;"></div>
 </div>
 </div>
 <button onclick="showComingSoonToast()" class="w-full py-2 bg-transparent border border-outline-variant/50 text-on-surface font-label-md text-label-md rounded hover:bg-surface-container transition-colors mt-4">
@@ -392,13 +393,36 @@
 
       // calculate level dynamically based on XP
       const level = calculateLevel(user.xp);
+      const currentProgress = user.xp % 100;
+
+      // fetch translations to get the count
+      let translationsCount = 0;
+      try {
+        const historyRes = await fetch(`${BASE_URL}/api/translate/history`, {
+          method: "GET",
+          headers: { "Authorization": "Bearer " + token }
+        });
+        if (historyRes.ok) {
+          const historyData = await historyRes.json();
+          translationsCount = historyData.length || 0;
+        }
+      } catch (e) {
+        console.error("Failed to fetch translation history count", e);
+      }
 
       // update UI
       document.getElementById("username").innerText = user.name;
       document.getElementById("xp").innerText = "XP: " + user.xp;
       document.getElementById("level").innerText = "Level: " + level;
-      document.getElementById("progress").innerText = "Progress: " + user.progress + "%";
+      document.getElementById("progress").innerText = "Progress: " + currentProgress + "%";
       document.getElementById("streak").innerText = "Streak: " + user.streak;
+      document.getElementById("translations").innerText = "Translations: " + translationsCount;
+
+      // Update Visual Progress Bar
+      const progressBarText = document.getElementById("progressBarText");
+      const progressBarFill = document.getElementById("progressBarFill");
+      if (progressBarText) progressBarText.innerText = currentProgress + "%";
+      if (progressBarFill) progressBarFill.style.width = currentProgress + "%";
 
     } catch (err) {
       console.error(err);
