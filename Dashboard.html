@@ -402,7 +402,7 @@
 
       // calculate level dynamically based on XP
       const level = calculateLevel(xp);
-      const progress = calculateLevelProgress(xp);
+      const levelProgress = calculateLevelProgress(xp);
 
       // fetch translations to get the count
       let translationsCount = 0;
@@ -423,15 +423,15 @@
       document.getElementById("username").innerText = user.name;
       document.getElementById("xp").innerText = "XP: " + user.xp;
       document.getElementById("userLevel").innerText = level;
-      document.getElementById("progress").innerText = "Progress: " + progress + "%";
+      document.getElementById("progress").innerText = "Progress: " + levelProgress + "%";
       document.getElementById("streak").innerText = "Streak: " + user.streak;
       document.getElementById("translations").innerText = "Translations: " + translationsCount;
 
       // Update Visual Progress Bar
       const progressText = document.getElementById("progressText");
       const xpProgressBar = document.getElementById("xpProgressBar");
-      if (progressText) progressText.innerText = `${progress}%`;
-      if (xpProgressBar) xpProgressBar.style.width = `${progress}%`;
+      if (progressText) progressText.innerText = `${levelProgress}%`;
+      if (xpProgressBar) xpProgressBar.style.width = `${levelProgress}%`;
 
     } catch (err) {
       console.error(err);
