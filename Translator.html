@@ -570,10 +570,16 @@ const LANGUAGES = {
           <div class="flex justify-between items-start">
             <div class="flex flex-col gap-2">
               <span class="text-xs font-label-sm text-outline uppercase tracking-widest">${new Date(item.createdAt).toLocaleDateString()}</span>
-              <div class="flex items-center gap-1.5">
-                <span class="px-2 py-0.5 bg-primary/10 border border-primary/20 text-primary text-[9px] font-bold rounded-sm uppercase tracking-widest">${item.sourceLanguage || 'Auto'}</span>
-                <span class="text-outline-variant text-[9px]">→</span>
-                <span class="px-2 py-0.5 bg-primary/10 border border-primary/20 text-primary text-[9px] font-bold rounded-sm uppercase tracking-widest">${item.targetLanguage || 'Target'}</span>
+              <div class="flex items-center gap-2 mb-3">
+                <span class="px-2 py-1 rounded-lg bg-blue-500/10 text-blue-300 text-xs border border-blue-400/20">
+                    ${item.sourceLanguage || 'Auto'}
+                </span>
+                <span class="text-white/40 text-xs">
+                    →
+                </span>
+                <span class="px-2 py-1 rounded-lg bg-indigo-500/10 text-indigo-300 text-xs border border-indigo-400/20">
+                    ${item.targetLanguage || 'Target'}
+                </span>
               </div>
             </div>
             <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors text-sm">open_in_new</span>
