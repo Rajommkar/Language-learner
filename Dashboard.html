@@ -372,6 +372,35 @@
     return xp % 100;
   }
 
+  function updateDailyStreak() {
+    const today = new Date().toDateString();
+    const lastVisit = localStorage.getItem("lastVisit");
+    let streak = Number(localStorage.getItem("streak")) || 0;
+
+    // first visit ever
+    if (!lastVisit) {
+      streak = 1;
+    } else {
+      const previousDate = new Date(lastVisit);
+      const currentDate = new Date(today);
+      const difference = (currentDate - previousDate) / (1000 * 60 * 60 * 24);
+
+      // consecutive day
+      if (difference === 1) {
+        streak++;
+      }
+      // missed days
+      else if (difference > 1) {
+        streak = 1;
+      }
+    }
+
+    localStorage.setItem("lastVisit", today);
+    localStorage.setItem("streak", streak);
+
+    return streak;
+  }
+
   // SINGLE SOURCE OF TRUTH:
   // Verified in Step 1-3: The backend MongoDB database is our verified Single Source of Truth for XP.
   // The Dashboard pulls XP directly from `/api/user` API response, ensuring accurate cross-syncing with the quiz system.
