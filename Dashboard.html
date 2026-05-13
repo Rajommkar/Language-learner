@@ -302,7 +302,7 @@
 <p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Level: <span id="userLevel">1</span></p>
 <p class="font-label-sm text-label-sm text-on-surface-variant mt-1">XP: <span id="userXP">0</span></p>
 <p id="progress" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Progress: 0%</p>
-<p id="streak" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Streak: 0</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Streak: <span id="userStreak">0</span></p>
 <p id="translations" class="font-label-sm text-label-sm text-on-surface-variant mt-1">Translations: 0</p>
 </div>
 </div>
@@ -454,7 +454,7 @@
       document.getElementById("userXP").innerText = xp;
       document.getElementById("userLevel").innerText = level;
       document.getElementById("progress").innerText = "Progress: " + levelProgress + "%";
-      document.getElementById("streak").innerText = "Streak: " + streak;
+      document.getElementById("userStreak").innerText = streak;
       document.getElementById("translations").innerText = "Translations: " + translationsCount;
 
       // Update Visual Progress Bar
