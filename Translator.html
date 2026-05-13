@@ -494,7 +494,9 @@ const LANGUAGES = {
         body: JSON.stringify({ 
           text, 
           sourceLang: source, 
-          targetLang: target 
+          targetLang: target,
+          sourceLanguage: LANGUAGES[source],
+          targetLanguage: LANGUAGES[target]
         })
       });
 
