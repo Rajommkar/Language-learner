@@ -436,24 +436,32 @@
   // run on page load
   getUserData();
 
-  // Premium Coming Soon Toast Trigger
-  function showComingSoonToast() {
+  // Premium Reusable Toast System
+  function showToast(message, iconName = "lock") {
     let toast = document.getElementById("coming-soon-toast");
     if (!toast) {
       toast = document.createElement("div");
       toast.id = "coming-soon-toast";
-      toast.innerHTML = `
-        <span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">lock</span>
-        <span class="font-label-md text-label-md text-on-surface">Feature coming soon in next update.</span>
-      `;
       document.body.appendChild(toast);
     }
+    
+    // Set dynamic content
+    toast.innerHTML = `
+      <span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">${iconName}</span>
+      <span class="font-label-md text-label-md text-on-surface">${message}</span>
+    `;
+    
     // Trigger animation
     setTimeout(() => toast.classList.add("show"), 10);
+    
     // Dismiss after 3s
     setTimeout(() => {
       toast.classList.remove("show");
     }, 3000);
+  }
+
+  function showComingSoonToast() {
+    showToast("This feature is coming soon.");
   }
 </script>
 </body></html>
