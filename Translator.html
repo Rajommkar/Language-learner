@@ -289,9 +289,9 @@
 </div>
 <!-- Main Canvas -->
 <main class="flex-1 ml-0 md:ml-64 mt-16 p-4 md:p-8 lg:p-gutter flex flex-col items-center justify-start md:justify-center min-h-[calc(100vh-64px)] relative z-10">
-<div class="w-full max-w-5xl glass-panel rounded-2xl md:rounded-3xl flex flex-col md:flex-row relative overflow-hidden shadow-2xl transition-all duration-300">
+<div class="w-full max-w-5xl glass-panel rounded-2xl md:rounded-3xl flex flex-col lg:flex-row relative overflow-hidden shadow-2xl transition-all duration-300">
 <!-- Source Input Side -->
-<div class="flex-1 p-5 md:p-8 flex flex-col gap-5 md:gap-6 relative group">
+<div class="flex-1 p-5 lg:p-8 flex flex-col gap-5 md:gap-6 relative group">
 <!-- Language Selector -->
 <div class="relative flex items-center w-full">
 <span class="material-symbols-outlined absolute left-3 text-slate-400 pointer-events-none text-lg transition-colors">language</span>
@@ -299,7 +299,7 @@
 <span class="material-symbols-outlined absolute right-3 text-slate-500 pointer-events-none text-lg">expand_more</span>
 </div>
 <!-- Text Area -->
-<textarea id="inputText" maxlength="5000" class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-lg text-body-lg text-on-surface placeholder:text-slate-500 p-0 h-40 md:h-64 min-h-[120px] transition-all duration-300" placeholder="Type or paste text to begin translation..."></textarea>
+<textarea id="inputText" maxlength="5000" class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-lg text-body-lg text-on-surface placeholder:text-slate-500 p-0 h-40 lg:h-64 min-h-[120px] transition-all duration-300" placeholder="Type or paste text to begin translation..."></textarea>
 <p class="text-xs text-slate-500 opacity-80 mt-1">
   Press Ctrl + Enter to translate instantly
 </p>
@@ -316,13 +316,13 @@
 </div>
 </div>
 <!-- Divider / Swap Action -->
-<div class="relative flex items-center justify-center h-px md:h-auto md:w-px bg-white/10">
+<div class="relative flex items-center justify-center h-px lg:h-auto lg:w-px bg-white/10">
 <button id="swapBtn" class="absolute z-20 bg-slate-800 hover:bg-slate-700 border border-white/15 text-on-surface w-11 h-11 rounded-full flex items-center justify-center hover:text-primary shadow-lg active:scale-90 transition-all hover:scale-110 group duration-300">
-<span class="material-symbols-outlined transform rotate-90 md:rotate-0 group-hover:rotate-180 transition-transform duration-500 text-xl">swap_horiz</span>
+<span class="material-symbols-outlined transform rotate-90 lg:rotate-0 group-hover:rotate-180 transition-transform duration-500 text-xl">swap_horiz</span>
 </button>
 </div>
 <!-- Target Output Side -->
-<div class="flex-1 p-5 md:p-8 flex flex-col gap-5 md:gap-6 bg-surface-container-low/30 relative">
+<div class="flex-1 p-5 lg:p-8 flex flex-col gap-5 md:gap-6 bg-surface-container-low/30 relative">
 <!-- Language Selector -->
 <div class="relative flex items-center w-full">
 <span class="material-symbols-outlined absolute left-3 text-slate-400 pointer-events-none text-lg transition-colors">translate</span>
@@ -330,7 +330,7 @@
 <span class="material-symbols-outlined absolute right-3 text-slate-500 pointer-events-none text-lg">expand_more</span>
 </div>
 <!-- Output Area -->
-<div class="w-full h-40 md:h-64 font-body-lg text-body-lg text-on-surface overflow-y-auto scrollbar-thin scrollbar-thumb-white/10">
+<div class="w-full h-40 lg:h-64 font-body-lg text-body-lg text-on-surface overflow-y-auto scrollbar-thin scrollbar-thumb-white/10">
 <p id="outputText" class="transition-opacity duration-300 break-words whitespace-pre-wrap">Translation will appear here...</p>
 </div>
 <!-- Action row -->
