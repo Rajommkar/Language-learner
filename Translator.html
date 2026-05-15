@@ -76,13 +76,19 @@
             }
         }
         .history-card {
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .history-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(120,140,255,0.4);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-6px) scale(1.015);
+            border-color: rgba(176, 198, 255, 0.35) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+                        0 0 25px -5px rgba(176, 198, 255, 0.12) !important;
+        }
+        
+        .history-card:active {
+            transform: translateY(-2px) scale(0.98);
+            transition: all 0.1s;
         }
 
         #translateBtn {

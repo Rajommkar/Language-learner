@@ -133,6 +133,20 @@
             transform: translateY(0);
             opacity: 1;
         }
+        /* Premium Interactive Card Hover/Active States */
+        .interactive-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .interactive-card:hover {
+            transform: translateY(-6px) scale(1.015);
+            border-color: rgba(176, 198, 255, 0.35) !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6),
+                        0 0 25px -5px rgba(176, 198, 255, 0.12) !important;
+        }
+        .interactive-card:active {
+            transform: translateY(-2px) scale(0.98);
+            transition: all 0.1s;
+        }
     </style>
 </head>
 <body class="bg-surface text-on-surface min-h-screen bg-schematics font-body-md overflow-x-hidden">
@@ -209,7 +223,7 @@
 <!-- Left Panel: Quick Actions -->
 <aside class="flex flex-col space-y-gutter">
 <!-- Translator Card -->
-<div onclick="window.location.href='Translator.html'" class="bg-surface-container-highest/85 backdrop-blur-2xl border border-outline-variant/30 rounded p-6 flex flex-col justify-between group hover:bg-surface-container-highest transition-colors cursor-pointer relative overflow-hidden">
+<div onclick="window.location.href='Translator.html'" class="interactive-card bg-surface-container-highest/85 backdrop-blur-2xl border border-outline-variant/30 rounded p-6 flex flex-col justify-between group hover:bg-surface-container-highest transition-colors cursor-pointer relative overflow-hidden">
 <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
 <div class="flex items-center justify-between mb-8 relative z-10">
 <span class="material-symbols-outlined text-primary-fixed-dim text-[28px]" style="font-variation-settings: 'FILL' 1;">translate</span>
@@ -221,7 +235,7 @@
 </div>
 </div>
 <!-- Games Card -->
-<div onclick="window.location.href='quiz.html'" class="bg-surface-container-highest/85 backdrop-blur-2xl border border-outline-variant/30 rounded p-6 flex flex-col justify-between group hover:bg-surface-container-highest transition-colors cursor-pointer relative overflow-hidden">
+<div onclick="window.location.href='quiz.html'" class="interactive-card bg-surface-container-highest/85 backdrop-blur-2xl border border-outline-variant/30 rounded p-6 flex flex-col justify-between group hover:bg-surface-container-highest transition-colors cursor-pointer relative overflow-hidden">
 <div class="flex items-center justify-between mb-8 relative z-10">
 <span class="material-symbols-outlined text-tertiary-fixed-dim text-[28px]" style="font-variation-settings: 'FILL' 1;">sports_esports</span>
 <span class="material-symbols-outlined text-outline text-[20px] group-hover:text-tertiary-fixed-dim transition-colors">arrow_forward</span>
@@ -232,7 +246,7 @@
 </div>
 </div>
 <!-- Challenges Card -->
-<div onclick="showComingSoonToast()" class="bg-surface-container-highest/85 backdrop-blur-2xl border border-outline-variant/30 rounded p-6 flex flex-col justify-between group hover:bg-surface-container-highest transition-colors cursor-pointer relative overflow-hidden opacity-65 hover:opacity-90">
+<div onclick="showComingSoonToast()" class="interactive-card bg-surface-container-highest/85 backdrop-blur-2xl border border-outline-variant/30 rounded p-6 flex flex-col justify-between group hover:bg-surface-container-highest transition-colors cursor-pointer relative overflow-hidden opacity-65 hover:opacity-90">
 <div class="flex items-center justify-between mb-8 relative z-10">
 <span class="material-symbols-outlined text-primary text-[28px]">lock</span>
 <span class="material-symbols-outlined text-outline text-[20px] group-hover:text-primary transition-colors">arrow_forward</span>
