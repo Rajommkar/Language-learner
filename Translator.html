@@ -187,9 +187,12 @@
 </head>
 <body class="bg-background text-on-background font-body-md text-body-md antialiased ink-bg min-h-screen flex flex-col overflow-x-hidden">
 <!-- TopNavBar -->
-<header class="fixed top-0 w-full z-50 flex justify-between items-center px-8 h-16 bg-slate-950/85 backdrop-blur-[32px] font-serif text-left antialiased border-b border-white/10">
-<div class="flex items-center">
-<span class="text-2xl font-light tracking-tighter text-slate-50">TRANSLIFY</span>
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-4 md:px-8 h-16 bg-slate-950/85 backdrop-blur-[32px] font-serif text-left antialiased border-b border-white/10">
+<div class="flex items-center gap-2">
+<button id="mobileMenuBtn" class="md:hidden text-slate-400 hover:text-white transition-colors p-1 mr-1 flex items-center justify-center rounded-lg hover:bg-white/5" aria-label="Toggle mobile menu">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+<span class="text-xl md:text-2xl font-light tracking-tighter text-slate-50">TRANSLIFY</span>
 </div>
 <nav class="hidden md:flex items-center gap-8">
 <a class="text-slate-400 hover:text-slate-200 hover:backdrop-blur-3xl transition-all duration-300 active:scale-[0.99] transition-transform" href="#" onclick="showComingSoonToast()">Dictionary</a>
@@ -241,68 +244,117 @@
 </a>
 </div>
 </aside>
+<!-- Mobile Drawer Navigation Overlay -->
+<div id="mobileDrawer" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-sm invisible opacity-0 transition-all duration-300 md:hidden">
+<div id="mobileDrawerContent" class="absolute left-0 top-0 h-full w-72 bg-slate-950 border-r border-white/10 flex flex-col py-8 px-6 -translate-x-full transition-transform duration-300 ease-out shadow-2xl">
+<div class="flex items-center justify-between mb-10 border-b border-white/5 pb-4">
+<span class="text-2xl font-light tracking-tighter text-slate-50">TRANSLIFY</span>
+<button id="closeMobileMenuBtn" class="text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex-1 flex flex-col gap-3">
+<a class="text-slate-400 flex items-center gap-4 py-3 px-4 hover:bg-white/5 rounded-xl transition-all" href="Dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="text-blue-400 bg-blue-500/10 border border-blue-500/20 flex items-center gap-4 py-3 px-4 rounded-xl transition-all" href="Translator.html">
+<span class="material-symbols-outlined">translate</span>
+<span class="font-medium font-semibold">Translate</span>
+</a>
+<a class="text-slate-400 flex items-center gap-4 py-3 px-4 hover:bg-white/5 rounded-xl transition-all" href="#historyList" onclick="toggleMobileMenu()">
+<span class="material-symbols-outlined">history</span>
+<span class="font-medium">History</span>
+</a>
+<a class="text-zinc-600 flex items-center gap-4 py-3 px-4 opacity-50 cursor-not-allowed transition-all" href="#" onclick="showComingSoonToast()">
+<span class="material-symbols-outlined">lock</span>
+<span class="font-medium">Saved</span>
+</a>
+<a class="text-slate-400 flex items-center gap-4 py-3 px-4 hover:bg-white/5 rounded-xl transition-all" href="quiz.html">
+<span class="material-symbols-outlined">exercise</span>
+<span class="font-medium">Practice</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-3 border-t border-white/5 pt-6">
+<a class="text-zinc-600 flex items-center gap-4 py-3 px-4 opacity-50 cursor-not-allowed transition-all" href="#" onclick="showComingSoonToast()">
+<span class="material-symbols-outlined">lock</span>
+<span class="font-medium">Help</span>
+</a>
+<a class="text-slate-400 flex items-center gap-4 py-3 px-4 hover:bg-white/5 rounded-xl transition-all" href="logout.html">
+<span class="material-symbols-outlined text-red-400">logout</span>
+<span class="font-medium text-red-400 font-semibold">Logout</span>
+</a>
+</div>
+</div>
+</div>
 <!-- Main Canvas -->
-<main class="flex-1 ml-0 md:ml-64 mt-16 p-6 md:p-gutter flex flex-col items-center justify-center min-h-[calc(100vh-64px)] relative z-10">
-<div class="w-full max-w-5xl glass-panel rounded-none flex flex-col md:flex-row relative">
+<main class="flex-1 ml-0 md:ml-64 mt-16 p-4 md:p-8 lg:p-gutter flex flex-col items-center justify-start md:justify-center min-h-[calc(100vh-64px)] relative z-10">
+<div class="w-full max-w-5xl glass-panel rounded-2xl md:rounded-3xl flex flex-col md:flex-row relative overflow-hidden shadow-2xl transition-all duration-300">
 <!-- Source Input Side -->
-<div class="flex-1 p-8 flex flex-col gap-6 relative group">
+<div class="flex-1 p-5 md:p-8 flex flex-col gap-5 md:gap-6 relative group">
 <!-- Language Selector -->
-<div class="relative">
-<select id="sourceLang"></select>
+<div class="relative flex items-center w-full">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 pointer-events-none text-lg transition-colors">language</span>
+<select id="sourceLang" class="w-full pl-10 pr-10 py-2.5 bg-slate-900/60 border border-white/10 rounded-xl text-sm font-medium text-slate-200 appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all cursor-pointer hover:border-white/20 shadow-[inset_0_1px_2px_rgba(0,0,0,0.4)]"></select>
+<span class="material-symbols-outlined absolute right-3 text-slate-500 pointer-events-none text-lg">expand_more</span>
 </div>
 <!-- Text Area -->
-<textarea id="inputText" maxlength="5000" class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-lg text-body-lg text-on-surface placeholder:text-outline p-0 h-48 md:h-64" placeholder="Type or paste text to begin translation..."></textarea>
-<p class="text-xs text-outline opacity-70 mt-2">
+<textarea id="inputText" maxlength="5000" class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-lg text-body-lg text-on-surface placeholder:text-slate-500 p-0 h-40 md:h-64 min-h-[120px] transition-all duration-300" placeholder="Type or paste text to begin translation..."></textarea>
+<p class="text-xs text-slate-500 opacity-80 mt-1">
   Press Ctrl + Enter to translate instantly
 </p>
 <!-- Action row -->
-<div class="flex justify-between items-center mt-auto border-t border-outline-variant/30 pt-4">
-<div class="flex gap-4 text-outline">
-<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">mic</span></button>
-<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
+<div class="flex flex-wrap justify-between items-center mt-auto border-t border-white/10 pt-4 gap-3">
+<div class="flex gap-3 text-slate-400">
+<button class="hover:text-on-surface transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5" onclick="showComingSoonToast()"><span class="material-symbols-outlined text-lg">mic</span></button>
+<button class="hover:text-on-surface transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5" onclick="showComingSoonToast()"><span class="material-symbols-outlined text-lg">volume_up</span></button>
 </div>
-<button id="translateBtn" onclick="translateText()" class="bg-primary text-on-primary px-6 py-2 text-sm uppercase tracking-widest font-semibold hover:opacity-90 transition-opacity">TRANSLATE</button>
-<span id="charCount" class="font-label-sm text-label-sm text-outline">0 / 5000</span>
+<div class="flex items-center gap-4 ml-auto flex-1 sm:flex-none justify-end">
+<span id="charCount" class="font-label-sm text-[11px] text-slate-400">0 / 5000</span>
+<button id="translateBtn" onclick="translateText()" class="bg-primary text-on-primary px-5 py-2 rounded-lg text-xs uppercase tracking-widest font-semibold hover:opacity-90 transition-all active:scale-95 shadow-md">TRANSLATE</button>
+</div>
 </div>
 </div>
 <!-- Divider / Swap Action -->
-<div class="md:w-px bg-outline-variant/30 h-px md:h-auto w-full relative flex items-center justify-center">
-<button id="swapBtn" class="absolute z-20 bg-surface-container-highest border border-outline-variant text-on-surface w-10 h-10 flex items-center justify-center hover:bg-surface-variant hover:text-primary transition-all active:scale-95 group">
-<span class="material-symbols-outlined transform group-hover:rotate-180 transition-transform duration-500">swap_horiz</span>
+<div class="relative flex items-center justify-center h-px md:h-auto md:w-px bg-white/10">
+<button id="swapBtn" class="absolute z-20 bg-slate-800 hover:bg-slate-700 border border-white/15 text-on-surface w-11 h-11 rounded-full flex items-center justify-center hover:text-primary shadow-lg active:scale-90 transition-all hover:scale-110 group duration-300">
+<span class="material-symbols-outlined transform rotate-90 md:rotate-0 group-hover:rotate-180 transition-transform duration-500 text-xl">swap_horiz</span>
 </button>
 </div>
 <!-- Target Output Side -->
-<div class="flex-1 p-8 flex flex-col gap-6 bg-surface-container-low/50 relative">
+<div class="flex-1 p-5 md:p-8 flex flex-col gap-5 md:gap-6 bg-surface-container-low/30 relative">
 <!-- Language Selector -->
-<div class="relative">
-<select id="targetLang"></select>
+<div class="relative flex items-center w-full">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 pointer-events-none text-lg transition-colors">translate</span>
+<select id="targetLang" class="w-full pl-10 pr-10 py-2.5 bg-slate-900/60 border border-white/10 rounded-xl text-sm font-medium text-slate-200 appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all cursor-pointer hover:border-white/20 shadow-[inset_0_1px_2px_rgba(0,0,0,0.4)]"></select>
+<span class="material-symbols-outlined absolute right-3 text-slate-500 pointer-events-none text-lg">expand_more</span>
 </div>
 <!-- Output Area -->
-<div class="w-full h-48 md:h-64 font-body-lg text-body-lg text-on-surface overflow-y-auto">
-<p id="outputText" class="transition-opacity duration-300">Translation will appear here...</p>
+<div class="w-full h-40 md:h-64 font-body-lg text-body-lg text-on-surface overflow-y-auto scrollbar-thin scrollbar-thumb-white/10">
+<p id="outputText" class="transition-opacity duration-300 break-words whitespace-pre-wrap">Translation will appear here...</p>
 </div>
 <!-- Action row -->
-<div class="flex justify-between items-center mt-auto border-t border-outline-variant/30 pt-4">
-<div class="flex gap-4 text-outline">
-<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">volume_up</span></button>
-<button id="copyBtn" class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">content_copy</span></button>
-<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined">share</span></button>
+<div class="flex justify-between items-center mt-auto border-t border-white/10 pt-4 gap-2">
+<div class="flex gap-1.5 text-slate-400">
+<button class="hover:text-on-surface transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5" onclick="showComingSoonToast()"><span class="material-symbols-outlined text-lg">volume_up</span></button>
+<button id="copyBtn" class="hover:text-on-surface transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5"><span class="material-symbols-outlined text-lg">content_copy</span></button>
+<button class="hover:text-on-surface transition-colors w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5" onclick="showComingSoonToast()"><span class="material-symbols-outlined text-lg">share</span></button>
 </div>
-<div class="flex gap-2 text-outline">
-<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">thumb_up</span></button>
-<button class="hover:text-error transition-colors"><span class="material-symbols-outlined">thumb_down</span></button>
+<div class="flex gap-1.5 text-slate-400">
+<button class="hover:text-primary hover:bg-primary/10 transition-all w-8 h-8 flex items-center justify-center rounded-lg" onclick="showComingSoonToast()"><span class="material-symbols-outlined text-lg">thumb_up</span></button>
+<button class="hover:text-error hover:bg-error/10 transition-all w-8 h-8 flex items-center justify-center rounded-lg" onclick="showComingSoonToast()"><span class="material-symbols-outlined text-lg">thumb_down</span></button>
 </div>
 </div>
 </div>
 </div>
 
 <!-- Beautiful Premium History Panel -->
-<div class="w-full max-w-5xl mt-12 bg-slate-900/40 backdrop-blur-md border border-white/5 rounded-2xl p-8 shadow-xl">
+<div class="w-full max-w-5xl mt-8 md:mt-12 bg-slate-900/40 backdrop-blur-md border border-white/5 rounded-2xl p-5 md:p-8 shadow-2xl">
   <div class="flex items-center gap-3 mb-6">
-    <span class="material-symbols-outlined text-primary text-2xl">history</span>
-    <h2 class="text-xl font-serif text-white tracking-wide">Translation History</h2>
+    <span class="material-symbols-outlined text-primary text-2xl animate-pulse">history</span>
+    <h2 class="text-lg md:text-xl font-serif text-white tracking-wide">Translation History</h2>
   </div>
-  <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+  <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 w-full">
     <!-- History items will be inserted here dynamically -->
   </div>
 </div>
@@ -638,6 +690,37 @@ const LANGUAGES = {
         toast.remove();
       }, 300);
     }, 2500);
+  }
+
+  // Mobile Menu Drawer Toggle logic
+  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const closeMobileMenuBtn = document.getElementById("closeMobileMenuBtn");
+  const mobileDrawer = document.getElementById("mobileDrawer");
+  const mobileDrawerContent = document.getElementById("mobileDrawerContent");
+
+  function toggleMobileMenu() {
+    const isVisible = !mobileDrawer.classList.contains("invisible");
+    if (isVisible) {
+      mobileDrawerContent.classList.add("-translate-x-full");
+      mobileDrawer.classList.remove("opacity-100");
+      setTimeout(() => {
+        mobileDrawer.classList.add("invisible", "opacity-0");
+      }, 300);
+    } else {
+      mobileDrawer.classList.remove("invisible", "opacity-0");
+      mobileDrawer.classList.add("opacity-100");
+      setTimeout(() => {
+        mobileDrawerContent.classList.remove("-translate-x-full");
+      }, 10);
+    }
+  }
+
+  if (mobileMenuBtn && closeMobileMenuBtn && mobileDrawer) {
+    mobileMenuBtn.addEventListener("click", toggleMobileMenu);
+    closeMobileMenuBtn.addEventListener("click", toggleMobileMenu);
+    mobileDrawer.addEventListener("click", (e) => {
+      if (e.target === mobileDrawer) toggleMobileMenu();
+    });
   }
 </script>
 </body></html>
