@@ -262,6 +262,9 @@ async function submitAnswer(answer) {
           btn.classList.add(
             "bg-green-500/20",
             "border-green-400",
+            "ring-2",
+            "ring-green-400",
+            "animate-pulse",
             "shadow-lg",
             "shadow-green-500/20"
           );
@@ -279,6 +282,8 @@ async function submitAnswer(answer) {
           btn.classList.add(
             "bg-red-500/20",
             "border-red-400",
+            "ring-2",
+            "ring-red-400",
             "animate-shake"
           );
         }
@@ -290,7 +295,10 @@ async function submitAnswer(answer) {
         ) {
           btn.classList.add(
             "bg-green-500/20",
-            "border-green-400"
+            "border-green-400",
+            "ring-2",
+            "ring-green-400",
+            "animate-pulse"
           );
         }
       });
